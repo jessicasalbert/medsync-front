@@ -7,18 +7,19 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from './redux/rootReducer'
+import { BrowserRouter } from 'react-router-dom'
 
 const theme = createMuiTheme({
   palette : {
     primary: {
-      main: "#CCCCCC"
+      main: "#81ffe6"
     },
     secondary: {
       main: "#DDDDDD"
     }
   },
   typography: {
-    fontFamily : 'Xanh Mono',
+    fontFamily : 'Montserrat',
     h6: {
       fontSize: "3em"
     }
@@ -34,7 +35,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>,
