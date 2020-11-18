@@ -1,9 +1,12 @@
 import React from 'react'
 import { Button } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
+import useStyles from "./LoginContainerStyle"
 
 
 const LoginContainer = (props) => {
+
+    const classes = useStyles()
     let history = useHistory();
 
     const mdClick = () => {
@@ -19,8 +22,8 @@ const LoginContainer = (props) => {
     return (
         <>
             <p>Log in as...</p>
-            <Button variant="outlined" onClick={mdClick}>Doctor</Button>
-            <Button variant="outlined" onClick={ptClick}>Patient </Button>
+            <Button className={classes.button} variant="outlined" onClick={mdClick}>Doctor</Button>
+            <Button className={classes.button} variant="outlined" onClick={ptClick}>Patient </Button>
         </>
     )
 }
