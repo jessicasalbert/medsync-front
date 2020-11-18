@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux'
 
 const defaultState = {
-    click: false
+    user: localStorage.getItem("user")
 }
 
-function clickReducer(state=defaultState.click, action) {
+function userTypeReducer(state=defaultState.user, action) {
     switch (action.type) {
-        case "FLIP_CLICKED":
-            console.log("flipped")
-            return !state
+        case "DOCTOR_USER":
+            return "doctor"
             break;
+        case "PATIENT_USER":
+            return "patient"
         default: 
             return state;
             break;
@@ -17,7 +18,7 @@ function clickReducer(state=defaultState.click, action) {
 }
 
 const rootReducer = combineReducers({
-    click: clickReducer
+    user: userTypeReducer
 })
 
 export default rootReducer

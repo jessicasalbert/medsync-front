@@ -23,7 +23,7 @@ const LandingPage = (props) => {
                     <Typography>
                         <Card className={classes.root}>
                         <CardContent>
-                            Welcome to MedSync
+                            <p>Welcome to MedSync</p>
                             <LoginContainer />
                         </CardContent>
                         </Card>

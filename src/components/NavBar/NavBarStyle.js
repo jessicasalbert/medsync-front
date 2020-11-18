@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
     },
     navMargin: {
       marginBottom: '30px'
+    },
+    logo: {
+        padding: "10px",
+        marginRight: "5%"
     }
   }));
 

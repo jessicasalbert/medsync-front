@@ -17,8 +17,8 @@ const NavBar = () => {
     return (
       <AppBar position="static" color="secondary" className={classes.navMargin}>
         <Toolbar >
-          <img  src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png"/>
-          <Typography variant="h6" className={classes.title} >
+          <img className={classes.logo} src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png"/>
+          <Typography className={classes.title} >{localStorage.getItem("user") === "doctor" ? "My Patients" : null}
           </Typography>
           {localStorage.getItem("user") ? <Button color="inherit">Logout</Button> : null}
         </Toolbar>
