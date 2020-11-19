@@ -31,8 +31,10 @@ const DoctorLanding = (props) => {
 
     
     return (
-        <div > 
 
+        
+        <div > 
+            {props.doctor ? 
                 <Grid container spacing={3} align="center" justify="center" >
                     <Grid item xs={8} m={4}>
                     <Paper className={classes.loginBox}>
@@ -44,6 +46,8 @@ const DoctorLanding = (props) => {
                 
                 </Grid>
             </Grid>
+
+            : "no user sry"}
             </div>
     )
 }
