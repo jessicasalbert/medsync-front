@@ -32,7 +32,8 @@ import PatientLanding from './containers/PatientLanding/PatientLanding';
 class App extends Component {
 
   state = {
-    doctor: null
+    doctor: null,
+    patient: null
   }
 
   loginHandler = (doc) => {
@@ -47,8 +48,31 @@ class App extends Component {
     }
     fetch('http://localhost:3000/api/v1/login', config)
     .then(res => res.json())
-    .then(res => this.setState({ doctor: res}))
+    .then(res =>{ 
+      this.setState({ doctor: res})
+      console.log(res)
+      localStorage.setItem("token", res.jwt)
+    })
   }
+
+  ptLoginHandler = (pt) => {
+    const config = {
+      method: "POST",
+      headers: {
+        accepts: "application/json",
+        "content-type": "application/json"
+      },
+      body: JSON.stringify( {user: pt} )
+    }
+    fetch('http://localhost:3000/api/v1/patientlogin', config)
+    .then(res => res.json())
+    .then(res =>{ 
+      this.setState({ patient: res})
+      console.log(res)
+      localStorage.setItem("token", res.jwt)
+    })
+  }
+
   render() {
     return (
       <>
@@ -56,7 +80,7 @@ class App extends Component {
      <Switch>
        <Route path="/doctorlogin" render={() =>(<DoctorLogin loginHandler={this.loginHandler}/>)}/>
        <Route path="/allpatients" render={() => (<DoctorLanding doctor={this.state.doctor}/>)}/>
-       <Route path="/patientlogin" render={() =>(<PatientLogin/>)}/>
+       <Route path="/patientlogin" render={() =>(<PatientLogin loginHandler={this.ptLoginHandler}/>)}/>
        <Route path="/mymeds" render={() => (<PatientLanding/>)}/>
        <Route path="/" render={() =>(<LandingPage/>)}/>
      </Switch>
