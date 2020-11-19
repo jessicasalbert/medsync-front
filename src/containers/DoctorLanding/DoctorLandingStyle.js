@@ -10,12 +10,8 @@ const useStyles = makeStyles((theme) => ({
     title: {
       flexGrow: 1,
     },
-    navMargin: {
-      marginBottom: '30px'
-    },
-    logo: {
-        padding: "10px",
-        marginRight: "2%"
+    card: {
+        margin: "5px"
     }
   }));
 

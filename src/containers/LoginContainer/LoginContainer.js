@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 const LoginContainer = (props) => {
 
     const classes = useStyles()
-    let history = useHistory();
+    const history = useHistory();
 
     const mdClick = () => {
         localStorage.setItem("user", "doctor")
