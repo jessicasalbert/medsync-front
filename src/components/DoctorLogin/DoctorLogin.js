@@ -6,9 +6,15 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './DoctorLoginStyle'
+import { TextField } from '@material-ui/core'
   
 
 const DoctorLogin = (props) => {
+
+    const state = {
+        username: "",
+        password: ""
+    }
 
     const classes = useStyles()
     return (
@@ -21,8 +27,9 @@ const DoctorLogin = (props) => {
                     <Typography>
                         <Card className={classes.root}>
                         <CardContent>
-                            <p>Doctors login </p>
-
+                            <h3>Log In: Doctor </h3>
+                            <TextField className={classes.textField} label="email"/>
+                            <TextField className={classes.textField} type="password" label="password" InputAdornment></TextField>
                         </CardContent>
                         </Card>
                     </Typography>

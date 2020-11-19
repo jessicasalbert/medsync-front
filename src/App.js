@@ -11,7 +11,6 @@ import DoctorLanding from './containers/DoctorLanding/DoctorLanding';
 
 
 
-
 function App(props) {
 
   return (

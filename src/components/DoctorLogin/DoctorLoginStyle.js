@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     },
     loginBox: {
       marginTop: "20%"
+    },
+    textField: {
+        margin: "3px"
     }
   }));
 
