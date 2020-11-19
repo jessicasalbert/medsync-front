@@ -6,19 +6,17 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './NavBarStyle'
+import { connect } from 'react-redux'
 
 
 
-
-
-
-const NavBar = () => {
+const NavBar = (props) => {
     const classes = useStyles()
     return (
       <AppBar position="static" color="secondary" className={classes.navMargin}>
         <Toolbar >
           <img className={classes.logo} src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png"/>
-          <Typography className={classes.title} >{localStorage.getItem("user") === "doctor" ? "My Patients" : null}
+          <Typography className={classes.title} >{props.user === "doctor" ? "My Patients" : null}
           </Typography>
           {localStorage.getItem("user") ? <Button color="inherit">Logout</Button> : null}
         </Toolbar>
@@ -26,4 +24,8 @@ const NavBar = () => {
     )
 }
 
-export default NavBar
+const msp = (state) => {
+  return {user: state.user}
+}
+
+export default connect(msp)(NavBar)
