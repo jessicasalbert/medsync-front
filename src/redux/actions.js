@@ -13,6 +13,7 @@ export function docLoginAction(doc, dispatch) {
         .then(res =>{ 
         dispatch({ type: "LOGIN_DOCTOR", payload: res})
         localStorage.setItem("token", res.jwt)
+        localStorage.setItem("user", "doctor")
         })
     }
 }
@@ -33,6 +34,7 @@ export function ptLoginAction(pt, dispatch) {
         console.log(res)
         dispatch({ type: "LOGIN_PATIENT", payload: res})
         localStorage.setItem("token", res.jwt)
+        localStorage.setItem("user", "patient")
         })
     }
 
