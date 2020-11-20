@@ -10,10 +10,11 @@ function patientLoginReducer(state=defaultState.patient, action) {
                 return action.payload
             }
             return state
-            break;
+        case "LOGOUT":
+            localStorage.clear()
+            return null;
         default:
             return state;
-            break;
     }
 }
 

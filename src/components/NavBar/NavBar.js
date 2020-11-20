@@ -20,13 +20,17 @@ const NavBar = (props) => {
       history.push("/")
     }
 
+    const clearUser = () => {
+      props.logout()
+    }
+
     return (
       <AppBar position="static" color="secondary" className={classes.navMargin}>
         <Toolbar >
           <img onClick={redirectHome} className={classes.logo} src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png"/>
           <Typography className={classes.title} >{props.doctor ? <Button color="inherit" onClick={clickHandler}>My Patients</Button> : null}
           </Typography>
-          {localStorage.getItem("user") ? <Button color="inherit">Logout</Button> : null}
+          {props.doctor || props.patient ? <Button onClick={clearUser} color="inherit">Logout</Button> : null}
         </Toolbar>
       </AppBar>
     )
@@ -36,4 +40,10 @@ const msp = (state) => {
   return {doctor: state.doctor, patient: state.patient}
 }
 
-export default connect(msp)(NavBar)
+const mdp = (dispatch) => {
+  return { logout: () => dispatch({type: "LOGOUT"})}
+}
+
+
+
+export default connect(msp, mdp)(NavBar)
