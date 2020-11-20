@@ -27,7 +27,8 @@ class DoctorLogin extends Component {
         })
     }
 
-    submitHandler = () => {
+    submitHandler = (e) => {
+        e.preventDefault()
         this.props.doctorLogin(this.state)
         // history.push("/allpatients")
     }
@@ -49,9 +50,11 @@ class DoctorLogin extends Component {
                             
                             <CardContent>
                                 <h3>Log In: Doctor </h3>
-                                <TextField onChange={this.formEdit} className={classes.textField} value={this.state.email} name="email" type="text" label="email"/>
-                                <TextField onChange={this.formEdit} className={classes.textField} value={this.state.password} name="password" type="password" label="password" ></TextField>
-                                <br/><br/><Button onClick={this.submitHandler}>Log in</Button>
+                                <form>
+                                    <TextField onChange={this.formEdit} className={classes.textField} value={this.state.email} name="email" type="text" label="email"/>
+                                    <TextField onChange={this.formEdit} className={classes.textField} value={this.state.password} name="password" type="password" label="password" ></TextField>
+                                    <br/><br/><Button type="submit" onClick={this.submitHandler}>Log in</Button>
+                                </form>
                             </CardContent>
                             </Card>
                         </Typography>
