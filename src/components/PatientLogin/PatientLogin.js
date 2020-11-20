@@ -34,7 +34,6 @@ class PatientLogin extends Component {
 
 
     render() {
-        console.log(this.props.patient)
         return (
             <div > 
                 <Grid container spacing={3}>
