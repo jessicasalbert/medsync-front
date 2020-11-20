@@ -9,7 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import useStyles from './DoctorLoginStyle'
 import { TextField } from '@material-ui/core'
 import { Button } from '@material-ui/core'
-  
+import { connect } from 'react-redux'
+import { docLoginAction } from '../../redux/actions';
+
 
 class DoctorLogin extends Component {
 
@@ -27,8 +29,11 @@ class DoctorLogin extends Component {
     }
 
     submitHandler = () => {
-        this.props.loginHandler(this.state)
+        // this.props.loginHandler(this.state)
+        this.props.doctorLogin(this.state)
     }
+
+
     render() {
 
         return (
@@ -63,4 +68,8 @@ class DoctorLogin extends Component {
     }
 }
 
-export default DoctorLogin
+const mdp = (dispatch) => {
+    return { doctorLogin: (doc) => dispatch(docLoginAction(doc, dispatch))}
+}
+
+export default connect(null, mdp)(DoctorLogin)
