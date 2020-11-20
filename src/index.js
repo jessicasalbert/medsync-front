@@ -10,9 +10,10 @@ import { BrowserRouter } from 'react-router-dom'
 import theme from './IndexStyle'
 import thunk from 'redux-thunk'
 import { ThemeProvider } from '@material-ui/core/styles';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)) )
 
 
 ReactDOM.render(

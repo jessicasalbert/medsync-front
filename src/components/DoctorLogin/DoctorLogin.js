@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { docLoginAction } from '../../redux/actions';
 import { withStyles } from "@material-ui/core/styles"
 import useStyles from './DoctorLoginStyle'
+import { useHistory } from 'react-router-dom'
 
 class DoctorLogin extends Component {
 
@@ -28,11 +29,13 @@ class DoctorLogin extends Component {
 
     submitHandler = () => {
         this.props.doctorLogin(this.state)
+        // history.push("/allpatients")
     }
 
 
     render() {
         const { classes } = this.props
+        console.log(this.props.doctor)
         return (
             <div > 
                 <Grid container spacing={3}>
@@ -41,7 +44,7 @@ class DoctorLogin extends Component {
                         <Grid item xs={6} >
                         <Paper className={classes.loginBox} >
                         
-                        <Typography>
+                        <Typography component={'span'}>
                             <Card className={classes.root}>
                             
                             <CardContent>

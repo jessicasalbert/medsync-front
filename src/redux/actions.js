@@ -1,3 +1,6 @@
+import { useHistory } from "react-router-dom";
+
+
 export function docLoginAction(doc, dispatch) {
     return function(){
         const config = {
@@ -14,6 +17,7 @@ export function docLoginAction(doc, dispatch) {
         dispatch({ type: "LOGIN_DOCTOR", payload: res})
         localStorage.setItem("token", res.jwt)
         localStorage.setItem("user", "doctor")
+        // history.push("/allpatients")
         })
     }
 }
