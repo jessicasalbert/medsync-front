@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import useStyles from './PatientLoginStyle'
 import { TextField } from '@material-ui/core'
 import { Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { ptLoginAction } from '../../redux/actions';
 
@@ -20,7 +21,6 @@ class PatientLogin extends Component {
         password: ""
     }
 
-    // classes = useStyles()
 
     formEdit = (e) => {
         this.setState({
@@ -34,24 +34,21 @@ class PatientLogin extends Component {
 
 
     render() {
+        const { classes } = this.props
         return (
             <div > 
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
                         <Grid item xs={6} >
-                        <Paper >
-                        {/* className={classes.loginBox} */}
+                        <Paper className={classes.loginBox}>
                         <Typography>
-                            <Card >
-                            {/* className={classes.root} */}
+                            <Card className={classes.root}>
                             <CardContent>
                                 <h3>Log In: Patient </h3>
-                                <input type="text" onChange={this.formEdit} name="email" value={this.state.email}/>
-                                <input type="password" onChange={this.formEdit} name="password" value={this.state.password}/>
-                                <Button onClick={this.submitHandler}>Log in</Button>
-                                {/* <TextField onChange={this.formEdit} name={email} className={classes.textField} label="email"/>
-                                <TextField onChange={this.formEdit} className={classes.textField} name={password} type="password" label="password" ></TextField> */}
+                                <TextField onChange={this.formEdit} className={classes.textField} value={this.state.email} name="email" type="text" label="email"/>
+                                <TextField onChange={this.formEdit} className={classes.textField} value={this.state.password} name="password" type="password" label="password" ></TextField>
+                                <br/><br/><Button onClick={this.submitHandler}>Log in</Button>
                             </CardContent>
                             </Card>
                         </Typography>
@@ -74,4 +71,4 @@ const mdp = (dispatch) => {
     return { patientLogin: (pt) => dispatch(ptLoginAction(pt, dispatch))}
 }
 
-export default connect(msp, mdp)(PatientLogin)
+export default connect(msp, mdp)(withStyles(useStyles, { withTheme: true })(PatientLogin))
