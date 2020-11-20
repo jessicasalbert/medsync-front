@@ -29,13 +29,11 @@ class DoctorLogin extends Component {
     }
 
     submitHandler = () => {
-        // this.props.loginHandler(this.state)
         this.props.doctorLogin(this.state)
     }
 
 
     render() {
-
         return (
             <div > 
                 <Grid container spacing={3}>
@@ -68,8 +66,12 @@ class DoctorLogin extends Component {
     }
 }
 
+const msp = (state) => {
+    return {doctor: state.doctor}
+}
+
 const mdp = (dispatch) => {
     return { doctorLogin: (doc) => dispatch(docLoginAction(doc, dispatch))}
 }
 
-export default connect(null, mdp)(DoctorLogin)
+export default connect(msp, mdp)(DoctorLogin)

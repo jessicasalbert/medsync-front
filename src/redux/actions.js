@@ -12,8 +12,8 @@ export function docLoginAction(doc, dispatch) {
         .then(res => res.json())
         .then(res =>{ 
         console.log(res)
-        dispatch({ type: "LOGIN_DOCTOR"})
-        // localStorage.setItem("token", res.jwt)
+        dispatch({ type: "LOGIN_DOCTOR", payload: res})
+        localStorage.setItem("token", res.jwt)
         })
     }
 

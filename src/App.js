@@ -36,25 +36,6 @@ class App extends Component {
     patient: null
   }
 
-  loginHandler = (doc) => {
-    console.log(doc)
-    const config = {
-      method: "POST",
-      headers: {
-        accepts: "application/json",
-        "content-type": "application/json"
-      },
-      body: JSON.stringify( {user: doc} )
-    }
-    fetch('http://localhost:3000/api/v1/login', config)
-    .then(res => res.json())
-    .then(res =>{ 
-      this.setState({ doctor: res})
-      console.log(res)
-      localStorage.setItem("token", res.jwt)
-    })
-  }
-
   ptLoginHandler = (pt) => {
     const config = {
       method: "POST",

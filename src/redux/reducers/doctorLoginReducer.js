@@ -1,3 +1,5 @@
+import { TrafficOutlined, TrendingUpRounded } from "@material-ui/icons";
+
 const defaultState = {
     doctor: null
 }
@@ -5,7 +7,11 @@ const defaultState = {
 function doctorLoginReducer(state=defaultState.doctor, action) {
     switch (action.type) {
         case "LOGIN_DOCTOR":
-            return true
+            console.log("action", action)
+            if (action.payload.user) {
+                return action.payload
+            }
+            return state
             break;
         default:
             return state;
