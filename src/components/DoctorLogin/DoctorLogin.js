@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import { docLoginAction } from '../../redux/actions';
 import { withStyles } from "@material-ui/core/styles"
 import useStyles from './DoctorLoginStyle'
-import { useHistory } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 class DoctorLogin extends Component {
 
@@ -30,7 +30,7 @@ class DoctorLogin extends Component {
     submitHandler = (e) => {
         e.preventDefault()
         this.props.doctorLogin(this.state)
-        // history.push("/allpatients")
+        this.props.history.push("/allpatients")
     }
 
 
@@ -77,4 +77,4 @@ const mdp = (dispatch) => {
     return { doctorLogin: (doc) => dispatch(docLoginAction(doc, dispatch))}
 }
 
-export default connect(msp, mdp)(withStyles(useStyles, { withTheme: true })(DoctorLogin))
+export default connect(msp, mdp)(withStyles(useStyles, { withTheme: true })(withRouter(DoctorLogin)))
