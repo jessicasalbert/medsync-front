@@ -17,17 +17,18 @@ function App(props) {
   useEffect(() => {
     const token = localStorage.getItem("token")
     const userType = localStorage.getItem("user")
-    if (token && userType == "doctor") {
-      console.log("doctor logged in")
-      const configObj = {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}`}
-      }
+    const configObj = {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}`}
+    }
+    if (token && userType === "doctor") {
       fetch("http://localhost:3000/api/v1/mdprofile", configObj)
       .then(res => res.json())
       .then(res => props.sessionUser(res))
-    } else if (token && userType == "patient") {
-      console.log("patint logged in")
+    } else if (token && userType === "patient") {
+      fetch("http://localhost:3000/api/v1/ptprofile", configObj)
+      .then(res => res.json())
+      .then(res => props.sessionUser(res))
     } else {
       console.log("no user logged")
     }
