@@ -15,31 +15,21 @@ import { withStyles } from "@material-ui/core/styles"
 
 class DoctorLanding extends React.Component {
   
+    state = {
+        patients: []
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:3000/api/v1/doctors/1')
+        .then(res => res.json())
+        .then(res => {
+            this.setState({ patients : res.patients})
+        })
+        
+    }
 
     renderPatients = () => {
-        // fetch('http://localhost:3000/api/v1/doctors/1')
-        // .then(res => res.json())
-        // .then(res => {
-        //     return res['patients'].map(num=> {
-        //         console.log(num)
-
-        //         return (
-        //             <h1>{num["name"]}</h1>
-        //             // <Grid item xs={3} >
-        //             //                 <Typography>
-        //             //                     <Card className={classes.root}>
-        //             //                     <CardContent className={classes.card}>
-        //             //                         <p>Welcome to MedSync</p>
-        //             //                         <img className={classes.image} src="https://thispersondoesnotexist.com/image"/>
-        //             //                     </CardContent>
-        //             //                     </Card>
-        //             //                 </Typography>
-        //             //             </Grid>
-        //         )  
-        //     })
-            
-        // })
-        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map( num => <PatientBlurb name={"hello"}/>)
+        return this.state.patients.map( pt => <PatientBlurb key={pt.id} id={pt.id} name={pt.name} image={pt.image}/>)
     }
 
     render() {

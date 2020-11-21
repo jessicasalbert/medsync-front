@@ -15,7 +15,7 @@ const PatientBlurb = (props) => {
                         <Card className={classes.root}>
                         <CardContent className={classes.card}>
                             <p>{props.name}</p>
-                            <img className={classes.image} src="https://thispersondoesnotexist.com/image"/>
+                            <img className={classes.image} src={props.image}/>
                         </CardContent>
                         </Card>
                     </Typography>
