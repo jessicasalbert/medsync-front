@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './PatientLandingStyle'
+import { connect } from 'react-redux'
   
 
 const PatientLanding = (props) => {
@@ -52,5 +53,9 @@ const PatientLanding = (props) => {
     )
 }
 
+const msp = (state) => {
+    return {patient: state.patient}
+}
 
-export default PatientLanding
+
+export default connect(msp)(PatientLanding)

@@ -22,6 +22,7 @@ const NavBar = (props) => {
 
     const clearUser = () => {
       props.logout()
+      redirectHome()
     }
 
     return (

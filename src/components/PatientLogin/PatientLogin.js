@@ -12,6 +12,7 @@ import { Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { ptLoginAction } from '../../redux/actions';
+import { withRouter } from 'react-router-dom'
 
 
 
@@ -31,6 +32,7 @@ class PatientLogin extends Component {
 
     submitHandler = () => {
         this.props.patientLogin(this.state)
+        this.props.history.push("/mymeds")
     }
 
 
@@ -43,7 +45,7 @@ class PatientLogin extends Component {
                     <Grid container spacing={3} align="center" justify="center" >
                         <Grid item xs={6} >
                         <Paper className={classes.loginBox}>
-                        <Typography>
+                        <Typography component="span">
                             <Card className={classes.root}>
                             <CardContent>
                                 <h3>Log In: Patient </h3>
@@ -72,4 +74,4 @@ const mdp = (dispatch) => {
     return { patientLogin: (pt) => dispatch(ptLoginAction(pt, dispatch))}
 }
 
-export default connect(msp, mdp)(withStyles(useStyles, { withTheme: true })(PatientLogin))
+export default connect(msp, mdp)(withStyles(useStyles, { withTheme: true })(withRouter(PatientLogin)))

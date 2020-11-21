@@ -20,7 +20,7 @@ const LandingPage = (props) => {
                 <Grid container spacing={3} align="center" justify="center" >
                     <Grid item xs={6} >
                     <Paper className={classes.loginBox}>
-                    <Typography>
+                    <Typography component="span">
                         <Card className={classes.root}>
                         <CardContent>
                             <p>Welcome to MedSync</p>
