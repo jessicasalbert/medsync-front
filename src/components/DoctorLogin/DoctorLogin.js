@@ -30,7 +30,9 @@ class DoctorLogin extends Component {
     submitHandler = (e) => {
         e.preventDefault()
         this.props.doctorLogin(this.state)
-        this.props.history.push("/allpatients")
+        if (localStorage.getItem("token") !== "undefined") {
+            this.props.history.push("/allpatients")
+        }
     }
 
 

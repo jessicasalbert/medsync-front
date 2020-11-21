@@ -30,9 +30,12 @@ class PatientLogin extends Component {
         })
     }
 
-    submitHandler = () => {
+    submitHandler = (e) => {
+        e.preventDefault()
         this.props.patientLogin(this.state)
-        this.props.history.push("/mymeds")
+        if (localStorage.getItem("token") !== "undefined") {
+            this.props.history.push("/mymeds")
+        }
     }
 
 
@@ -51,7 +54,7 @@ class PatientLogin extends Component {
                                 <h3>Log In: Patient </h3>
                                 <TextField onChange={this.formEdit} className={classes.textField} value={this.state.email} name="email" type="text" label="email"/>
                                 <TextField onChange={this.formEdit} className={classes.textField} value={this.state.password} name="password" type="password" label="password" ></TextField>
-                                <br/><br/><Button onClick={this.submitHandler}>Log in</Button>
+                                <br/><br/><Button type="submit" onClick={this.submitHandler}>Log in</Button>
                             </CardContent>
                             </Card>
                         </Typography>

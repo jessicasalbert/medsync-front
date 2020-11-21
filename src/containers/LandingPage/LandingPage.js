@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './LandingPageStyle'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 
 const LandingPage = (props) => {
@@ -16,6 +18,9 @@ const LandingPage = (props) => {
 
     const classes = useStyles()
     return (
+      <>
+        {props.doctor ? <Redirect to="/allpatients"/> : null}
+        {props.patient ? <Redirect to='/mymeds'/> : null}
         <div > 
             <Grid container spacing={3}>
                 <Grid item xs={12}>
@@ -36,9 +41,13 @@ const LandingPage = (props) => {
                 
                 </Grid>
             </Grid>
-            </div>
+        </div>
+      </>
     )
 }
 
+const msp = (state) => {
+  return {doctor: state.doctor, patient: state.patient}
+}
 
-export default LandingPage
+export default connect(msp)(LandingPage)

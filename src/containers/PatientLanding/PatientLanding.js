@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import useStyles from './PatientLandingStyle'
 import { connect } from 'react-redux'
 import Loading from '../../components/Loading/Loading'
+import { Redirect } from 'react-router-dom'
   
 
 const PatientLanding = (props) => {
@@ -34,7 +35,8 @@ const PatientLanding = (props) => {
                 </Grid>
             </Grid>
 
-            : <Loading/>}
+            : <Loading/> 
+        }
             </div>
     )
 }
