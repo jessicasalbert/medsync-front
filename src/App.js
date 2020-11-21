@@ -39,7 +39,7 @@ function App(props) {
     <NavBar/>
     <Switch>
       <Route path="/doctorlogin" render={() =>(<DoctorLogin/>)}/>
-      <Route path="/allpatients" render={() => (<DoctorLanding/>)}/>
+      <Route path="/patients" render={() => (<DoctorLanding/>)}/>
       <Route path="/patientlogin" render={() =>(<PatientLogin/>)}/>
       <Route path="/mymeds" render={() => (<PatientLanding/>)}/>
       <Route path="/" render={() =>(<LandingPage/>)}/>

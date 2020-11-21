@@ -19,7 +19,7 @@ const LandingPage = (props) => {
     const classes = useStyles()
     return (
       <>
-        {props.doctor ? <Redirect to="/allpatients"/> : null}
+        {props.doctor ? <Redirect to="/patients"/> : null}
         {props.patient ? <Redirect to='/mymeds'/> : null}
         <div > 
             <Grid container spacing={3}>

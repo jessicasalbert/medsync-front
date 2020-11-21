@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,13 +10,13 @@ import useStyles from './DoctorLandingStyle'
 import { connect } from 'react-redux'
 import Loading from '../../components/Loading/Loading'
 import PatientBlurb from '../../components/PatientBlurb/PatientBlurb';
+import { withStyles } from "@material-ui/core/styles"
   
 
-const DoctorLanding = (props) => {
-    console.log(props)
-    const classes = useStyles()
+class DoctorLanding extends React.Component {
+  
 
-    const renderPatients = () => {
+    renderPatients = () => {
         // fetch('http://localhost:3000/api/v1/doctors/1')
         // .then(res => res.json())
         // .then(res => {
@@ -42,25 +42,28 @@ const DoctorLanding = (props) => {
         return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map( num => <PatientBlurb name={"hello"}/>)
     }
 
+    render() {
+        const { classes } = this.props
+
+        return (
     
-    return (
-
-        
-        <div > 
-            {props.doctor ? 
-                <Grid container spacing={3} align="center" justify="center" >
-                    <Grid item xs={8} m={4}>
-                        <Grid container spacing={3}>
-                            {renderPatients()}
-                        </Grid>
-
-                
+            
+            <div > 
+                {this.props.doctor ? 
+                    <Grid container spacing={3} align="center" justify="center" >
+                        <Grid item xs={8} m={4}>
+                            <Grid container spacing={3}>
+                                {this.renderPatients()}
+                            </Grid>
+    
+                    
+                    </Grid>
                 </Grid>
-            </Grid>
-
-            : <Loading/>}
-            </div>
-    )
+    
+                : <Loading/>}
+                </div>
+        )
+    }
 }
 
 const msp = (state) => {
@@ -68,4 +71,5 @@ const msp = (state) => {
 }
 
 
-export default connect(msp)(DoctorLanding)
+export default connect(msp)(withStyles(useStyles, { withTheme: true })(DoctorLanding))
+
