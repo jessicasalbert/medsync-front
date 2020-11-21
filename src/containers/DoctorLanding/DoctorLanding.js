@@ -19,17 +19,29 @@ class DoctorLanding extends React.Component {
         patients: []
     }
 
+    componentDidUpdate(prevProps){
+        if (this.props.doctor && prevProps !== this.props) {
+            fetch(`http://localhost:3000/api/v1/doctors/${this.props.doctor.user.id}`)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({ patients : res.patients})
+            })
+         }
+     }
+
     componentDidMount() {
-        fetch('http://localhost:3000/api/v1/doctors/1')
-        .then(res => res.json())
-        .then(res => {
-            this.setState({ patients : res.patients})
-        })
+        if (this.props.doctor) {
+            fetch(`http://localhost:3000/api/v1/doctors/${this.props.doctor.user.id}`)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({ patients : res.patients})
+            })
+        }
         
     }
 
     renderPatients = () => {
-        return this.state.patients.map( pt => <PatientBlurb key={pt.id} id={pt.id} name={pt.name} image={pt.image}/>)
+        return this.state.patients.map( pt => <PatientBlurb key={pt.id} patient={pt}/>)
     }
 
     render() {
