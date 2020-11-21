@@ -9,27 +9,13 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './PatientLandingStyle'
 import { connect } from 'react-redux'
+import Loading from '../../components/Loading/Loading'
   
 
 const PatientLanding = (props) => {
     const classes = useStyles()
 
-    const renderPatients = () => {
-        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map( num => {
-            return (
-                <Grid item xs={3} >
-                                <Typography>
-                                    <Card className={classes.root}>
-                                    <CardContent className={classes.card}>
-                                        <p>Welcome to MedSync</p>
-                                    </CardContent>
-                                    </Card>
-                                </Typography>
-                            </Grid>
-            )
-        })
-    }
-
+ 
     
     return (
 
@@ -48,7 +34,7 @@ const PatientLanding = (props) => {
                 </Grid>
             </Grid>
 
-            : "no patient sry"}
+            : <Loading/>}
             </div>
     )
 }
