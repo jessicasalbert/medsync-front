@@ -1,6 +1,6 @@
 
 import './App.css';
-import React from 'react';
+import React, { useEffect }from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux'
 import { Route, Switch } from "react-router-dom"
@@ -10,9 +10,28 @@ import DoctorLogin from './components/DoctorLogin/DoctorLogin'
 import PatientLogin from './components/PatientLogin/PatientLogin';
 import DoctorLanding from './containers/DoctorLanding/DoctorLanding';
 import PatientLanding from './containers/PatientLanding/PatientLanding';
-
+import { sessionUserAction } from './redux/actions'
 
 function App(props) {
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    const userType = localStorage.getItem("user")
+    if (token && userType == "doctor") {
+      console.log("doctor logged in")
+      const configObj = {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}`}
+      }
+      fetch("http://localhost:3000/api/v1/mdprofile", configObj)
+      .then(res => res.json())
+      .then(res => props.sessionUser(res))
+    } else if (token && userType == "patient") {
+      console.log("patint logged in")
+    } else {
+      console.log("no user logged")
+    }
+  })
 
   return (
     <>
@@ -29,9 +48,12 @@ function App(props) {
   );
 }
 
+const mdp = (dispatch) => {
+  return { sessionUser: (user) => dispatch(sessionUserAction(user, dispatch))}
+}
 
 
-export default App
+export default connect(null, mdp)(App)
 
 
 

@@ -8,9 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './LandingPageStyle'
-  
+
 
 const LandingPage = (props) => {
+
+   
 
     const classes = useStyles()
     return (
