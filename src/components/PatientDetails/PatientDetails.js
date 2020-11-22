@@ -13,8 +13,8 @@ import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { ptLoginAction } from '../../redux/actions';
 import { withRouter } from 'react-router-dom'
-
-
+import Loading from '../Loading/Loading'
+import MdMed from '../MdMed/MdMed'
 
 class PatientDetails extends Component {
 
@@ -39,23 +39,25 @@ class PatientDetails extends Component {
 
     render() {
         const { classes } = this.props
+
+        const renderMeds = () => {
+            return this.state.patient.patient_meds.map(med => {
+                return <MdMed med={med}/>
+            })
+        }
         return (
-            <div > 
+            < > 
+                {this.state.patient ? 
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
                         <Grid item xs={9} >
                         <Paper className={classes.loginBox}>
-                        <Typography component="span">
-                            <h1>{this.state.patient_id}</h1>
-                            {/* <Card className={classes.root}>
-                            <CardContent>
-                                <h3>Log In: Patient </h3>
-                                <TextField onChange={this.formEdit} className={classes.textField} value={this.state.email} name="email" type="text" label="email"/>
-                                <TextField onChange={this.formEdit} className={classes.textField} value={this.state.password} name="password" type="password" label="password" ></TextField>
-                                <br/><br/><Button type="submit" onClick={this.submitHandler}>Log in</Button>
-                            </CardContent>
-                            </Card> */}
+                        <Typography component="span" className={classes.info}>
+                            <h2>{this.state.patient.name}</h2>
+                            <img src={this.state.patient.image}/>
+                            <h3>Meds:</h3>
+                            {renderMeds()}
                         </Typography>
                         </Paper>
                         </Grid>   
@@ -63,7 +65,8 @@ class PatientDetails extends Component {
                     
                     </Grid>
                 </Grid>
-                </div>
+                : <Loading/>}
+            </>
         )
     }
 }

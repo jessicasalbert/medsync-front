@@ -19,15 +19,6 @@ const LandingPage = (props) => {
                 <Grid container spacing={3} align="center" justify="center" >
                     <Grid item xs={6} >
                     <img className={classes.box} src="https://www.svgrepo.com/show/70469/loading.svg"/>
-                    {/* <Paper className={classes.box}>
-                    <Typography component="span">
-                        <Card className={classes.root}>
-                        <CardContent>
-                            <p>Hello</p>
-                        </CardContent>
-                        </Card>
-                    </Typography>
-                    </Paper> */}
                     </Grid>   
                 </Grid>
                 

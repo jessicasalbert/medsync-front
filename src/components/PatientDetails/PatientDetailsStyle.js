@@ -13,7 +13,14 @@ const useStyles = (theme) => ({
     },
     textField: {
         margin: "3px"
+    },
+    info: {
+        margin: "0px"
+    },
+    image: {
+        width: "50px"
     }
   });
+  
 
 export default useStyles
