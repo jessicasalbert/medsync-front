@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import LoginContainer from '../LoginContainer/LoginContainer'
-import NavBar from '../../components/NavBar/NavBar'
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './DoctorLandingStyle'
 import { connect } from 'react-redux'
 import Loading from '../../components/Loading/Loading'
 import PatientBlurb from '../../components/PatientBlurb/PatientBlurb';
 import { withStyles } from "@material-ui/core/styles"
+import { Route, Switch } from "react-router-dom"
   
 
 class DoctorLanding extends React.Component {
@@ -59,11 +54,12 @@ class DoctorLanding extends React.Component {
                             </Grid>
     
                     
+                     </Grid>
                     </Grid>
-                </Grid>
     
                 : <Loading/>}
-                </div>
+            </div>
+        
         )
     }
 }
