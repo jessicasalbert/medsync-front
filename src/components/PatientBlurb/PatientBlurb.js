@@ -13,7 +13,7 @@ const PatientBlurb = (props) => {
 
     return (
                 <Grid item xs={3} >
-                    <Typography>
+                    <Typography component="span">
                         <Card className={classes.root}>
                         <CardContent className={classes.card}>
                             <p>{props.patient.name}</p>

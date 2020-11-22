@@ -16,10 +16,13 @@ class DoctorLanding extends React.Component {
 
     componentDidUpdate(prevProps){
         if (this.props.doctor && prevProps !== this.props) {
-            console.log(this.props.doctor)
+            let token = localStorage.getItem("token")
+            if (!token) {
+                token = this.props.doctor.jwt
+            }
             const configObj = {
                 method: "GET",
-                headers: { Authorization: `Bearer ${this.props.doctor.jwt}`}
+                headers: { Authorization: `Bearer ${token}`}
             }
             fetch(`http://localhost:3000/api/v1/doctors/${this.props.doctor.user.id}`, configObj)
             .then(res => res.json())
