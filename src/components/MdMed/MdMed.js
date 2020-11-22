@@ -7,7 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import useStyles from './MdMedStyle'
 import { withStyles } from "@material-ui/core/styles"
 import { Button } from '@material-ui/core'
-import { TextField } from '@material-ui/core'
+import { TextField, Select, MenuItem } from '@material-ui/core'
+
 
 class MdMed extends Component {
 
@@ -28,16 +29,23 @@ class MdMed extends Component {
                 {
                     this.state.edit ?
                     <form>
-                        <TextField value={this.state.med.med.name} label="name"/>
-                        <TextField value={this.state.med.med.image_url} label="image"/>
-                        <TextField value={this.state.med.pill_count} label="#"/>
-                        <TextField value={this.state.med.time} label="time"/>
+                        {this.state.med.med.name}<br/> 
+                        {/* <TextField value={this.state.med.med.image_url} label="image"/> */}
+                        <TextField type="number" value={this.state.med.pill_count} label="# pills"/>
+                        <TextField value={this.state.med.notes} label="notes"/>
+                        <TextField id="time" label="time" value={this.props.med.time} select>
+                            <MenuItem value="morning">Morning</MenuItem>
+                            <MenuItem value="afternoon ">Afternoon</MenuItem>
+                            <MenuItem value="evening ">Evening</MenuItem>
+                        </TextField>
+                        
+                        <br/>
                         <Button type="submit">Save</Button>
                     </form>
                     
                     
                     :
-                <Paper variant="outlined">{this.props.med.med.name} : <img className={classes.image}src={this.props.med.med.image_url}/> : {this.props.med.pill_count} : {this.props.med.time} <Button onClick={this.editClick}>Edit</Button></Paper>
+                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills {this.props.med.notes}  {this.props.med.time}<br/> <Button onClick={this.editClick}>Edit</Button></Paper>
                 }
             </>
         )
