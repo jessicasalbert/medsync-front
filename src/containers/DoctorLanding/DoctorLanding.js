@@ -16,9 +16,10 @@ class DoctorLanding extends React.Component {
 
     componentDidUpdate(prevProps){
         if (this.props.doctor && prevProps !== this.props) {
+            console.log(this.props.doctor)
             const configObj = {
                 method: "GET",
-                headers: { Authorization: `Bearer ${localStorage.getItem("token")}`}
+                headers: { Authorization: `Bearer ${this.props.doctor.jwt}`}
             }
             fetch(`http://localhost:3000/api/v1/doctors/${this.props.doctor.user.id}`, configObj)
             .then(res => res.json())
@@ -32,7 +33,7 @@ class DoctorLanding extends React.Component {
         if (this.props.doctor) {
             const configObj = {
                 method: "GET",
-                headers: { authorization: `Bearer ${localStorage.getItem("token")}`}
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}`}
             }
             fetch(`http://localhost:3000/api/v1/doctors/${this.props.doctor.user.id}`, configObj)
             .then(res => res.json())
