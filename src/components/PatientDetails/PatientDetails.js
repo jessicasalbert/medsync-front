@@ -42,7 +42,7 @@ class PatientDetails extends Component {
 
         const renderMeds = () => {
             return this.state.patient.patient_meds.map(med => {
-                return <MdMed med={med}/>
+                return <MdMed key={med.id} med={med}/>
             })
         }
         return (

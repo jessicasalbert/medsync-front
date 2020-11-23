@@ -14,11 +14,47 @@ class MdMed extends Component {
 
     state = {
         edit: false,
-        med: this.props.med
+        med: this.props.med,
+        notes: this.props.med.notes,
+        pill_count: this.props.med.pill_count,
+        time: this.props.med.time
     }
 
     editClick = () => {
         this.setState(prev => ({edit : !prev.edit}))
+    }
+
+    formEdit = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
+
+    patchHandler = (e) => {
+        e.preventDefault()
+        const ptMedId = this.state.med.id
+        const body = {
+                notes: this.state.notes,
+                pill_count: this.state.pill_count,
+                time: this.state.time}
+        
+        const configObj = {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                accepts: "application/json", 
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                body: JSON.stringify(body)
+            }
+        }
+        fetch(`http://localhost:3000/api/v1/patient_meds/${ptMedId}`, configObj)
+        .then(res => res.json())
+        .then(console.log)
+    }
+
+    deleteHandler = () => {
+        const ptMedId = this.state.med.id
+        
     }
    
     render() {
@@ -28,12 +64,12 @@ class MdMed extends Component {
             < > 
                 {
                     this.state.edit ?
-                    <form>
+                    <form onSubmit={this.patchHandler}>
                         {this.state.med.med.name}<br/> 
                         {/* <TextField value={this.state.med.med.image_url} label="image"/> */}
-                        <TextField type="number" value={this.state.med.pill_count} label="# pills"/>
-                        <TextField value={this.state.med.notes} label="notes"/>
-                        <TextField id="time" label="time" value={this.props.med.time} select>
+                        <TextField onChange={this.formEdit} type="number" min={1} name="pill_count" value={this.state.pill_count} label="# pills"/>
+                        <TextField onChange={this.formEdit} value={this.state.notes} name="notes" label="notes"/>
+                        <TextField onChange={this.formEdit} id="time" label="time" name="time" value={this.props.med.time} select>
                             <MenuItem value="morning">Morning</MenuItem>
                             <MenuItem value="afternoon ">Afternoon</MenuItem>
                             <MenuItem value="evening ">Evening</MenuItem>
@@ -45,7 +81,7 @@ class MdMed extends Component {
                     
                     
                     :
-                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills {this.props.med.notes}  {this.props.med.time}<br/> <Button onClick={this.editClick}>Edit</Button></Paper>
+                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills {this.props.med.notes}  {this.props.med.time}<br/> <Button onClick={this.editClick}>Edit</Button> <Button>Delete </Button></Paper>
                 }
             </>
         )
