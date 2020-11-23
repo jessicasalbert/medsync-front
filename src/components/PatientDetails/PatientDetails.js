@@ -44,6 +44,17 @@ class PatientDetails extends Component {
         })
     }
 
+    refreshMedsEdit = (id, body) => {
+        const updatePatient = {...this.state.patient}
+        const index = updatePatient.patient_meds.findIndex( med => med.id === id)
+        updatePatient['patient_meds'][index].notes = body["notes"]
+        updatePatient['patient_meds'][index].pill_count = body["pill_count"]
+        updatePatient['patient_meds'][index].time = body["time"]
+        this.setState( {
+            patient: updatePatient
+        })
+    }
+
 
 
     render() {
@@ -51,7 +62,7 @@ class PatientDetails extends Component {
 
         const renderMeds = () => {
             return this.state.patient.patient_meds.map(med => {
-                return <MdMed key={med.id} refreshMeds={this.refreshMeds} med={med}/>
+                return <MdMed key={med.id} refreshMedsEdit={this.refreshMedsEdit} refreshMeds={this.refreshMeds} med={med}/>
             })
         }
         return (

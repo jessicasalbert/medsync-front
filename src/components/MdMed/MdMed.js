@@ -42,14 +42,14 @@ class MdMed extends Component {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",
-                accepts: "application/json", 
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                body: JSON.stringify(body)
-            }
+                accept: "application/json", 
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify(body)
         }
         fetch(`http://localhost:3000/api/v1/patient_meds/${ptMedId}`, configObj)
         .then(res => res.json())
-        .then(console.log)
+        .then(res => this.setState({edit: false}, () => this.props.refreshMedsEdit(res.id, body)))
     }
 
     deleteHandler = () => {
