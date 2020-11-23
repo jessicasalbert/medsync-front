@@ -44,8 +44,12 @@ class PtMed extends Component {
         return (
             < > 
                 {
-                   
-                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills {this.props.med.notes}  {this.props.med.time}<br/> <Button className={this.state.taken? classes.taken : null} onClick={this.patchHandler}>{this.state.taken ? "I did not take this" : "I took this med" }</Button></Paper>
+                <Grid container className={this.state.taken? classes.taken : classes.not_taken} xs={12} >
+                    {/* <Paper xs={12} variant="outlined"> */}
+                    <Grid item xs={5}> <img className={this.state.taken? classes.image_taken : classes.image} src={this.props.med.med.image_url}/></Grid>
+                <Grid item xs={6}>{this.props.med.med.name} <br/> {this.props.med.pill_count} pill(s) {this.props.med.med.pill_color}, {this.props.med.med.pill_shape} SHAPE <br/> {this.props.med.notes ? <>MD notes: {this.props.med.notes}</> : null} <br/> <Button  onClick={this.patchHandler}>{this.state.taken ? "Undo" : "Mark as taken" }</Button></Grid>
+                    {/* </Paper> */}
+                </Grid>
                 }
             </>
         )

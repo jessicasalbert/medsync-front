@@ -72,7 +72,6 @@ class MdMed extends Component {
                     this.state.edit ?
                     <form onSubmit={this.patchHandler}>
                         {this.state.med.med.name}<br/> 
-                        {/* <TextField value={this.state.med.med.image_url} label="image"/> */}
                         <TextField onChange={this.formEdit} type="number" min={1} name="pill_count" value={this.state.pill_count} label="# pills"/>
                         <TextField onChange={this.formEdit} value={this.state.notes} name="notes" label="notes"/>
                         <TextField onChange={this.formEdit} id="time" label="time" name="time" value={this.state.time} select>

@@ -100,7 +100,7 @@ class PatientDetails extends Component {
         return (
             < > 
                 {this.state.patient ? 
-                <Grid container spacing={3}>
+                <Grid container spacing={0}>
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
                         <Grid item xs={9} >
