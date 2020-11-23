@@ -52,9 +52,11 @@ class PatientLogin extends Component {
                             <Card className={classes.root}>
                             <CardContent>
                                 <h3>Log In: Patient </h3>
+                                <form>
                                 <TextField onChange={this.formEdit} className={classes.textField} value={this.state.email} name="email" type="text" label="email"/>
                                 <TextField onChange={this.formEdit} className={classes.textField} value={this.state.password} name="password" type="password" label="password" ></TextField>
                                 <br/><br/><Button type="submit" onClick={this.submitHandler}>Log in</Button>
+                                </form>
                             </CardContent>
                             </Card>
                         </Typography>
