@@ -54,7 +54,13 @@ class MdMed extends Component {
 
     deleteHandler = () => {
         const ptMedId = this.state.med.id
-        
+        const configObj = {
+            method: "DELETE",
+            headers: {accept: "application/json", Authorization: `Bearer ${localStorage.getItem("token")}`}
+        }
+        fetch(`http://localhost:3000/api/v1/patient_meds/${ptMedId}`, configObj)
+        .then(res => res.json())
+        .then(console.log)
     }
    
     render() {
@@ -81,7 +87,7 @@ class MdMed extends Component {
                     
                     
                     :
-                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills {this.props.med.notes}  {this.props.med.time}<br/> <Button onClick={this.editClick}>Edit</Button> <Button>Delete </Button></Paper>
+                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills {this.props.med.notes}  {this.props.med.time}<br/> <Button onClick={this.editClick}>Edit</Button> <Button onClick={this.deleteHandler}>Delete </Button></Paper>
                 }
             </>
         )
