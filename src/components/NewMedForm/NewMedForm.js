@@ -43,7 +43,7 @@ export class NewMedForm extends Component {
                 <MenuItem value="afternoon ">Afternoon</MenuItem>
                 <MenuItem value="evening ">Evening</MenuItem>
             </TextField>
-            <TextField onChange={this.formEdit} id="time" label="med" name="med" value={this.state.meds[1].id} select>
+            <TextField onChange={this.formEdit} id="time" label="med" name="med" value={this.state.med ? this.state.med : null} select>
                 {this.state.meds.map(med => <MenuItem value={med.id}>{med.name}</MenuItem>)}
             </TextField>
             </>
