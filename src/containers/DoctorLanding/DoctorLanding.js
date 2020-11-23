@@ -44,7 +44,6 @@ class DoctorLanding extends React.Component {
                 this.setState({ patients : res.patients})
             })
         }
-        
     }
 
     renderPatients = () => {
