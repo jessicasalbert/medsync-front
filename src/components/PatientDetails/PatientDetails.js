@@ -15,12 +15,14 @@ import { ptLoginAction } from '../../redux/actions';
 import { withRouter } from 'react-router-dom'
 import Loading from '../Loading/Loading'
 import MdMed from '../MdMed/MdMed'
+import NewMedForm from '../NewMedForm/NewMedForm';
 
 class PatientDetails extends Component {
 
     state = {
         patient_id: this.props.id,
-        patient: null
+        patient: null,
+        add: false
     }
 
     
@@ -33,6 +35,7 @@ class PatientDetails extends Component {
         fetch(`http://localhost:3000/api/v1/patients/${this.state.patient_id}`, configObj)
         .then(res => res.json())
         .then(res => this.setState({ patient: res }))
+
     }
 
     refreshMeds = (id) => {
@@ -53,6 +56,10 @@ class PatientDetails extends Component {
         this.setState( {
             patient: updatePatient
         })
+    }
+
+    clickAddForm = () => {
+        this.setState(prev => ({ add: !prev.add}))
     }
 
 
@@ -78,6 +85,12 @@ class PatientDetails extends Component {
                             <img src={this.state.patient.image}/>
                             <h3>Meds:</h3>
                             {renderMeds()}
+                            <Button onClick={this.clickAddForm}>Add a med:</Button>
+                            {
+                                this.state.add ?
+                                <NewMedForm/>
+                                : null
+                            }
                         </Typography>
                         </Paper>
                         </Grid>   
