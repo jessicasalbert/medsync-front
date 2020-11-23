@@ -75,7 +75,7 @@ class MdMed extends Component {
                         {/* <TextField value={this.state.med.med.image_url} label="image"/> */}
                         <TextField onChange={this.formEdit} type="number" min={1} name="pill_count" value={this.state.pill_count} label="# pills"/>
                         <TextField onChange={this.formEdit} value={this.state.notes} name="notes" label="notes"/>
-                        <TextField onChange={this.formEdit} id="time" label="time" name="time" value={this.props.med.time} select>
+                        <TextField onChange={this.formEdit} id="time" label="time" name="time" value={this.state.time} select>
                             <MenuItem value="morning">Morning</MenuItem>
                             <MenuItem value="afternoon ">Afternoon</MenuItem>
                             <MenuItem value="evening ">Evening</MenuItem>
