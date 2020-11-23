@@ -31,7 +31,7 @@ class PtMed extends Component {
     patchHandler = () => {
         const ptMedId = this.state.med.id
         const body = {
-                has_taken: true }
+                has_taken: !this.state.taken }
         
         const configObj = {
             method: "PATCH",
@@ -65,7 +65,7 @@ class PtMed extends Component {
             < > 
                 {
                    
-                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills {this.props.med.notes}  {this.props.med.time}<br/> <Button onClick={this.patchHandler}>{this.state.has_taken === true ? "I did not take this" : "I took this med" }</Button></Paper>
+                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills {this.props.med.notes}  {this.props.med.time}<br/> <Button className={this.state.taken? classes.taken : null} onClick={this.patchHandler}>{this.state.taken ? "I did not take this" : "I took this med" }</Button></Paper>
                 }
             </>
         )
