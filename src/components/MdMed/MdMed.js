@@ -60,7 +60,7 @@ class MdMed extends Component {
         }
         fetch(`http://localhost:3000/api/v1/patient_meds/${ptMedId}`, configObj)
         .then(res => res.json())
-        .then(console.log)
+        .then(res => this.props.refreshMeds(res.id))
     }
    
     render() {

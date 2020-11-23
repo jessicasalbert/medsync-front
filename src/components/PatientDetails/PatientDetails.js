@@ -35,6 +35,15 @@ class PatientDetails extends Component {
         .then(res => this.setState({ patient: res }))
     }
 
+    refreshMeds = (id) => {
+        const updatePatient = {...this.state.patient}
+        const updatedMeds = updatePatient.patient_meds.filter( med => med.id !== id)
+        updatePatient['patient_meds'] = updatedMeds
+        this.setState( {
+            patient: updatePatient
+        })
+    }
+
 
 
     render() {
@@ -42,7 +51,7 @@ class PatientDetails extends Component {
 
         const renderMeds = () => {
             return this.state.patient.patient_meds.map(med => {
-                return <MdMed key={med.id} med={med}/>
+                return <MdMed key={med.id} refreshMeds={this.refreshMeds} med={med}/>
             })
         }
         return (
