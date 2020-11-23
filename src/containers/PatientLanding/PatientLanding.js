@@ -13,6 +13,7 @@ import Loading from '../../components/Loading/Loading'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
 import PtMed from '../../components/PtMed/PtMed'
+import { FormatListNumberedRtlOutlined } from '@material-ui/icons';
 
 class PatientLanding extends Component {
     
@@ -51,6 +52,11 @@ class PatientLanding extends Component {
         }
     }
 
+    filterTime = (time) => {
+        return this.state.patient.patient_meds.filter(med => med.time === time)
+    }
+
+
     render() {
         const { classes } = this.props
     return (
@@ -61,8 +67,28 @@ class PatientLanding extends Component {
                     <Grid item xs={8} m={4}>
                     <Paper className={classes.loginBox}>
                         <Grid container align="center" justify="center" spacing={3}>
-                            <Grid item xs={12}><h2>Welcome back, {this.props.patient.user.name}</h2></Grid>
-                            {this.state.patient.patient_meds.map(med => <Grid item xs={12}><PtMed key={med.id} med={med}/></Grid>)}
+                            <Grid item xs={12}><h2>Meds for {this.props.patient.user.name}</h2></Grid>
+                            <>{this.filterTime("morning").length > 0 ?
+                                <>
+                                <h3>Morning:</h3> 
+                                {this.filterTime("morning").map(med => <Grid item xs={12}><PtMed key={med.med.id} med={med}/></Grid>)}
+                                </>
+                            : null
+                            }</>
+                            <>{this.filterTime("afternoon ").length > 0 ?
+                                <>
+                                <h3>Afternoon:</h3> 
+                                {this.filterTime("afternoon ").map(med => <Grid item xs={12}><PtMed key={med.med.id} med={med}/></Grid>)}
+                                </>
+                            : null
+                            }</>
+                            <>{this.filterTime("evening ").length > 0 ?
+                                <>
+                                <h3>Evening:</h3> 
+                                {this.filterTime("evening ").map(med => <Grid item xs={12}><PtMed key={med.med.id} med={med}/></Grid>)}
+                                </>
+                            : null
+                            }</>
                         </Grid>
                     </Paper>
 

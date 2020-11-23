@@ -17,16 +17,6 @@ class PtMed extends Component {
         taken: this.props.med.has_taken
     }
 
-    // editClick = () => {
-    //     this.setState(prev => ({edit : !prev.edit}))
-    // }
-
-    // formEdit = (e) => {
-    //     this.setState({
-    //         [e.target.name] : e.target.value
-    //     })
-    // }
-    
 
     patchHandler = () => {
         const ptMedId = this.state.med.id
@@ -47,16 +37,6 @@ class PtMed extends Component {
         .then(res => this.setState({ taken: res.has_taken}))
     }
 
-    // deleteHandler = () => {
-    //     const ptMedId = this.state.med.id
-    //     const configObj = {
-    //         method: "DELETE",
-    //         headers: {accept: "application/json", Authorization: `Bearer ${localStorage.getItem("token")}`}
-    //     }
-    //     fetch(`http://localhost:3000/api/v1/patient_meds/${ptMedId}`, configObj)
-    //     .then(res => res.json())
-    //     .then(res => this.props.refreshMeds(res.id))
-    // }
    
     render() {
 
