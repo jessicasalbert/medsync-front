@@ -62,6 +62,31 @@ class PatientDetails extends Component {
         this.setState(prev => ({ add: !prev.add}))
     }
 
+    createPatientMed = (body) => {
+        body.patient_id = this.state.patient_id
+        const configObj = {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "content-type": "application/json",
+                accept: "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+        fetch('http://localhost:3000/api/v1/patient_meds', configObj)
+        .then(res => res.json())
+        .then(res => this.refreshMedsAdd(res))
+    }
+
+    refreshMedsAdd = (pt_med) => {
+        const updatePatient = {...this.state.patient}
+        updatePatient.patient_meds.push(pt_med)
+        this.setState( {
+            patient: updatePatient,
+            add: false
+        })
+        console.log(pt_med)
+    }
 
 
     render() {
@@ -88,7 +113,7 @@ class PatientDetails extends Component {
                             <Button onClick={this.clickAddForm}>Add a med:</Button>
                             {
                                 this.state.add ?
-                                <NewMedForm/>
+                                <NewMedForm createPatientMed={this.createPatientMed}/>
                                 : null
                             }
                         </Typography>
