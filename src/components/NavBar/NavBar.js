@@ -16,6 +16,14 @@ const NavBar = (props) => {
       history.push("/allpatients");
     }
 
+    const messageClickHandler = () => {
+      history.push("/ptmessages")
+    }
+
+    const redirectMyMeds = () => {
+      history.push("/mymeds")
+    }
+
     const redirectHome = () => {
       history.push("/")
     }
@@ -28,8 +36,8 @@ const NavBar = (props) => {
     return (
       <AppBar position="static" color="secondary" className={classes.navMargin}>
         <Toolbar >
-          <img onClick={redirectHome} className={classes.logo} src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png"/>
-          <Typography className={classes.title} >{props.doctor ? <Button color="inherit" onClick={clickHandler}>My Patients</Button> : null}
+          <img className={classes.logo} src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png"/>
+          <Typography className={classes.title} >{props.doctor ? <Button color="inherit" onClick={clickHandler}>My Patients</Button> :  <><Button color="inherit" onClick={redirectMyMeds}>My Meds</Button> <Button color="inherit" onClick={messageClickHandler}>Message</Button></>}
           </Typography>
           {props.doctor || props.patient ? <Button onClick={clearUser} color="inherit">Logout</Button> : null}
         </Toolbar>

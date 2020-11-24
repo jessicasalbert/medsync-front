@@ -22,34 +22,35 @@ class PatientLanding extends Component {
     }
 
 
-    componentDidUpdate(prevProps){
-        if (this.props.patient && prevProps !== this.props) {
-            let token = localStorage.getItem("token")
-            if (!token) {
-                token = this.props.patient.jwt
-            }
-            const configObj = {
-                method: "GET",
-                headers: {Authorization: `Bearer ${token}`}
-            }
-            fetch(`http://localhost:3000/api/v1/patients/${this.props.patient.user.id}`, configObj)
-            .then(res => res.json())
-            .then(res => this.setState({ patient: res }))
-         }
-     }
+    // componentDidUpdate(prevProps){
+    //     console.log(this.props.patient)
+    //     if (this.props.patient && prevProps !== this.props) {
+    //         let token = localStorage.getItem("token")
+    //         if (!token) {
+    //             token = this.props.patient.jwt
+    //         }
+    //         const configObj = {
+    //             method: "GET",
+    //             headers: {Authorization: `Bearer ${token}`}
+    //         }
+    //         fetch(`http://localhost:3000/api/v1/patients/${localStorage.getItem("id")}`, configObj)
+    //         .then(res => res.json())
+    //         .then(res => this.setState({ patient: res }))
+    //      }
+    //  }
 
     componentDidMount() {
-        if (this.props.patient) {
+        
             const configObj = {
                 method: "GET",
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}`}
             }
-            fetch(`http://localhost:3000/api/v1/doctors/${this.props.patient.user.id}`, configObj)
+            fetch(`http://localhost:3000/api/v1/patients/${localStorage.getItem("id")}`, configObj)
             .then(res => res.json())
             .then(res => {
                 this.setState({ patient : res})
             })
-        }
+        
     }
 
     filterTime = (time) => {
@@ -61,13 +62,14 @@ class PatientLanding extends Component {
         const { classes } = this.props
     return (
         
-        <div > 
+        < > 
             {this.state.patient ? 
                 <Grid container spacing={3} align="center" justify="center" >
                     <Grid item xs={8} m={4}>
                     <Paper className={classes.loginBox}>
                         <Grid container align="center" justify="center" spacing={3}>
-                            <Grid item xs={12}><h2>Meds for {this.props.patient.user.name}</h2></Grid>
+                            <Grid item xs={12}><h2>Meds for {this.state.patient.name}</h2></Grid>
+                            <Grid item xs={12}><h3>Doctor: {this.state.patient.doctor.name}; {this.state.patient.doctor.email}</h3></Grid>
                             <>{this.filterTime("morning").length > 0 ?
                                 <>
                                 <h3>Morning:</h3> 
@@ -98,7 +100,7 @@ class PatientLanding extends Component {
 
             : <Loading/> 
         }
-            </div>
+            </>
     )}
 }
 
