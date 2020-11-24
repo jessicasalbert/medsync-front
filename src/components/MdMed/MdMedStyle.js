@@ -6,6 +6,9 @@ const useStyles = (theme) => ({
     },
     button: {
         background: "#dddddd"
+    },
+    notes: {
+        fontSize: "14px"
     }
   });
   

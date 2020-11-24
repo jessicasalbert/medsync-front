@@ -78,14 +78,14 @@ class MdMed extends Component {
                             <MenuItem value="afternoon ">Afternoon</MenuItem>
                             <MenuItem value="evening ">Evening</MenuItem>
                         </TextField><br/>
-                        <TextField onChange={this.formEdit} value={this.state.notes} name="notes" label="notes"/>
+                        <TextField size="small" onChange={this.formEdit} value={this.state.notes} name="notes" label="notes"/>
                         <br/>
                         <Button type="submit">Save</Button>
                     </form>
                     
                     
                     :
-                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills : {this.props.med.time}<br/> {this.props.med.notes} <br/> <Button className={classes.button} size="small" onClick={this.editClick}>Edit</Button> <Button size="small" className={classes.button} onClick={this.deleteHandler}>Delete </Button></Paper>
+                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills : {this.props.med.time}<br/> <span className={classes.notes}>notes: {this.props.med.notes}</span> <br/> <Button className={classes.button} size="small" onClick={this.editClick}>Edit</Button> <Button size="small" className={classes.button} onClick={this.deleteHandler}>Delete </Button></Paper>
                 }
             </>
         )
