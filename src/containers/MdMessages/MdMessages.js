@@ -19,7 +19,9 @@ class MdMessages extends Component {
         messages: [], 
         doctor:  this.props.doctor,
         patients: this.props.patient_list,
-        content: ""
+        content: "",
+        conversation: null,
+        current_patient: null
     }
     
     
@@ -40,30 +42,30 @@ class MdMessages extends Component {
         }
     }
 
-    // sendMessage = (e) => {
-    //     e.preventDefault()
-    //     const configObj = {
-    //         method: "POST",
-    //         headers: {
-    //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //             accept: "application/json",
-    //             "content-type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             content: this.state.content,
-    //             patient_id: this.state.patient.user.id,
-    //             doctor_id: this.state.patient.user.doctor_id,
-    //             sender_type: "patient"
-    //         })
-    //     }
-    //     fetch("http://localhost:3000/api/v1/messages/", configObj)
-    //     .then(res => res.json())
-    //     .then(this.setState({content: ""}))
-    // }
+    sendMessage = (e) => {
+        e.preventDefault()
+        const configObj = {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                accept: "application/json",
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                content: this.state.content,
+                patient_id: this.state.current_patient.id,
+                doctor_id: this.state.doctor.user.id,
+                sender_type: "doctor"
+            })
+        }
+        fetch("http://localhost:3000/api/v1/messages/", configObj)
+        .then(res => res.json())
+        .then(this.setState({content: ""}))
+    }
 
-    // messageContent = (e) => {
-    //     this.setState({content: e.target.value})
-    // }
+    messageContent = (e) => {
+        this.setState({content: e.target.value})
+    }
 
     listPatientNames = () => {
         console.log(this.props.patient_list)
@@ -77,7 +79,7 @@ class MdMessages extends Component {
         }
         fetch(`http://localhost:3000/api/v1/patients/${e.target.dataset.id}`, configObj)
         .then(res => res.json())
-        .then(res => this.setState({ conversation: res.conversation_id }, () => (this.fetchMessages())))
+        .then(res => this.setState({ conversation: res.conversation_id, current_patient: res }, () => (this.fetchMessages())))
     }
 
     fetchMessages = () => {
@@ -94,7 +96,7 @@ class MdMessages extends Component {
     render() {
         const { classes } = this.props
         const renderMessages = () => {
-            return this.state.messages.map(msg => <Paper className={msg.sender_type==="patient" ? classes.sender : classes.receiver} >{msg.content}</Paper>)
+            return this.state.messages.map(msg => <Paper className={msg.sender_type==="doctor" ? classes.sender : classes.receiver} >{msg.content}</Paper>)
         }
         return (
             <div > 
@@ -108,11 +110,12 @@ class MdMessages extends Component {
                         <Paper>Start a conversation with...</Paper>
                         {this.listPatientNames()}
                         <Paper className={classes.loginBox} >
-                        
+
+                        { this.state.current_patient ?
                         <Typography component={'span'}>
                             <Card className={classes.root}>
                             <CardContent>
-                                <h3>Chat with Dr.  </h3>
+                                <h3>Chat with {this.state.current_patient.name}  </h3>
                             </CardContent>
                             </Card>
                             {renderMessages()}
@@ -123,6 +126,8 @@ class MdMessages extends Component {
                                 </form>
                             </Paper>
                         </Typography>
+                        : null
+                        }
                         </Paper>
                         </Grid>   
                     </Grid>
