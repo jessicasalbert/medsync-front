@@ -33,9 +33,8 @@ class PatientLogin extends Component {
     submitHandler = (e) => {
         e.preventDefault()
         this.props.patientLogin(this.state)
-        // if (localStorage.getItem("id") !== null) {
-            this.props.history.push("/mymeds")
-        //}
+        this.props.history.push("/mymeds")
+        
     }
 
 
