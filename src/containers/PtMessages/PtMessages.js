@@ -15,11 +15,39 @@ import { withRouter } from 'react-router-dom';
 class PtMessages extends Component {
 
     state = {
-        messages: ["Hello", "there"]
+        messages: ["Hello", "there"], 
+        patient:  this.props.patient,
+        content: ""
     }
     
     renderMessages = () => {
         return this.state.messages.map(msg => <Paper >{msg}</Paper>)
+    }
+
+    sendMessage = (e) => {
+        e.preventDefault()
+        console.log(this.state.content)
+        const configObj = {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                accept: "application/json",
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                content: this.state.content,
+                patient_id: this.state.patient.user.id,
+                doctor_id: this.state.patient.user.doctor_id,
+                sender_type: "patient"
+            })
+        }
+        fetch("http://localhost:3000/api/v1/messages/", configObj)
+        .then(res => res.json())
+        .then(console.log)
+    }
+
+    messageContent = (e) => {
+        this.setState({content: e.target.value})
     }
 
     render() {
@@ -42,9 +70,9 @@ class PtMessages extends Component {
                             </Card>
                             {this.renderMessages()}
                             <Paper>
-                                <form>
-                                    <TextField label="message"/>
-                                    <Button>Send</Button>
+                                <form onSubmit={this.sendMessage}>
+                                    <TextField onChange={this.messageContent} label="message" value={this.state.content}/>
+                                    <Button type="submit">Send</Button>
                                 </form>
                             </Paper>
                         </Typography>
