@@ -20,9 +20,7 @@ class PtMessages extends Component {
         content: ""
     }
     
-    renderMessages = () => {
-        return this.state.messages.map(msg => <Paper >{msg.content}</Paper>)
-    }
+    
 
     componentDidMount() {
         if (!this.props.patient_details) {
@@ -66,6 +64,9 @@ class PtMessages extends Component {
 
     render() {
         const { classes } = this.props
+        const renderMessages = () => {
+            return this.state.messages.map(msg => <Paper className={msg.sender_type==="patient" ? classes.sender : classes.receiver} >{msg.content}</Paper>)
+        }
         return (
             <div > 
                 
@@ -82,7 +83,7 @@ class PtMessages extends Component {
                                 <h3>Chat with Dr.  </h3>
                             </CardContent>
                             </Card>
-                            {this.renderMessages()}
+                            {renderMessages()}
                             <Paper>
                                 <form onSubmit={this.sendMessage}>
                                     <TextField onChange={this.messageContent} label="message" value={this.state.content}/>

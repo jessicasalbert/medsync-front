@@ -13,6 +13,13 @@ const useStyles = (theme) => ({
     },
     textField: {
         margin: "3px"
+    },
+    sender: {
+        color: "#87cefa",
+        justifyContent: "right"
+    },
+    receiver: {
+        
     }
   });
 
