@@ -34,10 +34,11 @@ export function ptLoginAction(pt, dispatch) {
         fetch('http://localhost:3000/api/v1/patientlogin', config)
         .then(res => res.json())
         .then(res =>{ 
-        console.log(res)
+            console.log(res)
         dispatch({ type: "LOGIN_PATIENT", payload: res})
         localStorage.setItem("token", res.jwt)
         localStorage.setItem("user", "patient")
+        localStorage.setItem("id", res.user.id)
         })
     }
 

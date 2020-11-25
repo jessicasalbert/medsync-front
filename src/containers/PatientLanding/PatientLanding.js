@@ -22,35 +22,35 @@ class PatientLanding extends Component {
     }
 
 
-    // componentDidUpdate(prevProps){
-    //     console.log(this.props.patient)
-    //     if (this.props.patient && prevProps !== this.props) {
-    //         let token = localStorage.getItem("token")
-    //         if (!token) {
-    //             token = this.props.patient.jwt
-    //         }
-    //         const configObj = {
-    //             method: "GET",
-    //             headers: {Authorization: `Bearer ${token}`}
-    //         }
-    //         fetch(`http://localhost:3000/api/v1/patients/${localStorage.getItem("id")}`, configObj)
-    //         .then(res => res.json())
-    //         .then(res => this.setState({ patient: res }))
-    //      }
-    //  }
+    componentDidUpdate(prevProps){
+        console.log(this.props.patient)
+        if (this.props.patient && prevProps !== this.props) {
+            let token = localStorage.getItem("token")
+            if (!token) {
+                token = this.props.patient.jwt
+            }
+            const configObj = {
+                method: "GET",
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            fetch(`http://localhost:3000/api/v1/patients/${this.props.patient.user.id}`, configObj)
+            .then(res => res.json())
+            .then(res => this.setState({ patient: res }))
+         }
+     }
 
     componentDidMount() {
-        
+        if (this.props.patient) {
             const configObj = {
                 method: "GET",
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}`}
             }
-            fetch(`http://localhost:3000/api/v1/patients/${localStorage.getItem("id")}`, configObj)
+            fetch(`http://localhost:3000/api/v1/patients/${this.props.patient.user.id}`, configObj)
             .then(res => res.json())
             .then(res => {
                 this.setState({ patient : res})
             })
-        
+        }
     }
 
     filterTime = (time) => {
