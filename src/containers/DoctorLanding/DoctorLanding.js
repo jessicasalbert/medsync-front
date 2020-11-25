@@ -6,7 +6,8 @@ import Loading from '../../components/Loading/Loading'
 import PatientBlurb from '../../components/PatientBlurb/PatientBlurb';
 import { withStyles } from "@material-ui/core/styles"
 import { Route, Switch } from "react-router-dom"
-  
+import { patientListAction } from '../../redux/actions' 
+import { TransferWithinAStationSharp } from '@material-ui/icons';
 
 class DoctorLanding extends React.Component {
   
@@ -27,7 +28,7 @@ class DoctorLanding extends React.Component {
             fetch(`http://localhost:3000/api/v1/doctors/${this.props.doctor.user.id}`, configObj)
             .then(res => res.json())
             .then(res => {
-                this.setState({ patients : res.patients})
+                this.setState({ patients : res.patients}, () => (this.props.patients(res.patients)))
             })
          }
      }
@@ -41,7 +42,7 @@ class DoctorLanding extends React.Component {
             fetch(`http://localhost:3000/api/v1/doctors/${this.props.doctor.user.id}`, configObj)
             .then(res => res.json())
             .then(res => {
-                this.setState({ patients : res.patients})
+                this.setState({ patients : res.patients}, () => (this.props.patients(res.patients)))
             })
         }
     }
@@ -79,6 +80,9 @@ const msp = (state) => {
     return {doctor: state.doctor}
 }
 
+const mdp = (dispatch) => {
+    return { patients: (patients) => dispatch(patientListAction(patients, dispatch))}
+}
 
-export default connect(msp)(withStyles(useStyles, { withTheme: true })(DoctorLanding))
+export default connect(msp, mdp)(withStyles(useStyles, { withTheme: true })(DoctorLanding))
 

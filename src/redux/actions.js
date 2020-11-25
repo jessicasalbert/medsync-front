@@ -54,7 +54,12 @@ export function sessionUserAction(user, dispatch) {
 }
 export function patientDetailsAction(details, dispatch) {
     return function() {
-        console.log(details)
         dispatch({ type: "UPDATE_PT_DETAILS", payload: details})
+    }
+}
+
+export function patientListAction(patient, dispatch) {
+    return function() {
+        dispatch({ type: "ADD_PATIENT_LIST", payload: patient})
     }
 }
