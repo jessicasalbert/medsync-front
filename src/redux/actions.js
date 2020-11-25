@@ -1,5 +1,3 @@
-import { useHistory } from "react-router-dom";
-
 
 export function docLoginAction(doc, dispatch) {
     return function(){
@@ -53,4 +51,10 @@ export function sessionUserAction(user, dispatch) {
         }
     }
 
+}
+export function patientDetailsAction(details, dispatch) {
+    return function() {
+        console.log(details)
+        dispatch({ type: "UPDATE_PT_DETAILS", payload: details})
+    }
 }

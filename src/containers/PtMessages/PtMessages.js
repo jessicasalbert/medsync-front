@@ -15,13 +15,27 @@ import { withRouter } from 'react-router-dom';
 class PtMessages extends Component {
 
     state = {
-        messages: ["Hello", "there"], 
+        messages: [], 
         patient:  this.props.patient,
         content: ""
     }
     
     renderMessages = () => {
-        return this.state.messages.map(msg => <Paper >{msg}</Paper>)
+        return this.state.messages.map(msg => <Paper >{msg.content}</Paper>)
+    }
+
+    componentDidMount() {
+        if (!this.props.patient_details) {
+            this.props.history.push("/mymeds")
+        } else {
+            const configObj = {
+                method: "GET",
+                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
+            }
+            fetch(`http://localhost:3000/api/v1/conversations/${this.props.patient_details.conversation_id}`, configObj)
+            .then(res => res.json())
+            .then(res => this.setState({ messages: res.messages }))
+        }
     }
 
     sendMessage = (e) => {
@@ -43,7 +57,7 @@ class PtMessages extends Component {
         }
         fetch("http://localhost:3000/api/v1/messages/", configObj)
         .then(res => res.json())
-        .then(console.log)
+        .then(this.setState({content: ""}))
     }
 
     messageContent = (e) => {
@@ -88,7 +102,7 @@ class PtMessages extends Component {
 }
 
 const msp = (state) => {
-    return {patient: state.patient}
+    return {patient: state.patient, patient_details: state.patient_details}
 }
 
 
