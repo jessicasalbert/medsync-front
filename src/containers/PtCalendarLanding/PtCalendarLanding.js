@@ -11,6 +11,7 @@ import useStyles from './PtCalendarLandingStyle'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { TextField } from '@material-ui/core';
+import PtCalendar from '../../components/PtCalendar/PtCalendar'
 
 
 
@@ -30,10 +31,7 @@ const PtCalendarLanding = (props) => {
                 <Grid container spacing={3} align="center" justify="center" >
                     <Grid item xs={6} >
                     <Paper className={classes.loginBox}>
-                    <Typography component="span">
-                        Book an Appointment with Dr. {props.patient_details.doctor.name}
-                        <TextField type="datetime-local"></TextField>
-                    </Typography>
+                        <PtCalendar/>
                     </Paper>
                     </Grid>   
                 </Grid>
