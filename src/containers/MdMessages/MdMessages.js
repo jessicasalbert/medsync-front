@@ -12,6 +12,7 @@ import { withStyles } from "@material-ui/core/styles"
 import useStyles from './MdMessagesStyle'
 import { withRouter } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading'
+import consumer from '../../cable'
 
 class MdMessages extends Component {
 
@@ -31,14 +32,8 @@ class MdMessages extends Component {
         if (!this.props.patient_list) {
             this.props.history.push("/mypatients")
         } else {
-            console.log("Hi")
-            // const configObj = {
-            //     method: "GET",
-            //     headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
-            // }
-            // fetch(`http://localhost:3000/api/v1/conversations/${this.props.patient_details.conversation_id}`, configObj)
-            // .then(res => res.json())
-            // .then(res => this.setState({ messages: res.messages }))
+            
+            
         }
     }
 
@@ -68,7 +63,6 @@ class MdMessages extends Component {
     }
 
     listPatientNames = () => {
-        console.log(this.props.patient_list)
         return this.props.patient_list.map(pt => <Paper onClick={this.fetchPtDetails} data-id={pt.id} key={pt.id}>{pt.name}</Paper>)
     }
 
@@ -91,6 +85,19 @@ class MdMessages extends Component {
         fetch(`http://localhost:3000/api/v1/conversations/${this.state.conversation}`, configObj)
         .then(res => res.json())
         .then(res => this.setState({ messages: res.messages }))
+
+        consumer.subscriptions.create({
+            channel: "MessageFeedChannel",
+            user_type: "doctor",
+            doctor_id: this.state.doctor.id,
+            conversation_id: this.state.conversation
+        }
+        , {
+            connected: () => console.log("connected"),
+            disconnected: () => console.log("disconnected"),
+            received: data => console.log("received:", data)
+        })
+        console.log(consumer)
     }
 
     render() {

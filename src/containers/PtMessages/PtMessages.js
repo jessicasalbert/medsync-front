@@ -11,6 +11,8 @@ import { connect } from 'react-redux'
 import { withStyles } from "@material-ui/core/styles"
 import useStyles from './PtMessagesStyle'
 import { withRouter } from 'react-router-dom';
+import consumer from '../../cable'
+
 
 class PtMessages extends Component {
 
@@ -32,8 +34,24 @@ class PtMessages extends Component {
             }
             fetch(`http://localhost:3000/api/v1/conversations/${this.props.patient_details.conversation_id}`, configObj)
             .then(res => res.json())
-            .then(res => this.setState({ messages: res.messages }))
+            .then(res => this.setState({ messages: res.messages }), () => {
+                
+            })
+
+            consumer.subscriptions.create({
+                channel: "MessageFeedChannel",
+                user_type: "patient",
+                doctor_id: this.props.patient.user.doctor_id,
+                conversation_id: this.props.patient_details.conversation_id
+            }, {
+                connected: () => console.log("connected"),
+                disconnected: () => console.log("disconnected"),
+                received: data => console.log("received:", data)
+            })
+            
         }
+
+        
     }
 
     sendMessage = (e) => {
@@ -69,6 +87,7 @@ class PtMessages extends Component {
         }
         return (
             <div > 
+            {console.log("consumer:", consumer)}
                 
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
