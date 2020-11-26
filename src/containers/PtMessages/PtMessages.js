@@ -98,7 +98,7 @@ class PtMessages extends Component {
                             <Card className={classes.root}>
                             
                             <CardContent>
-                                <h3>Chat with Dr. {this.props.patient_details.doctor.name} </h3>
+                                <h3>Chat with Dr. {this.props.patient_details ? this.props.patient_details.doctor.name : null} </h3>
                             </CardContent>
                             </Card>
                             {renderMessages()}
