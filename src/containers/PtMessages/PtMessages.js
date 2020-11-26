@@ -46,7 +46,8 @@ class PtMessages extends Component {
             }, {
                 connected: () => console.log("connected"),
                 disconnected: () => console.log("disconnected"),
-                received: data => console.log("received:", data)
+                received: data => this.setState((prev) => ({ messages: [...prev.messages, data] })
+                )
             })
             
         }
