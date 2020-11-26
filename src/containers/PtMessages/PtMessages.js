@@ -88,8 +88,6 @@ class PtMessages extends Component {
         }
         return (
             <div > 
-            {console.log("consumer:", consumer)}
-                
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
@@ -100,7 +98,7 @@ class PtMessages extends Component {
                             <Card className={classes.root}>
                             
                             <CardContent>
-                                <h3>Chat with Dr.  </h3>
+                                <h3>Chat with Dr. {this.props.patient_details.doctor.name} </h3>
                             </CardContent>
                             </Card>
                             {renderMessages()}

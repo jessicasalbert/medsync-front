@@ -77,7 +77,7 @@ class MdMessages extends Component {
     }
 
     fetchMessages = () => {
-        console.log(this.state)
+        console.log(this.state.conversation)
         const configObj = {
             method: "GET",
             headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
@@ -86,7 +86,7 @@ class MdMessages extends Component {
         .then(res => res.json())
         .then(res => this.setState({ messages: res.messages }))
 
-        consumer.subscriptions.create({
+        const subscription = consumer.subscriptions.create({
             channel: "MessageFeedChannel",
             user_type: "doctor",
             doctor_id: this.state.doctor.id,
@@ -97,7 +97,7 @@ class MdMessages extends Component {
             disconnected: () => console.log("disconnected"),
             received: data => this.setState((prev) => ({ messages: [...prev.messages, data] })
         )})
-        console.log(consumer)
+        
     }
 
     render() {
