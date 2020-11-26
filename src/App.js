@@ -14,6 +14,7 @@ import { sessionUserAction } from './redux/actions'
 import PatientContainer from './containers/PatientsContainer/PatientContainer'
 import PtMessages from './containers/PtMessages/PtMessages'
 import MdMessages from './containers/MdMessages/MdMessages'
+import PtCalendarLanding from './containers/PtCalendarLanding/PtCalendarLanding'
 
 function App(props) {
 
@@ -47,6 +48,7 @@ function App(props) {
       <Route path="/mymeds" render={() => (<PatientLanding/>)}/>
       <Route path="/mdmessages" render={() => (<MdMessages/>)}/>
       <Route path="/ptmessages" render={() => (<PtMessages/>)}/>
+      <Route path="/ptcalendar" render={() => (<PtCalendarLanding/>)}/>
       <Route path="/" render={() =>(<LandingPage/>)}/>
     </Switch>
     
