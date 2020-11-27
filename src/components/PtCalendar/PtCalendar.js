@@ -32,7 +32,6 @@ import React, { Fragment, useState } from "react";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { Typography, MenuItem, TextField } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
 import { connect } from 'react-redux'
 import 'date-fns'
 import DateFnsUtils from '@date-io/date-fns';
@@ -45,6 +44,14 @@ function PtCalendar(props) {
   const handleDateChange = (date) => {
       setSelectedDate(date)
       props.setDate(date.toDateString())
+      const configObj = {
+        method: "GET",
+        headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
+    }
+      date = date.toDateString().split(" ")
+      fetch(`http://localhost:3000/api/v1/${props.patient_details.doctor.id}/${date[3]}/${date[1]}/${date[2]}`, configObj)
+      .then(res => res.json())
+      .then(console.log)
   }
 
 
