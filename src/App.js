@@ -15,6 +15,7 @@ import PatientContainer from './containers/PatientsContainer/PatientContainer'
 import PtMessages from './containers/PtMessages/PtMessages'
 import MdMessages from './containers/MdMessages/MdMessages'
 import PtCalendarLanding from './containers/PtCalendarLanding/PtCalendarLanding'
+import MdCalendar from './components/MdCalendar/MdCalendar'
 
 function App(props) {
 
@@ -48,7 +49,8 @@ function App(props) {
       <Route path="/mymeds" render={() => (<PatientLanding/>)}/>
       <Route path="/mdmessages" render={() => (<MdMessages/>)}/>
       <Route path="/ptmessages" render={() => (<PtMessages/>)}/>
-      <Route path="/ptcalendar" render={() => (<PtCalendarLanding/>)}/>
+      <Route path="/appointment" render={() => (<PtCalendarLanding/>)}/>
+      <Route path="/calendar" render={() => (<MdCalendar/>)}/>
       <Route path="/" render={() =>(<LandingPage/>)}/>
     </Switch>
     

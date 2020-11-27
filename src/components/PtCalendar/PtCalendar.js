@@ -11,7 +11,7 @@ export class PtCalendar extends Component {
     pickAppointment = (e) => {
         this.setState({
             appointment: e.target.value
-        })
+        }, ()=> console.log(this.state.appointment))
     }
 
     render() {
@@ -29,3 +29,4 @@ const msp = (state) => {
 }
 
 export default connect(msp)(PtCalendar)
+

@@ -38,14 +38,18 @@ const NavBar = (props) => {
     }
 
     const redirectPtAppointments = () => {
-      history.push("/ptcalendar")
+      history.push("/appointment")
+    }
+
+    const redirectMdCalendar = () => {
+      history.push("/calendar")
     }
 
     return (
       <AppBar position="static" color="secondary" className={classes.navMargin}>
         <Toolbar >
           <img className={classes.logo} src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png"/>
-          {props.doctor? <Typography className={classes.title} > <> <Button color="inherit" onClick={clickHandler}>My Patients</Button><Button color="inherit" onClick={docMessageHandler}>Message</Button></> </Typography> : null}
+          {props.doctor? <Typography className={classes.title} > <> <Button color="inherit" onClick={clickHandler}>My Patients</Button><Button color="inherit" onClick={docMessageHandler}>Message</Button></> <Button color="inherit" onClick={redirectMdCalendar}>Calendar</Button></Typography> : null}
           {props.patient? <Typography className={classes.title} > <><Button color="inherit" onClick={redirectMyMeds}>My Meds</Button> <Button color="inherit" onClick={messageClickHandler}>Message</Button></> <Button color="inherit" onClick={redirectPtAppointments}>Appointments</Button> </Typography> : null}
           
           {props.doctor || props.patient ? <Button onClick={clearUser} color="inherit">Logout</Button> : null}
