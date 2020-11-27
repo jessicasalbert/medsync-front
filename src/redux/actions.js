@@ -63,3 +63,9 @@ export function patientListAction(patient, dispatch) {
         dispatch({ type: "ADD_PATIENT_LIST", payload: patient})
     }
 }
+
+export function setAppointmentDate(date, dispatch) {
+    return function() {
+        dispatch({ type: "SET_APPT_DATE", payload: date})
+    }
+}

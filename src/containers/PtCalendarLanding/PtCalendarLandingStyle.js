@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
     },
     loginBox: {
-      marginTop: "20%"
+      marginTop: "10%"
     }
   }));
 

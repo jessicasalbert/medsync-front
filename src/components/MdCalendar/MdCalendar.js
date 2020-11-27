@@ -79,7 +79,7 @@ class MdCalendar extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: [{ startDate: '2020-11-27T11:10', endDate: '2020-11-27T12:50', title: 'Meeting' },
+      data: [{ startDate: '2020-11-27T11:10', endDate: '2020-11-27T12:50', title: 'Meeting', details: "heie" },
         { startDate: '2020-11-27T12:00', endDate: '2020-11-27T13:30', title: 'Go to a gym' }
 
       ],
