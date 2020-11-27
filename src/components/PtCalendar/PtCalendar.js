@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { TextField, Typography } from '@material-ui/core'
 import { connect } from 'react-redux'
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+
 
 export class PtCalendar extends Component {
 
@@ -16,9 +18,11 @@ export class PtCalendar extends Component {
 
     render() {
         return (
+
             <Typography component="span">
                 Book an Appointment with Dr. {this.props.patient_details.doctor.name}
-                <TextField value={this.state.appointment} onChange={this.pickAppointment} type="datetime-local"></TextField>
+                <TextField value={this.state.appointment} onChange={this.pickAppointment}></TextField>
+                {/* <DateTimePicker/> */}
             </Typography>
         )
     }
