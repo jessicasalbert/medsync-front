@@ -51,7 +51,11 @@ class PtCalendarLanding extends Component {
         }
     
         this.setState({ open: false});
-      };
+    };
+
+    renderAppts =  () => {
+        return this.props.patient_details.appointments.map( appt => <p>{appt.date}</p>)
+    }
 
     submitHandler = (e) => {
         e.preventDefault()
@@ -100,7 +104,7 @@ class PtCalendarLanding extends Component {
                     <Grid item xs={8}>
                         <Paper className={classes.loginBox}>
                             <Typography>Upcoming appointments:</Typography>
-                            
+                            {this.renderAppts()}
                         </Paper>
                     </Grid>
                     <Grid item xs={8} >
