@@ -51,12 +51,14 @@ import {
   Appointments,
   Toolbar,
   DateNavigator,
-  TodayButton
+  TodayButton,
+  AppointmentTooltip
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { AppointmentForm } from '@devexpress/dx-react-scheduler-material-ui';
 import useStyles from './MdCalendarStyle'
 import { withStyles } from '@material-ui/core'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 const ExternalViewSwitcher = ({
   currentViewName,
@@ -81,8 +83,8 @@ class MdCalendar extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: props.appointments.map( appt => { 
-          return {title: appt.title, startDate: appt.start_date, endDate: appt.end_date }}),
+      data: this.props.appointments ? props.appointments.map( appt => { 
+          return {title: appt.title, startDate: appt.start_date, endDate: appt.end_date }}) : [],
       currentViewName: 'Month',
     };
 
@@ -96,6 +98,9 @@ class MdCalendar extends React.PureComponent {
     const { classes } = this.props
 
     return (
+    <>
+    {!this.props.appointments ? 
+    <Redirect to="/mypatients"/> : 
       <React.Fragment>
         <ExternalViewSwitcher
           currentViewName={currentViewName}
@@ -108,28 +113,34 @@ class MdCalendar extends React.PureComponent {
             height={660}
           >
             <ViewState
-              defaultCurrentDate="2020-11-25"
+              defaultCurrentDate="2020-11-28"
               currentViewName={currentViewName}
             />
             <WeekView
-              startDayHour={10}
-              endDayHour={19}
+              startDayHour={8}
+              endDayHour={17}
             />
             <WeekView
               name="Work Week"
               excludedDays={[0, 6]}
-              startDayHour={9}
-              endDayHour={19}
+              startDayHour={8}
+              endDayHour={17}
             />
             <MonthView />
             <Toolbar />
             <DateNavigator className={classes.root}/>
             <TodayButton />
             <Appointments />
+            <AppointmentTooltip
+            showCloseButton
+            showOpenButton
+          />
           </Scheduler>
         </Paper>
         
       </React.Fragment>
+    }
+    </>
     );
   }
 }
