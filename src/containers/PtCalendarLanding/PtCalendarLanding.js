@@ -97,7 +97,13 @@ class PtCalendarLanding extends Component {
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                 <Grid container spacing={3} align="center" justify="center" >
-                    <Grid item xs={10} >
+                    <Grid item xs={8}>
+                        <Paper className={classes.loginBox}>
+                            <Typography>Upcoming appointments:</Typography>
+                            
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={8} >
                     <Paper className={classes.loginBox}>
                         <PtCalendar setOpenSlots={this.setOpenSlots}/>
                         <>
@@ -129,6 +135,7 @@ class PtCalendarLanding extends Component {
 
                     </Paper>
                     </Grid>   
+                    
                 </Grid>
                 
                 </Grid>

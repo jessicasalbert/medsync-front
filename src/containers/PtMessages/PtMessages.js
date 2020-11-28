@@ -12,6 +12,7 @@ import { withStyles } from "@material-ui/core/styles"
 import useStyles from './PtMessagesStyle'
 import { withRouter } from 'react-router-dom';
 import consumer from '../../cable'
+import { ChatFeed, Message } from 'react-chat-ui'
 
 
 class PtMessages extends Component {
@@ -19,7 +20,14 @@ class PtMessages extends Component {
     state = {
         messages: [], 
         patient:  this.props.patient,
-        content: ""
+        content: "",
+        chatMsgs: [
+            new Message({
+              id: 1,
+              message: "I'm the recipient! (The person you're talking to)",
+            }), // Gray bubble
+            new Message({ id: 0, message: "I'm you -- the blue bubble!" }), // Blue bubble
+          ]
     }
     
     
@@ -51,8 +59,10 @@ class PtMessages extends Component {
             })
             
         }
+    }
 
-        
+    componentWillUnmount() {
+        //consumer.subscriptions.unsubscribe()
     }
 
     sendMessage = (e) => {
@@ -102,6 +112,10 @@ class PtMessages extends Component {
                             </CardContent>
                             </Card>
                             {renderMessages()}
+                            {/* <ChatFeed
+                            messages={this.state.chatMsgs}
+                            showSenderName
+                        /> */}
                             <Paper>
                                 <form onSubmit={this.sendMessage}>
                                     <TextField onChange={this.messageContent} label="message" value={this.state.content}/>
@@ -110,6 +124,9 @@ class PtMessages extends Component {
                             </Paper>
                         </Typography>
                         </Paper>
+
+                        
+
                         </Grid>   
                     </Grid>
                     
