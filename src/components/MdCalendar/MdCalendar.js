@@ -56,6 +56,7 @@ import {
 import { AppointmentForm } from '@devexpress/dx-react-scheduler-material-ui';
 import useStyles from './MdCalendarStyle'
 import { withStyles } from '@material-ui/core'
+import { connect } from 'react-redux'
 
 const ExternalViewSwitcher = ({
   currentViewName,
@@ -74,15 +75,14 @@ const ExternalViewSwitcher = ({
   </RadioGroup>
 );
 
+
 class MdCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [{ startDate: '2020-11-30T11:10', endDate: '2020-11-30T12:50', title: 'Meeting' },
-        { startDate: '2020-11-27T12:00', endDate: '2020-11-27T13:30', title: 'Go to a gym' }
-
-      ],
+      data: props.appointments.map( appt => { 
+          return {title: appt.title, startDate: appt.start_date, endDate: appt.end_date }}),
       currentViewName: 'Month',
     };
 
@@ -134,4 +134,8 @@ class MdCalendar extends React.PureComponent {
   }
 }
 
-export default withStyles(useStyles, { withTheme: true })(MdCalendar)
+const msp = (state) => {
+    return {appointments: state.md_appointments}
+}
+
+export default connect(msp)(withStyles(useStyles, { withTheme: true })(MdCalendar))

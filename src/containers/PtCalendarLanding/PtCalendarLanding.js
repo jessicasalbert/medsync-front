@@ -46,7 +46,18 @@ class PtCalendarLanding extends Component {
             time_slot: this.state.selectedTime,
             date: this.props.apptDate
         }
-        console.log(body)
+        const configObj = {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify(body)
+        }
+        fetch(`http://localhost:3000/api/v1/appointments`, configObj)
+        .then(res => res.json())
+        .then(console.log)
     }
 
     render() {

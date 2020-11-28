@@ -69,3 +69,9 @@ export function setAppointmentDate(date, dispatch) {
         dispatch({ type: "SET_APPT_DATE", payload: date})
     }
 }
+
+export function setMdAppointments(appointments, dispatch) {
+    return function() {
+        dispatch({ type: "SET_MD_APPTS", payload: appointments})
+    }
+}
