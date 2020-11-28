@@ -10,18 +10,23 @@ import Grid from '@material-ui/core/Grid';
 import useStyles from './PtCalendarLandingStyle'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { TextField, MenuItem } from '@material-ui/core';
+import { TextField, MenuItem, Snackbar} from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import PtCalendar from '../../components/PtCalendar/PtCalendar'
 import { withStyles } from '@material-ui/core'
 import { Button } from '@material-ui/core'
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 class PtCalendarLanding extends Component {
 
     state = {
         availableAppts: [],
         selectedTime: null,
-        concerns: ""
+        concerns: "", 
+        open: false
     }
 
     setOpenSlots = (arr) => {
@@ -35,6 +40,18 @@ class PtCalendarLanding extends Component {
             [e.target.name] : e.target.value
         })
     }
+
+    handleClick = () => {
+        this.setState({ open: true})
+    }
+
+    handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        this.setState({ open: false});
+      };
 
     submitHandler = (e) => {
         e.preventDefault()
@@ -58,7 +75,7 @@ class PtCalendarLanding extends Component {
         console.log(body)
         fetch(`http://localhost:3000/api/v1/appointments`, configObj)
         .then(res => res.json())
-        .then(console.log)
+        .then(this.handleClick)
     }
 
     render() {
@@ -107,6 +124,8 @@ class PtCalendarLanding extends Component {
                         
                         }</>}
                         </>
+                        
+                        
 
                     </Paper>
                     </Grid>   
@@ -114,6 +133,15 @@ class PtCalendarLanding extends Component {
                 
                 </Grid>
             </Grid>
+            
+            <div className={classes.root}>
+            <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
+                <Alert onClose={this.handleClose} severity="success">
+                Your appointment has been scheduled!
+                </Alert>
+            </Snackbar>
+            </div>
+  );
         </div>
 
         : <Redirect to="mymeds"/> }
