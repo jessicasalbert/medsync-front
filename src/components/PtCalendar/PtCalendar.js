@@ -51,7 +51,7 @@ function PtCalendar(props) {
       date = date.toDateString().split(" ")
       fetch(`http://localhost:3000/api/v1/${props.patient_details.doctor.id}/${date[3]}/${date[1]}/${date[2]}`, configObj)
       .then(res => res.json())
-      .then(console.log)
+      .then(res => props.setOpenSlots(res))
   }
 
 

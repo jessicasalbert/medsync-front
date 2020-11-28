@@ -18,9 +18,49 @@ import { Button } from '@material-ui/core'
 
 class PtCalendarLanding extends Component {
 
+    state = {
+        availableAppts: [],
+        selectedTime: null,
+        concerns: ""
+    }
+
+    setOpenSlots = (arr) => {
+        this.setState({
+            availableAppts: arr
+        })
+    }
+    
+    formEdit = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
+
+    submitHandler = (e) => {
+        e.preventDefault()
+        const body = {
+            doctor_id: this.props.patient.user.doctor_id,
+            patient_id: this.props.patient.user.id,
+            title: this.props.patient.user.name,
+            details: this.state.concerns,
+            time_slot: this.state.selectedTime,
+            date: this.props.apptDate
+        }
+        console.log(body)
+    }
 
     render() {
         const { classes } = this.props
+
+        const times = {
+            1 : "9:00 - 9:45 AM",
+            2: "10:30 - 11:15 AM",
+            3: "12:00 - 12:45 PM",
+            4: "2:00 - 2:45 PM",
+            5: "3:30 - 4:15 PM"
+        }
+    
+
     return (
       <>
       {this.props.patient_details ? 
@@ -30,23 +70,27 @@ class PtCalendarLanding extends Component {
                 <Grid container spacing={3} align="center" justify="center" >
                     <Grid item xs={10} >
                     <Paper className={classes.loginBox}>
-                        <PtCalendar/>
+                        <PtCalendar setOpenSlots={this.setOpenSlots}/>
                         <>
                         {!this.props.apptDate ? null
                         :
                         <>
                         
-                        {this.props.apptDate.slice(0,3) === "Sat" || this.props.apptDate.slice(0,3) === "Sun" ? "Appointments available Monday-Friday" : 
+                        {this.props.apptDate.slice(0,3) === "Sat" || this.props.apptDate.slice(0,3) === "Sun" ? "Appointments available Monday-Friday" :
+                        <> 
+                        {this.state.availableAppts.length > 0 ? 
                         <>
+                        <form onSubmit={this.submitHandler}>
                         <Typography>Appointments available for {this.props.apptDate}:</Typography>
-                        <TextField  id="time" name="time" select>
-                            <MenuItem value="morning">Morning</MenuItem>
-                            <MenuItem value="afternoon ">Afternoon</MenuItem>
-                            <MenuItem value="evening ">Evening</MenuItem>
+                        <TextField  onChange={this.formEdit} id="time" name="selectedTime" value={this.state.selectedTime} select>
+                            {this.state.availableAppts.map( slot => <MenuItem value={slot}>{times[slot]}</MenuItem>)}
                         </TextField><br/><br/>
-                        <TextField placeholder="Concerns"></TextField><br/><br/>
-                        <Button variant="outlined" color="primary">Make Appointment</Button><br/>
+                        <TextField name="concerns" onChange={this.formEdit} placeholder="Concerns" value={this.state.concerns}></TextField><br/><br/>
+                        <Button type="submit" variant="outlined" color="primary">Make Appointment</Button><br/>
+                        </form>
                         </>
+                        :
+                        "No appointments available"}</>
                         
                         
                         }</>}
