@@ -39,7 +39,7 @@ class PtCalendarLanding extends Component {
     submitHandler = (e) => {
         e.preventDefault()
         const body = {
-            doctor_id: this.props.patient.user.doctor_id,
+            doctor_id: this.props.patient_details.doctor.id,
             patient_id: this.props.patient.user.id,
             title: this.props.patient.user.name,
             details: this.state.concerns,
@@ -55,6 +55,7 @@ class PtCalendarLanding extends Component {
             },
             body: JSON.stringify(body)
         }
+        console.log(body)
         fetch(`http://localhost:3000/api/v1/appointments`, configObj)
         .then(res => res.json())
         .then(console.log)
