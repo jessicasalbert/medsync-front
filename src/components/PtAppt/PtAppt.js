@@ -1,9 +1,16 @@
-import { Paper, Typography, Button } from '@material-ui/core'
+import { Paper, Typography, Button, Snackbar } from '@material-ui/core'
 import React, { Component } from 'react'
 import { setPtAppointmentsAction, patientDetailsAction } from '../../redux/actions'
 import { connect } from 'react-redux'
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
 
 export class PtAppt extends Component {
+
 
     deleteHandler = () => {
         const configObj = {
@@ -20,19 +27,23 @@ export class PtAppt extends Component {
             const index = newDetails['appointments'].findIndex( appt => appt.id === res.id)
             newDetails['appointments'].splice(index, 1)
             this.props.updateAppts(newDetails)
+            this.props.cancelSnack()
         })
         
     }
     render() {
         return (
+            <>
             <Paper>
                 <Typography>
                 {this.props.appt.formatted_time} on {this.props.appt.formatted_date}
                 </Typography>
-                <Button size="small" variant="outlined" color="primary">Reschedule</Button>
                 <Button onClick={this.deleteHandler} size="small" variant="outlined" color="primary">Cancel</Button>
             </Paper>
+            </>
+            
         )
+        
     }
 }
 

@@ -29,7 +29,8 @@ class PtCalendarLanding extends Component {
         selectedTime: null,
         concerns: "", 
         open: false,
-        form: false
+        form: false,
+        cancelled: true
     }
 
     setOpenSlots = (arr) => {
@@ -48,6 +49,10 @@ class PtCalendarLanding extends Component {
         this.setState({ open: true})
     }
 
+    cancelSnack = () => {
+        this.setState({ cancelled: true})
+    }
+
     handleClose = (event, reason) => {
         if (reason === 'clickaway') {
           return;
@@ -56,12 +61,20 @@ class PtCalendarLanding extends Component {
         this.setState({ open: false});
     };
 
+    handleCloseCancel = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        this.setState({ cancelled: false});
+    };
+
     renderAppts =  () => {
-        // if (this.props.patient_details.appointments.length > 0) {
-        return this.props.patient_details.appointments.map( appt => <><PtAppt appt={appt}></PtAppt><br/></>)
-        // } else {
-        //     return <p>You have no upcoming appointments</p>
-        // }
+        if (this.props.patient_details.appointments.length > 0) {
+            return this.props.patient_details.appointments.map( appt => <><PtAppt cancelSnack={this.cancelSnack} appt={appt}></PtAppt><br/></>)
+        } else {
+            return <p>You have no upcoming appointments</p>
+        }
     }
 
     submitHandler = (e) => {
@@ -91,6 +104,7 @@ class PtCalendarLanding extends Component {
             const newDeets = {...this.props.patient_details}
             newDeets['appointments'] = newAppts
             this.props.updateAppts(newDeets)
+            this.setState({form: false})
         })
     }
 
@@ -124,7 +138,7 @@ class PtCalendarLanding extends Component {
                         </Paper>
                     </Grid>
                     <Grid item xs={8} >
-                        <Button onClick={this.showForm}>Book an Appointment</Button>
+                        {!this.state.form ? <><Button  variant="contained" size="large"onClick={this.showForm}>Book an Appointment</Button><br/></> : null}
                     {this.state.form ?
                     <Paper className={classes.loginBox}>
                         <PtCalendar setOpenSlots={this.setOpenSlots}/>
@@ -163,6 +177,11 @@ class PtCalendarLanding extends Component {
             <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
                 <Alert onClose={this.handleClose} severity="success">
                 Your appointment has been scheduled!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={this.state.cancelled} autoHideDuration={6000} onClose={this.handleCloseCancel}>
+                <Alert onClose={this.handleCloseCancel} severity="success">
+                Your appointment has been cancelled.
                 </Alert>
             </Snackbar>
             </div>
