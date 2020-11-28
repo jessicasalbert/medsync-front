@@ -15,6 +15,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import PtCalendar from '../../components/PtCalendar/PtCalendar'
 import { withStyles } from '@material-ui/core'
 import { Button } from '@material-ui/core'
+import PtAppt from '../../components/PtAppt/PtAppt'
+import { patientDetailsAction } from '../../redux/actions'
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -26,7 +28,8 @@ class PtCalendarLanding extends Component {
         availableAppts: [],
         selectedTime: null,
         concerns: "", 
-        open: false
+        open: false,
+        form: false
     }
 
     setOpenSlots = (arr) => {
@@ -54,7 +57,11 @@ class PtCalendarLanding extends Component {
     };
 
     renderAppts =  () => {
-        return this.props.patient_details.appointments.map( appt => <p>{appt.date}</p>)
+        // if (this.props.patient_details.appointments.length > 0) {
+        return this.props.patient_details.appointments.map( appt => <><PtAppt appt={appt}></PtAppt><br/></>)
+        // } else {
+        //     return <p>You have no upcoming appointments</p>
+        // }
     }
 
     submitHandler = (e) => {
@@ -76,10 +83,19 @@ class PtCalendarLanding extends Component {
             },
             body: JSON.stringify(body)
         }
-        console.log(body)
         fetch(`http://localhost:3000/api/v1/appointments`, configObj)
         .then(res => res.json())
-        .then(this.handleClick)
+        .then(res => {
+            this.handleClick()
+            const newAppts = [...this.props.patient_details['appointments'], res]
+            const newDeets = {...this.props.patient_details}
+            newDeets['appointments'] = newAppts
+            this.props.updateAppts(newDeets)
+        })
+    }
+
+    showForm = () => {
+        this.setState({form: true})
     }
 
     render() {
@@ -103,11 +119,13 @@ class PtCalendarLanding extends Component {
                 <Grid container spacing={3} align="center" justify="center" >
                     <Grid item xs={8}>
                         <Paper className={classes.loginBox}>
-                            <Typography>Upcoming appointments:</Typography>
+                            <Typography>Upcoming appointments:</Typography><br/>
                             {this.renderAppts()}
                         </Paper>
                     </Grid>
                     <Grid item xs={8} >
+                        <Button onClick={this.showForm}>Book an Appointment</Button>
+                    {this.state.form ?
                     <Paper className={classes.loginBox}>
                         <PtCalendar setOpenSlots={this.setOpenSlots}/>
                         <>
@@ -130,14 +148,10 @@ class PtCalendarLanding extends Component {
                         </>
                         :
                         "No appointments available"}</>
-                        
-                        
                         }</>}
                         </>
-                        
-                        
-
                     </Paper>
+                    : null}
                     </Grid>   
                     
                 </Grid>
@@ -166,4 +180,10 @@ const msp = (state) => {
 }
 
 
-export default connect(msp)(withStyles(useStyles, { withTheme: true })(PtCalendarLanding))
+const mdp = (dispatch) => {
+    return { updateAppts: (newDetails) => {
+        dispatch(patientDetailsAction(newDetails, dispatch))
+    }}
+}
+
+export default connect(msp, mdp)(withStyles(useStyles, { withTheme: true })(PtCalendarLanding))

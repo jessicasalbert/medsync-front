@@ -14,7 +14,7 @@ import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
 import PtMed from '../../components/PtMed/PtMed'
 import { FormatListNumberedRtlOutlined } from '@material-ui/icons';
-import { patientDetailsAction } from '../../redux/actions'
+import { patientDetailsAction, setPtAppointmentsAction } from '../../redux/actions'
 
 class PatientLanding extends Component {
     
@@ -37,7 +37,9 @@ class PatientLanding extends Component {
             fetch(`http://localhost:3000/api/v1/patients/${this.props.patient.user.id}`, configObj)
             .then(res => res.json())
             .then(res => {
-                this.setState({ patient : res}, () => (this.props.patientDetails(res)))
+                this.setState({ patient : res}, () => 
+                {this.props.patientDetails(res)
+               })
             })
          }
      }
@@ -108,11 +110,14 @@ class PatientLanding extends Component {
 }
 
 const msp = (state) => {
-    return {patient: state.patient}
+    return {patient: state.patient, appointments: state.appointments}
 }
 
 const mdp = (dispatch) => {
-    return { patientDetails: (details) => dispatch(patientDetailsAction(details, dispatch))}
+    return { patientDetails: (details) => {
+        dispatch(patientDetailsAction(details, dispatch))
+        // dispatch(setPtAppointmentsAction(details.appointments, dispatch))
+    }}
 }
 
 export default connect(msp, mdp)(withStyles(useStyles, { withTheme: true })(PatientLanding))

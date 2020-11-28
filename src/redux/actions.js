@@ -75,3 +75,9 @@ export function setMdAppointments(appointments, dispatch) {
         dispatch({ type: "SET_MD_APPTS", payload: appointments})
     }
 }
+
+export function setPtAppointmentsAction(appts, dispatch) {
+    return function() {
+        dispatch({ type: "SET_PT_APPTS", payload: appts})
+    }
+}
