@@ -13,3 +13,6 @@ code {
     monospace;
 }
 
+.chatbox-container {
+  height: 440px;
+}

@@ -13,6 +13,7 @@ import useStyles from './PtMessagesStyle'
 import { withRouter } from 'react-router-dom';
 import consumer from '../../cable'
 import { ChatFeed, Message } from 'react-chat-ui'
+import InboxComponent from '../../components/TalkJs/TalkJs'
 
 
 class PtMessages extends Component {
@@ -61,9 +62,6 @@ class PtMessages extends Component {
         }
     }
 
-    componentWillUnmount() {
-        //consumer.subscriptions.unsubscribe()
-    }
 
     sendMessage = (e) => {
         e.preventDefault()
@@ -97,12 +95,12 @@ class PtMessages extends Component {
             return this.state.messages.map(msg => <Paper className={msg.sender_type==="patient" ? classes.sender : classes.receiver} >{msg.content}</Paper>)
         }
         return (
-            <div > 
-                <Grid container spacing={3}>
+            <div className={classes.talkJs} > 
+                {/* <Grid container spacing={3}>
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
-                        <Grid item xs={6} >
-                        <Paper className={classes.loginBox} >
+                        <Grid item xs={10} > */}
+                        {/* <Paper className={classes.loginBox} >
                         
                         <Typography component={'span'}>
                             <Card className={classes.root}>
@@ -110,28 +108,25 @@ class PtMessages extends Component {
                             <CardContent>
                                 <h3>Chat with Dr. {this.props.patient_details ? this.props.patient_details.doctor.name : null} </h3>
                             </CardContent>
-                            </Card>
-                            {renderMessages()}
-                            {/* <ChatFeed
-                            messages={this.state.chatMsgs}
-                            showSenderName
-                        /> */}
-                            <Paper>
+                            </Card> */}
+                            {/* {renderMessages()} */}
+                            <InboxComponent/>
+                            {/* <Paper>
                                 <form onSubmit={this.sendMessage}>
                                     <TextField onChange={this.messageContent} label="message" value={this.state.content}/>
                                     <Button type="submit">Send</Button>
                                 </form>
                             </Paper>
                         </Typography>
-                        </Paper>
+                        </Paper> */}
 
                         
 
-                        </Grid>   
+                {/* </Grid>   
                     </Grid>
                     
                     </Grid>
-                </Grid>
+                </Grid> */}
                 </div>
         )
     }

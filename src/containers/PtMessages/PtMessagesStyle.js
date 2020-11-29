@@ -20,6 +20,9 @@ const useStyles = (theme) => ({
     },
     receiver: {
         
+    },
+    talkJs: {
+        height: "440px"
     }
   });
 
