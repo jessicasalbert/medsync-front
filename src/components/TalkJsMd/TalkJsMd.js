@@ -11,10 +11,10 @@ class InboxAppMd extends React.Component {
     componentDidMount() {    
       Talk.ready.then(() => {
         var me = new Talk.User({
-          id: this.props.patient.user.id,
-          name: this.props.patient.user.name,
-          email: this.props.patient.user.email,
-          photoUrl: this.props.patient.user.image_url,
+          id: this.props.doctor.user.id,
+          name: this.props.doctor.user.name,
+          email: this.props.doctor.user.email,
+          //photoUrl: this.props.patient.user.image_url,
           welcomeMessage: "Hey there! How are you? :-)",
           role: "booker"
         });
@@ -25,10 +25,10 @@ class InboxAppMd extends React.Component {
         });
         
         var other = new Talk.User({
-          id: 5,
-          name: "Sebastian",
-          email: "demo@talkjs.com",
-          photoUrl: "https://demo.talkjs.com/img/sebastian.jpg",
+          id: this.props.patient_list[0].id,
+          name: this.props.patient_list[0].name,
+          email: this.props.patient_list[0].email,
+          photoUrl: this.props.patient_list[0].name.image,
           welcomeMessage: "Hey, how can I help?",
           role: "booker"
         });
@@ -51,7 +51,7 @@ class InboxAppMd extends React.Component {
 
 
  const msp = (state) => {
-    return {doctor: state.doctor}
+    return {doctor: state.doctor, patient_list: state.patient_list}
 }
 
  export default connect(msp)(InboxAppMd)

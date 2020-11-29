@@ -30,7 +30,7 @@ class PtCalendarLanding extends Component {
         concerns: "", 
         open: false,
         form: false,
-        cancelled: true
+        cancelled: false
     }
 
     setOpenSlots = (arr) => {

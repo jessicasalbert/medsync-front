@@ -13,6 +13,7 @@ import useStyles from './MdMessagesStyle'
 import { withRouter } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading'
 import consumer from '../../cable'
+import InboxAppMd from '../../components/TalkJsMd/TalkJsMd'
 
 class MdMessages extends Component {
 
@@ -111,7 +112,8 @@ class MdMessages extends Component {
                 
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                    <Grid container spacing={3} align="center" justify="center" >
+                        <InboxAppMd/>
+                    {/* <Grid container spacing={3} align="center" justify="center" >
                         <Grid item xs={6} >
 
                         <Paper>Start a conversation with...</Paper>
@@ -137,7 +139,7 @@ class MdMessages extends Component {
                         }
                         </Paper>
                         </Grid>   
-                    </Grid>
+                    </Grid> */}
                     
                     </Grid>
                 </Grid>

@@ -16,7 +16,7 @@ class InboxApp extends React.Component {
           email: this.props.patient.user.email,
           //photoUrl: this.props.patient.user.image,
           welcomeMessage: "Hey there! How are you? :-)",
-          //role: "booker"
+          role: "booker"
         });
         
         window.talkSession = new Talk.Session({
@@ -39,6 +39,9 @@ class InboxApp extends React.Component {
         
         var inbox = window.talkSession.createInbox({selected: conversation});
         inbox.mount(this.talkjsContainer.current);
+
+        // const chatbox = window.session.createChatbox(conversation);
+        // chatbox.mount(document.getElementById("talkjs-container"));
       });
     }
   
