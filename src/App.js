@@ -16,6 +16,7 @@ import PtMessages from './containers/PtMessages/PtMessages'
 import MdMessages from './containers/MdMessages/MdMessages'
 import PtCalendarLanding from './containers/PtCalendarLanding/PtCalendarLanding'
 import MdCalendar from './components/MdCalendar/MdCalendar'
+import MedInteractions from './containers/MedInteractions/MedInteractions';
 
 
 function App(props) {
@@ -52,6 +53,7 @@ function App(props) {
       <Route path="/ptmessages" render={() => (<PtMessages/>)}/>
       <Route path="/appointment" render={() => (<PtCalendarLanding/>)}/>
       <Route path="/calendar" render={() => (<MdCalendar/>)}/>
+      <Route path="/interactions" render={() => (<MedInteractions/>)}/>
       <Route path="/" render={() =>(<LandingPage/>)}/>
     </Switch>
     
