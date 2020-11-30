@@ -118,3 +118,4 @@ class InboxApp extends React.Component {
 // }
 
 //  export default connect(msp)(InboxApp)
+
