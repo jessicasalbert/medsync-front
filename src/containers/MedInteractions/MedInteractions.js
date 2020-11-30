@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Grid, Paper, Card, MenuItem, TextField } from '@material-ui/core'
+import { Grid, Paper, Card, MenuItem, TextField, Typography } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
+import { withStyles } from "@material-ui/core/styles"
+import useStyles from './MedInteractionsStyle'
 
 export class MedInteractions extends Component {
 
@@ -36,23 +38,27 @@ export class MedInteractions extends Component {
         this.setState({ selectedMed: e.target.value}, () => this.getInteractions(e.target.value.rxcui))
     }
 
-    alert = () => {
-        return(null
+    alert = (interaction) => {
+        console.log(interaction)
+        return(
+        <>
+        <Alert severity="warning">
+        {/* <AlertTitle></AlertTitle> */}
+        <strong>{interaction.interactionConcept[1].minConceptItem.name}</strong> - {interaction.description}
+        </Alert>
+        <br/>
+        </>
         )
     }
  
     render() {
+        const { classes } = this.props
         return (
             <Grid container spacing={3} align="center" justify="center" >
-                <Grid item xs={9} m={4}>
+                <Grid item xs={8} m={4}>
                     <Paper>
-        
-                        <h2>Medication Interactions</h2>
-                        <h4>Select a med below for details and drug interactions</h4>
-                        <Alert severity="warning">
-        <AlertTitle>Warning</AlertTitle>
-        This is a warning alert — <strong>check it out!</strong>
-        </Alert>
+                        <h4>Select a medication below for details and drug interactions</h4>
+                        
                       
                         {/* {this.renderMeds()} */}
                         <TextField onChange={this.formEdit} id="time" name="med" value={this.state.selectedMed} select>
@@ -60,13 +66,26 @@ export class MedInteractions extends Component {
                         </TextField><br/>
                     </Paper>
                     <br/>
+                    
+                    </Grid>
+                    {this.state.selectedMed ? 
+                    <Paper>
+                        <img className={classes.image} src={this.state.selectedMed.image_url}/>
+                        <Typography>
+                
+                        {this.state.selectedMed.pill_color} {this.state.selectedMed.pill_shape} <br/><br/>
+       
+                        </Typography>
+                    </Paper>
+                    :null}
+                <Grid item xs={10}>
                     {this.state.interaction ? 
-                    this.state.interaction[0]['interactionType'][0]['interactionPair'].map( interact => this.alert)
-                    : "No drug interaction data to display" }
+                    this.state.interaction[0]['interactionType'][0]['interactionPair'].map( interact => this.alert(interact))
+                    : null}
                 </Grid>
             </Grid>
         )
     }
 }
 
-export default MedInteractions
+export default (withStyles(useStyles, { withTheme: true })(MedInteractions))
