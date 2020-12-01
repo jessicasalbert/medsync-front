@@ -1,4 +1,4 @@
-import { Button, Grid, Typography, Paper, RadioGroup, Radio, FormControl, FormControlLabel } from '@material-ui/core'
+import { Button, List, ListItem, Grid, Typography, Paper, TextField, RadioGroup, Radio, FormControl, FormControlLabel } from '@material-ui/core'
 import { SignalCellularNullRounded } from '@material-ui/icons'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -100,7 +100,10 @@ export class Diagnostic extends Component {
           ],
         question: null,
         choice: null,
-        id: null
+        id: null,
+        search: "",
+        symptoms: [],
+        searchSymptons: []
     }
 
     postSymptoms = () => {
@@ -145,17 +148,6 @@ export class Diagnostic extends Component {
         )
     }
 
-    // createButtonsSingle = () => {
-
-    //         return( 
-    //         <>
-    //          {this.state.question.items[0].choices.map( choice => {
-    //              return (
-    //                  <Radio value={choice.id} label={choice.label} />
-    //              )})}
-    //         </> 
-    //          )
-    //  }
 
      createButtonsMulti = () => {
          return (
@@ -221,12 +213,19 @@ export class Diagnostic extends Component {
         })
      }
 
+     searchForm = (e) => {
+         this.setState({
+             search: e.target.value
+         })
+     }
+
     renderQuestion = () => {
         return (
             <>
             {/* <form onSubmit={this.questionSubmitHandler}> */}
             <FormControl component="fieldset" >
                 <RadioGroup aria-label="question" value={this.state.choice} name="choice" onChange={this.formEdit}>
+                
             
             
             <p>{this.state.question.text}</p>
@@ -245,6 +244,21 @@ export class Diagnostic extends Component {
         </>
         )
     }
+
+    symptomSearchHandler = () => {
+        configObj = {
+            method: "GET",
+            headers: {
+                "App-Key" : process.env.REACT_APP_INFERM_APP_KEYS,
+                "App-Id": process.env.REACT_APP_INFERM_APP_ID, 
+                accept: "application/json",
+                "Dev-Mode": true
+            }
+        }
+        fetch(`https://api.infermedica.com/v2/search?phrase=${this.state.search}&sex=${this.props.patient.gender === "M" ? "male" : "female"}&age.value=${this.props.patient.age}&age.unit=year&type=symptom`, configObj)
+        .then(res => res.json())
+        .then(res => this.setState({searchSymptoms: res}))
+    }
     
     render() {
         return (
@@ -252,13 +266,30 @@ export class Diagnostic extends Component {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
-                        <Grid item xs={6} >
+                        <Grid item xs={10} >
                         <Paper>
-                        
+                            <Typography>Condition Diagnostic Form </Typography>
+                            <TextField onChange={this.searchForm} value={this.state.search} />
+                            
+                            <Button onClick={this.symptomSearchHandler}>Search</Button>
+                        </Paper>
+                        <>
+                        {/* {this.state.searchSymptoms.length > 0 ? this.state.searchSymptoms.map({ symp => {
+                            return (<Paper></Paper>)
+                        }}) : null} */}
+                        </>
+                        <Paper>
                         <Typography component={'span'}>
                            {this.state.question? this.renderQuestion() : null }
-                            <Button onClick={this.postSymptoms}>Click me</Button>
+                            {!this.state.question ? <Button onClick={this.postSymptoms}>Click me</Button> : null}
                         </Typography>
+                        </Paper>
+                        <Paper>
+                            {!this.state.question ?
+                            <Typography>Symptoms noted:<br/>
+                                {this.state.symptoms.map( symp => <>symp <Button size="small">Remove</Button></>)}
+                            </Typography>
+                            : null}
                         </Paper>
                         </Grid>   
                     </Grid>
