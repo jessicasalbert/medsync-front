@@ -1,75 +1,75 @@
-import { Button, List, ListItem, Grid, Typography, Paper, TextField, RadioGroup, Radio, FormControl, FormControlLabel } from '@material-ui/core'
+import { Button, List, ListItem, MenuItem, Grid, Typography, Paper, TextField, RadioGroup, Radio, FormControl, FormControlLabel } from '@material-ui/core'
 import { SignalCellularNullRounded } from '@material-ui/icons'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-const question= {
-    items: [
-        {
-            choices: [
-                {
-                    id: "present",
-                    label: "Yes"
-                },
-                {
-                    id: "absent",
-                    label: "No"
-                },
-                {
-                    id: "unknown",
-                    label: "Don't know"
-                }
-            ],
-            id: "s_1762",
-            name: "Headache"
-        }
-    ], 
-    text: "Are your heachaches triggered...",
-    type: "single"
-}
+// const question= {
+//     items: [
+//         {
+//             choices: [
+//                 {
+//                     id: "present",
+//                     label: "Yes"
+//                 },
+//                 {
+//                     id: "absent",
+//                     label: "No"
+//                 },
+//                 {
+//                     id: "unknown",
+//                     label: "Don't know"
+//                 }
+//             ],
+//             id: "s_1762",
+//             name: "Headache"
+//         }
+//     ], 
+//     text: "Are your heachaches triggered...",
+//     type: "single"
+// }
 
-const questionGroupSingle= {
-    items: [
-        {
-            choices: [
-                {
-                    id: "present",
-                    label: "Yes"
-                },
-                {
-                    id: "absent",
-                    label: "No"
-                },
-                {
-                    id: "unknown",
-                    label: "Don't know"
-                }
-            ],
-            id: "s_1762",
-            name: "Back of head"
-        },
-        {
-            choices: [
-                {
-                    id: "present",
-                    label: "Yes"
-                },
-                {
-                    id: "absent",
-                    label: "No"
-                },
-                {
-                    id: "unknown",
-                    label: "Don't know"
-                }
-            ],
-            id: "s_201",
-            name: "All over head"
-        }
-    ], 
-    text: "Are your heachaches triggered...",
-    type: "single"
-}
+// const questionGroupSingle= {
+//     items: [
+//         {
+//             choices: [
+//                 {
+//                     id: "present",
+//                     label: "Yes"
+//                 },
+//                 {
+//                     id: "absent",
+//                     label: "No"
+//                 },
+//                 {
+//                     id: "unknown",
+//                     label: "Don't know"
+//                 }
+//             ],
+//             id: "s_1762",
+//             name: "Back of head"
+//         },
+//         {
+//             choices: [
+//                 {
+//                     id: "present",
+//                     label: "Yes"
+//                 },
+//                 {
+//                     id: "absent",
+//                     label: "No"
+//                 },
+//                 {
+//                     id: "unknown",
+//                     label: "Don't know"
+//                 }
+//             ],
+//             id: "s_201",
+//             name: "All over head"
+//         }
+//     ], 
+//     text: "Are your heachaches triggered...",
+//     type: "single"
+// }
 
 export class Diagnostic extends Component {
 
@@ -84,26 +84,16 @@ export class Diagnostic extends Component {
         },
         "extras": {"disable_groups": true},
         evidence: [
-            {
-              "id": "s_1193",
-              "choice_id": "present",
-              "source": "initial"
-            },
-            {
-              "id": "s_488",
-              "choice_id": "present"
-            },
-            {
-              "id": "s_418",
-              "choice_id": "present"
-            }
           ],
         question: null,
         choice: null,
         id: null,
         search: "",
         symptoms: [],
-        searchSymptons: []
+        searchSymptoms: [],
+        selection: null,
+        interview: false,
+        complete: false
     }
 
     postSymptoms = () => {
@@ -194,7 +184,8 @@ export class Diagnostic extends Component {
                 if (res.should_stop) {
                     console.log(res.conditions)
                     this.setState({
-                        question: null
+                        question: null,
+                        complete: true
                     })
                 } else {
                     console.log(res.question)
@@ -245,8 +236,27 @@ export class Diagnostic extends Component {
         )
     }
 
+    addSymp = (symp) => {
+        console.log(symp)
+        const updatedSymps = [...this.state.symptoms, symp]
+        const newEvidence = [...this.state.evidence]
+        if (newEvidence.length === 0) {
+            newEvidence.push( {
+                source: "initial",
+                id: symp.id,
+                choice_id: "present"
+            })
+        } else {
+            newEvidence.push({
+                choice_id: "present",
+                id: symp.id
+            })
+        }
+        this.setState({ symptoms: updatedSymps, evidence: newEvidence, search: "", searchSymptoms: []})
+    }
+
     symptomSearchHandler = () => {
-        configObj = {
+        const configObj = {
             method: "GET",
             headers: {
                 "App-Key" : process.env.REACT_APP_INFERM_APP_KEYS,
@@ -259,6 +269,11 @@ export class Diagnostic extends Component {
         .then(res => res.json())
         .then(res => this.setState({searchSymptoms: res}))
     }
+
+    updateSymptoms = () => {
+        const newSyms = [...this.state.symptoms]
+        this.setState( {symptoms: newSyms})
+    }
     
     render() {
         return (
@@ -267,30 +282,48 @@ export class Diagnostic extends Component {
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
                         <Grid item xs={10} >
+                        {this.state.complete ? <><Typography>Interview complete!</Typography><p>Your doctor will receive the results.</p></>: 
+                        <>
                         <Paper>
-                            <Typography>Condition Diagnostic Form </Typography>
-                            <TextField onChange={this.searchForm} value={this.state.search} />
-                            
-                            <Button onClick={this.symptomSearchHandler}>Search</Button>
+                            <Typography>Condition Diagnostic Form </Typography><br/>
+                            {this.state.interview? null :<TextField onChange={this.searchForm} value={this.state.search} />}
+                            {/* {this.state.searchSymptoms.length === 0 ? <TextField onChange={this.searchForm} value={this.state.search} /> : 
+                            <TextField onChange={this.updateSymptoms} value={this.state.search} select>
+                                {this.state.searchSymptoms.map(symp => {
+                                    return( <MenuItem  value={symp}>{symp.name}</MenuItem> )
+
+                                })}
+                            </TextField> }
+                             */}
+                            <Button onClick={this.symptomSearchHandler}>Search Symptoms</Button>
                         </Paper>
                         <>
-                        {/* {this.state.searchSymptoms.length > 0 ? this.state.searchSymptoms.map({ symp => {
-                            return (<Paper></Paper>)
-                        }}) : null} */}
+                        {this.state.searchSymptoms.length > 0 ? this.state.searchSymptoms.map( symp => {
+                            return (<Paper onClick={() => this.addSymp(symp)}>{symp.label}</Paper>)
+                        }) : null}
+                        <br/>
                         </>
-                        <Paper>
-                        <Typography component={'span'}>
-                           {this.state.question? this.renderQuestion() : null }
-                            {!this.state.question ? <Button onClick={this.postSymptoms}>Click me</Button> : null}
-                        </Typography>
-                        </Paper>
+                        
                         <Paper>
                             {!this.state.question ?
-                            <Typography>Symptoms noted:<br/>
-                                {this.state.symptoms.map( symp => <>symp <Button size="small">Remove</Button></>)}
+                            <Typography>Symptoms indicated:<br/>
+                  
+                                {this.state.symptoms.map( symp => <>-{symp.label}<br/> </>)}
+  
                             </Typography>
                             : null}
                         </Paper>
+                        <br/>
+                        <Paper>
+                        <Typography component={'span'}>
+                           {this.state.question && !this.state.complete? this.renderQuestion() : null }
+                           
+                            {!this.state.question && !this.state.complete ? <Button variant="outlined"onClick={this.postSymptoms}>Begin interview</Button> : null}
+                        </Typography>
+                        </Paper>
+                        
+                        </>
+                        }
                         </Grid>   
                     </Grid>
                     
@@ -308,82 +341,82 @@ const msp = (state) => {
 export default connect(msp)(Diagnostic)
 
 
-let configObj = {
-    method: "POST",
-    headers: {
-        "App-Key" : "f66811ac68c7729ae0a15d1f11b3799c",
-        "App-Id": "521b8b77", 
-        accept: "application/json",
-        "content-type": "application/json"
-    },
-    body: JSON.stringify(
-        {
-            "sex": "male",
-            "age": {
-              "value": 30
-            },
-            //"extras": {"disable_groups": true},
-            "evidence": [
-              {
-                "id": "s_1193",
-                "choice_id": "present",
-                "source": "initial"
-              },
-              {
-                "id": "s_488",
-                "choice_id": "present"
-              },
-              {
-                "id": "s_418",
-                "choice_id": "present"
-              }, 
-              {
-                  "id": "s_98",
-                  "choice_id": "absent"
-              },
-              {
-                  "id": "s_1535",
-                  "choice_id": "present"
-              }, 
-              {
-                  "id": "s_1912",
-                  "choice_id": "absent"
-              }, 
-              {
-                  "id": "s_1868",
-                  "choice_id": "present"
-              }, 
-              {
-                  "id": "s_23",
-                  "choice_id": "present"
-              }, 
-              {
-                  "id": "s_25",
-                  "choice_id": "absent"
-              },
-              {
-                  "id": "s_25",
-                  "choice_id": "absent"
-              },
-              {
-                  "id": "s_22",
-                  "choice_id": "absent"
-              }, 
-              {
-                  "id": "s_1762",
-                  "choice_id": "present"
-              }, {
-                  "id": "s_1911",
-                  "choice_id": "present"
-              }, {
-                  "id": "s_799",
-                  "choice_id": "absent"
-              },
-              {
-                  "id": "s_625",
-                  "choice_id": "absent"
-              }
-            ]
-          }
-    )
-}
+// let configObj = {
+//     method: "POST",
+//     headers: {
+//         "App-Key" : "f66811ac68c7729ae0a15d1f11b3799c",
+//         "App-Id": "521b8b77", 
+//         accept: "application/json",
+//         "content-type": "application/json"
+//     },
+//     body: JSON.stringify(
+//         {
+//             "sex": "male",
+//             "age": {
+//               "value": 30
+//             },
+//             //"extras": {"disable_groups": true},
+//             "evidence": [
+//               {
+//                 "id": "s_1193",
+//                 "choice_id": "present",
+//                 "source": "initial"
+//               },
+//               {
+//                 "id": "s_488",
+//                 "choice_id": "present"
+//               },
+//               {
+//                 "id": "s_418",
+//                 "choice_id": "present"
+//               }, 
+//               {
+//                   "id": "s_98",
+//                   "choice_id": "absent"
+//               },
+//               {
+//                   "id": "s_1535",
+//                   "choice_id": "present"
+//               }, 
+//               {
+//                   "id": "s_1912",
+//                   "choice_id": "absent"
+//               }, 
+//               {
+//                   "id": "s_1868",
+//                   "choice_id": "present"
+//               }, 
+//               {
+//                   "id": "s_23",
+//                   "choice_id": "present"
+//               }, 
+//               {
+//                   "id": "s_25",
+//                   "choice_id": "absent"
+//               },
+//               {
+//                   "id": "s_25",
+//                   "choice_id": "absent"
+//               },
+//               {
+//                   "id": "s_22",
+//                   "choice_id": "absent"
+//               }, 
+//               {
+//                   "id": "s_1762",
+//                   "choice_id": "present"
+//               }, {
+//                   "id": "s_1911",
+//                   "choice_id": "present"
+//               }, {
+//                   "id": "s_799",
+//                   "choice_id": "absent"
+//               },
+//               {
+//                   "id": "s_625",
+//                   "choice_id": "absent"
+//               }
+//             ]
+//           }
+//     )
+// }
