@@ -183,32 +183,35 @@ export class Diagnostic extends Component {
         }
         const body = { ...this.state.body }
         body['evidence'] = [...this.state.evidence, newAnswer]
-        const config = {
-            method: "POST",
-            headers: {
-                "App-Key" : process.env.REACT_APP_INFERM_APP_KEYS,
-                "App-Id": process.env.REACT_APP_INFERM_APP_ID, 
-                accept: "application/json",
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(body)
-        }
-        fetch('https://api.infermedica.com/v2/diagnosis', config)
-        .then(res=>res.json())
-        .then(res => {
-            console.log(res)
-            if (res.should_stop) {
-                console.log(res.conditions)
-                this.setState({
-                    question: null
-                })
-            } else {
-                console.log(res.question)
-                this.setState({
-                    question: res.question,
-                    id: res.question.type === "single" ? res.question.items[0].id : null
-                })
+        this.setState({ body: body, evidence: [...this.state.evidence, newAnswer] }, () => {
+
+            const config = {
+                method: "POST",
+                headers: {
+                    "App-Key" : process.env.REACT_APP_INFERM_APP_KEYS,
+                    "App-Id": process.env.REACT_APP_INFERM_APP_ID, 
+                    accept: "application/json",
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(body)
             }
+            fetch('https://api.infermedica.com/v2/diagnosis', config)
+            .then(res=>res.json())
+            .then(res => {
+                console.log(res)
+                if (res.should_stop) {
+                    console.log(res.conditions)
+                    this.setState({
+                        question: null
+                    })
+                } else {
+                    console.log(res.question)
+                    this.setState({
+                        question: res.question,
+                        id: res.question.type === "single" ? res.question.items[0].id : null
+                    })
+                }
+            })
         })
      }
 
