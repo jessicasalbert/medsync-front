@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Card from '@material-ui/core/Card';
+import { Button } from '@material-ui/core/';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import LoginContainer from '../LoginContainer/LoginContainer'
@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import useStyles from './PatientLandingStyle'
 import { connect, useEffect } from 'react-redux'
 import Loading from '../../components/Loading/Loading'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
 import PtMed from '../../components/PtMed/PtMed'
 import { FormatListNumberedRtlOutlined } from '@material-ui/icons';
@@ -63,6 +63,8 @@ class PatientLanding extends Component {
     }
 
 
+
+
     render() {
         const { classes } = this.props
     return (
@@ -73,10 +75,19 @@ class PatientLanding extends Component {
                     <Grid item xs={8} m={4}>
                     <Paper className={classes.loginBox}>
                         <Grid container align="center" justify="center" spacing={3}>
-                            <Grid item xs={12}><h2>Meds for {this.state.patient.name}</h2></Grid>
-                            <Grid item xs={12}><h3>Doctor: {this.state.patient.doctor.name}; {this.state.patient.doctor.email}</h3></Grid>
+                            <Grid item xs={12}><h2>Patient Summary: {this.state.patient.name}</h2></Grid>
+                            <Grid container direction="row">
+                                <Grid item xs={4}>Height: {this.props.patient.user.height} in</Grid>
+                                <Grid item xs={3}>Weight: {this.props.patient.user.weight} lbs</Grid>
+                                <Grid item xs={3}>Age: {this.props.patient.user.age} years</Grid>
+                                <Grid item xs={2}>Sex: {this.props.patient.user.gender} </Grid>
+                            </Grid>
+                            <Grid item xs={12}><p>Doctor: {this.state.patient.doctor.name}; {this.state.patient.doctor.email}</p></Grid>
+                            
+                            <Typography>Feeling ill? Take our diagnostic survey <Link to="/diagnostic"><Button size="small" variant="contained">Go</Button></Link></Typography>
                             <>{this.filterTime("morning").length > 0 ?
                                 <>
+                                <Grid item xs={12}><h3>Med schedule</h3></Grid>
                                 <h3>Morning:</h3> 
                                 {this.filterTime("morning").map(med => <Grid item xs={12}><PtMed key={med.med.id} med={med}/></Grid>)}
                                 </>
