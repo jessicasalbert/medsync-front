@@ -75,11 +75,11 @@ export class Diagnostic extends Component {
 
     state = {
         body: {
-            // sex: this.props.patient.gender === "M" ? "male" : "female",
-            sex: "male",
+            sex: this.props.patient.gender === "M" ? "male" : "female",
+            //sex: "male",
             age: {
-                // value: this.props.patient.age
-                value: 30
+                value: this.props.patient.age
+                //value: 30
             }
         },
         "extras": {"disable_groups": true},
@@ -145,24 +145,24 @@ export class Diagnostic extends Component {
         )
     }
 
-    createButtonsSingle = () => {
+    // createButtonsSingle = () => {
 
-            return( 
-            <>
-             {this.state.question.items[0].choices.map( choice => {
-                 return (
-                     <Radio value={choice.id} label={choice.label} />
-                 )})}
-            </> 
-             )
-     }
+    //         return( 
+    //         <>
+    //          {this.state.question.items[0].choices.map( choice => {
+    //              return (
+    //                  <Radio value={choice.id} label={choice.label} />
+    //              )})}
+    //         </> 
+    //          )
+    //  }
 
      createButtonsMulti = () => {
          return (
             <>
                 {this.state.question.items.map ( item => {
                     return (
-                        <Radio value={item.id}  label={item.name}/>
+                        <FormControlLabel value={item.id} control={<Radio />} label={item.name} />
                     )
                 })}
             </>
@@ -224,8 +224,8 @@ export class Diagnostic extends Component {
     renderQuestion = () => {
         return (
             <>
-            <form onSubmit={this.questionSubmitHandler}>
-            {/* <FormControl component="fieldset"> */}
+            {/* <form onSubmit={this.questionSubmitHandler}> */}
+            <FormControl component="fieldset" >
                 <RadioGroup aria-label="question" value={this.state.choice} name="choice" onChange={this.formEdit}>
             
             
@@ -239,9 +239,9 @@ export class Diagnostic extends Component {
             
         }
                 </RadioGroup>
-            {/* </FormControl> */}
-            <Button type="submit">Submit</Button>
-            </form>
+            <Button onClick={this.questionSubmitHandler}>Submit</Button>
+            </FormControl>
+            {/* </form> */}
         </>
         )
     }
