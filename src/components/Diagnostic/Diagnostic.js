@@ -2,6 +2,7 @@ import { Button, List, ListItem, MenuItem, Grid, Typography, Paper, TextField, R
 import { SignalCellularNullRounded } from '@material-ui/icons'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 // const question= {
 //     items: [
@@ -93,7 +94,8 @@ export class Diagnostic extends Component {
         searchSymptoms: [],
         selection: null,
         interview: false,
-        complete: false
+        complete: false,
+        evidence4Doc: []
     }
 
     postSymptoms = () => {
@@ -154,18 +156,22 @@ export class Diagnostic extends Component {
      questionSubmitHandler = (e) => {
         e.preventDefault()
         let newAnswer
+        let newDocAnswer
         if (this.state.question.type === "single") {
             if (this.state.choice === "absent") {
-                newAnswer = { id: this.state.id, choice_id: "absent"}
+                newAnswer = { id: this.state.id, choice_id: "absent" }
+                newDocAnswer = { id: this.state.id, choice_id: "absent", answer: this.state.question.items[0].name, question: this.state.question.text }
             } else {
-                newAnswer = { id: this.state.id, choice_id: "present"}
+                newAnswer = { id: this.state.id, choice_id: "present" }
+                newDocAnswer = { id: this.state.id, choice_id: "present", answer: this.state.question.items[0].name, question: this.state.question.text}
             }
         } else {
-            newAnswer = { id: this.state.choice, choice_id: "present"}
+            newDocAnswer = { id: this.state.choice, choice_id: "present", question: this.state.question.text, answer: this.state.question.items.filter( item => item.id === this.state.choice )}
+            newAnswer = { id: this.state.choice, choice_id: "present" }
         }
         const body = { ...this.state.body }
         body['evidence'] = [...this.state.evidence, newAnswer]
-        this.setState({ body: body, evidence: [...this.state.evidence, newAnswer] }, () => {
+        this.setState({ body: body, evidence: [...this.state.evidence, newAnswer], evidence4Doc: [...this.state.evidence4Doc, newDocAnswer] }, () => {
 
             const config = {
                 method: "POST",
@@ -240,19 +246,31 @@ export class Diagnostic extends Component {
         console.log(symp)
         const updatedSymps = [...this.state.symptoms, symp]
         const newEvidence = [...this.state.evidence]
+        const newEvidence4Doc = [...this.state.evidence4Doc]
         if (newEvidence.length === 0) {
             newEvidence.push( {
                 source: "initial",
                 id: symp.id,
                 choice_id: "present"
             })
+            newEvidence4Doc.push( {
+                source: "initial",
+                id: symp.id,
+                choice_id: "present",
+                name: symp.label
+            })
         } else {
             newEvidence.push({
                 choice_id: "present",
                 id: symp.id
             })
+            newEvidence4Doc.push({
+                choice_id: "present",
+                id: symp.id,
+                name: symp.label
+            })
         }
-        this.setState({ symptoms: updatedSymps, evidence: newEvidence, search: "", searchSymptoms: []})
+        this.setState({ symptoms: updatedSymps, evidence: newEvidence, evidence4Doc: newEvidence4Doc, search: "", searchSymptoms: []})
     }
 
     symptomSearchHandler = () => {
@@ -282,7 +300,8 @@ export class Diagnostic extends Component {
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
                         <Grid item xs={10} >
-                        {this.state.complete ? <><Typography>Interview complete!</Typography><p>Your doctor will receive the results.</p></>: 
+                        {this.state.complete ? <><Typography>Interview complete!</Typography><p>Your doctor will receive the results.</p>
+                        <br/> <Link to="/mymeds"><Button>Back to Profile</Button></Link></>: 
                         <>
                         <Paper>
                             <Typography>Condition Diagnostic Form </Typography><br/>
