@@ -1,4 +1,5 @@
 import { Button, Grid, Typography, Paper, RadioGroup, Radio, FormControl, FormControlLabel } from '@material-ui/core'
+import { SignalCellularNullRounded } from '@material-ui/icons'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
@@ -74,9 +75,11 @@ export class Diagnostic extends Component {
 
     state = {
         body: {
-            sex: this.props.patient.gender === "M" ? "male" : "female",
+            // sex: this.props.patient.gender === "M" ? "male" : "female",
+            sex: "male",
             age: {
-                value: this.props.patient.age
+                // value: this.props.patient.age
+                value: 30
             }
         },
         "extras": {"disable_groups": true},
@@ -95,9 +98,9 @@ export class Diagnostic extends Component {
               "choice_id": "present"
             }
           ],
-        question: question,
+        question: null,
         choice: null,
-        no: false
+        id: null
     }
 
     postSymptoms = () => {
@@ -106,8 +109,8 @@ export class Diagnostic extends Component {
         const config = {
             method: "POST",
             headers: {
-                "App-Key" : "f66811ac68c7729ae0a15d1f11b3799c",
-                "App-Id": "521b8b77", 
+                "App-Key" : process.env.REACT_APP_INFERM_APP_KEYS,
+                "App-Id": process.env.REACT_APP_INFERM_APP_ID, 
                 accept: "application/json",
                 "content-type": "application/json"
             },
@@ -121,7 +124,10 @@ export class Diagnostic extends Component {
                 console.log(res.conditions)
             } else {
                 console.log(res.question)
-                this.setState({questions: res.question})
+                this.setState({
+                    question: res.question,
+                    id: res.question.type === "single" ? res.question.items[0].id : null
+                })
             }
         })
     }
@@ -140,49 +146,83 @@ export class Diagnostic extends Component {
     }
 
     createButtonsSingle = () => {
-        return( 
-        
-        <>
-         {this.state.question.items[0].choices.map( choice => {
-             return (
-                 <FormControlLabel value={choice.id} control={<Radio />} label={choice.label} />
-             )})}
-        </> 
-         )
+
+            return( 
+            <>
+             {this.state.question.items[0].choices.map( choice => {
+                 return (
+                     <Radio value={choice.id} label={choice.label} />
+                 )})}
+            </> 
+             )
      }
 
      createButtonsMulti = () => {
          return (
-            null
+            <>
+                {this.state.question.items.map ( item => {
+                    return (
+                        <Radio value={item.id}  label={item.name}/>
+                    )
+                })}
+            </>
          )
      }
 
-     questionSubmitHandler = () => {
+     questionSubmitHandler = (e) => {
+        e.preventDefault()
         let newAnswer
         if (this.state.question.type === "single") {
-            if (this.state.no) {
-                newAnswer = { id: this.state.choice, choice_id: "absent"}
+            if (this.state.choice === "absent") {
+                newAnswer = { id: this.state.id, choice_id: "absent"}
             } else {
-                newAnswer = { id: this.state.choice, choice_id: "present"}
+                newAnswer = { id: this.state.id, choice_id: "present"}
             }
         } else {
             newAnswer = { id: this.state.choice, choice_id: "present"}
         }
-        
+        const body = { ...this.state.body }
+        body['evidence'] = [...this.state.evidence, newAnswer]
+        const config = {
+            method: "POST",
+            headers: {
+                "App-Key" : process.env.REACT_APP_INFERM_APP_KEYS,
+                "App-Id": process.env.REACT_APP_INFERM_APP_ID, 
+                accept: "application/json",
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+        fetch('https://api.infermedica.com/v2/diagnosis', config)
+        .then(res=>res.json())
+        .then(res => {
+            console.log(res)
+            if (res.should_stop) {
+                console.log(res.conditions)
+                this.setState({
+                    question: null
+                })
+            } else {
+                console.log(res.question)
+                this.setState({
+                    question: res.question,
+                    id: res.question.type === "single" ? res.question.items[0].id : null
+                })
+            }
+        })
      }
 
      formEdit = (e) => {
         this.setState({
-            choice: e.target.value,
-            no: null
+            choice: e.target.value
         })
      }
 
     renderQuestion = () => {
         return (
             <>
-            <form onSubmit={this.questionSubmitHandler()}>
-            <FormControl component="fieldset">
+            <form onSubmit={this.questionSubmitHandler}>
+            {/* <FormControl component="fieldset"> */}
                 <RadioGroup aria-label="question" value={this.state.choice} name="choice" onChange={this.formEdit}>
             
             
@@ -190,16 +230,14 @@ export class Diagnostic extends Component {
             {this.state.question.type === 'single' ? 
                 
                 <p>{this.createButtonsSingle()}</p>
-
-            
-        // <h1>single</h1> 
         :
 
-        <p>{this.createButtonsMulti()}</p>
+                <p>{this.createButtonsMulti()}</p>
             
         }
                 </RadioGroup>
-            </FormControl>
+            {/* </FormControl> */}
+            <Button type="submit">Submit</Button>
             </form>
         </>
         )
@@ -212,7 +250,7 @@ export class Diagnostic extends Component {
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
                         <Grid item xs={6} >
-                        <Paper  >
+                        <Paper>
                         
                         <Typography component={'span'}>
                            {this.state.question? this.renderQuestion() : null }
