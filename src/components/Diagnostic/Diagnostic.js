@@ -379,7 +379,9 @@ export class Diagnostic extends Component {
                         <br/> <Link to="/mymeds"><Button>Back to Profile</Button></Link></>: 
                         <>
                         <Paper>
-                            <Typography>Condition Diagnostic Form </Typography><br/>
+                            <Typography>Symptoms Interview Form </Typography><br/>
+                            {!this.state.question && !this.state.complete ? <div>
+                            <p>Please enter symptoms you're experiencing below:</p><br/>
                             {this.state.interview? null :<TextField onChange={this.searchForm} value={this.state.search} />}
                             {/* {this.state.searchSymptoms.length === 0 ? <TextField onChange={this.searchForm} value={this.state.search} /> : 
                             <TextField onChange={this.updateSymptoms} value={this.state.search} select>
@@ -389,33 +391,36 @@ export class Diagnostic extends Component {
                                 })}
                             </TextField> }
                              */}
-                            <Button onClick={this.symptomSearchHandler}>Search Symptoms</Button>
-                        </Paper>
+                            <Button onClick={this.symptomSearchHandler} color="primary">Search Symptoms</Button><br/>
+                            </div> : null}
+                        
                         <>
+                        {this.state.searchSymptoms.length > 0 ? <Typography>Select...</Typography> : null}
                         {this.state.searchSymptoms.length > 0 ? this.state.searchSymptoms.map( symp => {
-                            return (<Paper onClick={() => this.addSymp(symp)}>{symp.label}</Paper>)
+                            return (<div onClick={() => this.addSymp(symp)}>{symp.label}</div>)
                         }) : null}
                         <br/>
                         </>
                         
-                        <Paper>
+                        {/* <Paper> */}
                             {!this.state.question ?
-                            <Typography>Symptoms indicated:<br/>
+                            <Typography>{this.state.symptoms.length > 0 ? "Symptoms Noted" : null}<br/>
                   
                                 {this.state.symptoms.map( symp => <>-{symp.label}<br/> </>)}
   
                             </Typography>
                             : null}
-                        </Paper>
+                        {/* </Paper> */}
                         <br/>
-                        <Paper>
+                        {/* <Paper> */}
                         <Typography component={'span'}>
                            {this.state.question && !this.state.complete? this.renderQuestion() : null }
                            
                             {!this.state.question && !this.state.complete ? <Button variant="outlined"onClick={this.postSymptoms}>Begin interview</Button> : null}
                         </Typography>
-                        </Paper>
+                        {/* </Paper> */}
                         
+                        </Paper>
                         </>
                         }
                         </Grid>   
