@@ -14,7 +14,7 @@ class InboxApp extends React.Component {
           id: this.props.patient.user.id,
           name: this.props.patient.user.name,
           email: this.props.patient.user.email,
-          //photoUrl: this.props.patient.user.image,
+          photoUrl: this.props.patient.user.image,
           welcomeMessage: "Hey there! How are you? :-)",
           role: "booker"
         });
@@ -29,7 +29,7 @@ class InboxApp extends React.Component {
           name: this.props.patient_details.doctor.name,
           email: this.props.patient_details.doctor.email,
           //photoUrl: "https://demo.talkjs.com/img/sebastian.jpg",
-          welcomeMessage: "Hey, how can I help?",
+          welcomeMessage: "Welcome to our chat!",
           //role: "booker"
         });
   
