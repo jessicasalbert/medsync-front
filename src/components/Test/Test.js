@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { TableRow, TableCell, TableContainer, TableHead } from '@material-ui/core'
 
 export class Test extends Component {
 
@@ -16,10 +17,10 @@ export class Test extends Component {
     renderSymptoms = () => {
         return this.props.test.answers.map( answer => {
             return (
-                <tr>
-                    <td>{answer.symptom}</td>
-                    <td>{answer.response}</td>
-                </tr>
+                <TableRow>
+                    <TableCell align="left">{answer.symptom}</TableCell>
+                    <TableCell align="left">{answer.response}</TableCell>
+                </TableRow>
             )
         })
     }
@@ -32,13 +33,15 @@ export class Test extends Component {
                 <> 
                     <h4>Possible conditions:</h4>
                     {this.renderConditions()}
-                    <table>
-                        <tr>
-                            <th>Symptom/question</th>
-                            <th>Response</th>
-                        </tr>
-                    </table>
+                    <TableContainer>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="left"><h3>Question</h3></TableCell>
+                                <TableCell align="left"><h3>Response</h3></TableCell>
+                            </TableRow>
+                        </TableHead>
                     {this.renderSymptoms()}
+                    </TableContainer>
                 </>
                 : null}
             </>
