@@ -21,7 +21,7 @@ const LandingPage = (props) => {
       <>
         {props.doctor ? <Redirect to="/patients"/> : null}
         {props.patient ? <Redirect to='/mymeds'/> : null}
-        <div > 
+        <div className={classes.background}> 
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                 <Grid container spacing={3} align="center" justify="center" >

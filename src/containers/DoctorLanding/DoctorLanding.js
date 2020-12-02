@@ -59,8 +59,8 @@ class DoctorLanding extends React.Component {
             <div > 
                 {this.props.doctor ? 
                     <Grid container spacing={3} align="center" justify="center" >
-                        <Grid item xs={8} m={4}>
-                            <Grid container spacing={3}>
+                        <Grid item xs={10} >
+                            <Grid container spacing={2}>
                                 {this.renderPatients()}
                             </Grid>
     

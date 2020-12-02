@@ -16,8 +16,8 @@ const PatientBlurb = (props) => {
                     <Typography component="span">
                         <Card className={classes.root}>
                         <CardContent className={classes.card}>
-                            <p>{props.patient.name}</p>
-                            <p>{props.patient.age} {props.patient.gender}</p>
+                            <h4>{props.patient.name}</h4>
+                            <p>{props.patient.age} • {props.patient.gender}</p>
                             <img className={classes.image} src={props.patient.image}/>
                             <NavLink to={`/patients/${props.patient.id}`}><Button> Patient Details</Button></NavLink>
                         </CardContent>

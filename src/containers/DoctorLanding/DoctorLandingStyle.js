@@ -11,11 +11,9 @@ const useStyles = (theme) => ({
       flexGrow: 1,
     },
     card: {
-        margin: "5px"     
+        margin: "5px",
+        height: "200px"   
     },
-    image: {
-        width: "120px"
-    }
   });
 
 export default useStyles

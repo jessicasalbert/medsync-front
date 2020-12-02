@@ -131,9 +131,10 @@ class PatientDetails extends Component {
                                 <Grid item xs={2}>Sex: {this.state.patient.gender} </Grid>
                             </Grid><br/>
                             <img src={this.state.patient.image}/>
-                        <h3 onClick={this.toggleTests}>View symptom interviews {this.state.show_tests ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg> :<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>}</h3>
+                        <h3 onClick={this.toggleTests}>View symptom interviews <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg></h3>
                             
                             <h3>Meds:</h3>
+                            
                             {renderMeds()}
                             <Button onClick={this.clickAddForm}>Add a med:</Button>
                             {

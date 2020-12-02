@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { TableRow, TableCell, TableContainer, TableHead } from '@material-ui/core'
+import { TableRow, TableCell, TableContainer, TableHead, Grid } from '@material-ui/core'
 
 export class Test extends Component {
 
@@ -10,7 +10,7 @@ export class Test extends Component {
 
     renderConditions = () => {
         return this.props.test.conditions.map(condition => {
-        return <p>{condition.name} - likelihood {condition.probability}</p>
+        return (<p>{condition.name} - likelihood {condition.probability}</p>)
         })
     }
 
@@ -32,7 +32,12 @@ export class Test extends Component {
                 {this.state.open ? 
                 <> 
                     <h4>Possible conditions:</h4>
-                    {this.renderConditions()}
+                    <Grid container justify="flex-start" alignItems="flex-start">
+                        <Grid item xs={12}>
+                            {this.renderConditions()}
+
+                        </Grid>
+                    </Grid>
                     <TableContainer>
                         <TableHead>
                             <TableRow>
