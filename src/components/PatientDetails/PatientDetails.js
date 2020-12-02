@@ -91,9 +91,7 @@ class PatientDetails extends Component {
     }
 
     renderTests = () => {
-        return this.state.patient.tests.map( test => {
-        return (<p>{test.created_at}</p>)
-        })
+        return this.state.patient.tests.map( test => <Test patient={this.state.patient} test={test}/>)
     }
 
     toggleTests = () => {

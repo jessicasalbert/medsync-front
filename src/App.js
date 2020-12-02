@@ -18,6 +18,7 @@ import PtCalendarLanding from './containers/PtCalendarLanding/PtCalendarLanding'
 import MdCalendar from './components/MdCalendar/MdCalendar'
 import MedInteractions from './containers/MedInteractions/MedInteractions';
 import Diagnostic from './components/Diagnostic/Diagnostic';
+import Test from './components/Test/Test'
 
 
 function App(props) {
@@ -57,6 +58,7 @@ function App(props) {
       <Route path="/interactions" render={() => (<MedInteractions/>)}/>
       <Route path="/diagnostic" render={() => (<Diagnostic/>)}/>
       <Route path="/" render={() =>(<LandingPage/>)}/>
+      <Route path="/results" render={() => (<Test/>)}/>
     </Switch>
     
     </>
