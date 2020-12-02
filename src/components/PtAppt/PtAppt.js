@@ -33,14 +33,14 @@ export class PtAppt extends Component {
     }
     render() {
         return (
-            <>
-            <Paper>
+            <div>
+            {/* <Paper> */}
                 <Typography>
                 {this.props.appt.formatted_time} on {this.props.appt.formatted_date}
                 </Typography>
                 <Button onClick={this.deleteHandler} size="small" variant="outlined" color="primary">Cancel</Button>
-            </Paper>
-            </>
+            {/* </Paper> */}
+            </div>
             
         )
         

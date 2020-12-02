@@ -26,7 +26,7 @@ class PtMed extends Component {
         const time = new Date
         const hour = time.getHours()
         if (this.props.med.time === "morning") {
-            if (hour > 12 && !this.props.med.has_taken) {
+            if (hour > 11 && !this.props.med.has_taken) {
                 console.log("hi")
                 this.setState({ past_due: true }) 
             }
@@ -39,7 +39,6 @@ class PtMed extends Component {
                 this.setState({ past_due: true }) 
             }
         } else {
-
             this.setState( { past_due: false})
         }
         

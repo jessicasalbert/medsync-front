@@ -133,7 +133,7 @@ class PtCalendarLanding extends Component {
                 <Grid container spacing={3} align="center" justify="center" >
                     <Grid item xs={8}>
                         <Paper className={classes.loginBox}>
-                            <Typography>Upcoming appointments:</Typography><br/>
+                            <Typography><strong>Upcoming appointments:</strong></Typography><br/>
                             {this.renderAppts()}
                         </Paper>
                     </Grid>
@@ -157,7 +157,7 @@ class PtCalendarLanding extends Component {
                             {this.state.availableAppts.map( slot => <MenuItem value={slot}>{times[slot]}</MenuItem>)}
                         </TextField><br/><br/>
                         <TextField name="concerns" onChange={this.formEdit} placeholder="Concerns" value={this.state.concerns}></TextField><br/><br/>
-                        <Button type="submit" variant="outlined" color="primary">Make Appointment</Button><br/>
+                        <Button className={classes.button} type="submit" variant="outlined" color="primary">Make Appointment</Button><br/>
                         </form>
                         </>
                         :
@@ -185,7 +185,7 @@ class PtCalendarLanding extends Component {
                 </Alert>
             </Snackbar>
             </div>
-  );
+  
         </div>
 
         : <Redirect to="mymeds"/> }
