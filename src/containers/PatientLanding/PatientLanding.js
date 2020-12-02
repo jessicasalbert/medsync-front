@@ -75,6 +75,7 @@ class PatientLanding extends Component {
                     <Grid item xs={8} m={4}>
                     <Paper className={classes.loginBox}>
                         <Grid container align="center" justify="center" spacing={3}>
+                        <br/><Typography>Feeling ill? Take our diagnostic survey <Link to="/diagnostic"><Button size="small" variant="contained">Go</Button></Link></Typography><br/>
                             <Grid item xs={12}><h2>Patient Summary: {this.state.patient.name}</h2></Grid>
                             <Grid container direction="row">
                                 <Grid item xs={4}>Height: {this.props.patient.user.height} in</Grid>
@@ -84,7 +85,7 @@ class PatientLanding extends Component {
                             </Grid>
                             <Grid item xs={12}><p>Doctor: {this.state.patient.doctor.name}; {this.state.patient.doctor.email}</p></Grid>
                             
-                            <Typography>Feeling ill? Take our diagnostic survey <Link to="/diagnostic"><Button size="small" variant="contained">Go</Button></Link></Typography>
+                           
                             <>{this.filterTime("morning").length > 0 ?
                                 <>
                                 <Grid item xs={12}><h3>Med schedule</h3></Grid>

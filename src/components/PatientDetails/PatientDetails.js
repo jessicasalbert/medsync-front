@@ -16,13 +16,15 @@ import { withRouter } from 'react-router-dom'
 import Loading from '../Loading/Loading'
 import MdMed from '../MdMed/MdMed'
 import NewMedForm from '../NewMedForm/NewMedForm';
+import Test from '../../components/Test/Test'
 
 class PatientDetails extends Component {
 
     state = {
         patient_id: this.props.id,
         patient: null,
-        add: false
+        add: false,
+        show_tests: false
     }
 
     
@@ -88,6 +90,16 @@ class PatientDetails extends Component {
         console.log(pt_med)
     }
 
+    renderTests = () => {
+        return this.state.patient.tests.map( test => {
+        return (<p>{test.created_at}</p>)
+        })
+    }
+
+    toggleTests = () => {
+        this.setState( (prev) => ({ show_tests: !prev.show_tests}))
+    }
+
 
     render() {
         const { classes } = this.props
@@ -103,11 +115,20 @@ class PatientDetails extends Component {
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
+                        
                         <Grid item xs={9} >
                         <Paper className={classes.loginBox}>
                         <Typography component="span" className={classes.info}>
                             <h2>{this.state.patient.name}</h2>
+                            <Grid container direction="row">
+                                <Grid item xs={4}>Height: {this.state.patient.height} in</Grid>
+                                <Grid item xs={3}>Weight: {this.state.patient.weight} lbs</Grid>
+                                <Grid item xs={3}>Age: {this.state.patient.age} years</Grid>
+                                <Grid item xs={2}>Sex: {this.state.patient.gender} </Grid>
+                            </Grid><br/>
                             <img src={this.state.patient.image}/>
+                        <h3 onClick={this.toggleTests}>View symptom interviews {this.state.show_tests ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg> :<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>}</h3>
+                            {this.state.show_tests ? this.renderTests() : null}
                             <h3>Meds:</h3>
                             {renderMeds()}
                             <Button onClick={this.clickAddForm}>Add a med:</Button>

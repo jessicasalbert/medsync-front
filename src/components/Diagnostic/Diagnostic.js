@@ -2,7 +2,7 @@ import { Button, List, ListItem, MenuItem, Grid, Typography, Paper, TextField, R
 import { SignalCellularNullRounded } from '@material-ui/icons'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 // const question= {
 //     items: [
@@ -368,6 +368,8 @@ export class Diagnostic extends Component {
     
     render() {
         return (
+            <>
+            {!this.props.patient ? <Redirect to="/mymeds"/> :
             <div>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
@@ -422,6 +424,8 @@ export class Diagnostic extends Component {
                     </Grid>
                 </Grid>
             </div>
+            }
+            </>
         )
     }
 }

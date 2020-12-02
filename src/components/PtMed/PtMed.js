@@ -14,9 +14,36 @@ class PtMed extends Component {
 
     state = {
         med: this.props.med,
-        taken: this.props.med.has_taken
+        taken: this.props.med.has_taken,
+        
     }
 
+    componentDidMount() {
+        this.isPastDue()
+    }
+
+    isPastDue = () => {
+        const time = new Date
+        const hour = time.getHours()
+        if (this.props.med.time === "morning") {
+            if (hour > 12 && !this.props.med.has_taken) {
+                console.log("hi")
+                this.setState({ past_due: true }) 
+            }
+        } else if (this.props.med.time === "afternoon ") {
+            if (hour > 16 && !this.props.med.has_taken) {
+                this.setState({ past_due: true }) 
+            }
+        } else if (this.props.med.time === "evening ") {
+            if (hour > 22 && !this.props.med.has_taken) {
+                this.setState({ past_due: true }) 
+            }
+        } else {
+
+            this.setState( { past_due: false})
+        }
+        
+    }
 
     patchHandler = () => {
         const ptMedId = this.state.med.id
@@ -34,7 +61,7 @@ class PtMed extends Component {
         }
         fetch(`http://localhost:3000/api/v1/patient_meds/${ptMedId}`, configObj)
         .then(res => res.json())
-        .then(res => this.setState({ taken: res.has_taken}))
+        .then(res => this.setState({ taken: res.has_taken}, this.isPastDue))
     }
 
    
@@ -43,8 +70,9 @@ class PtMed extends Component {
         const { classes } = this.props
         return (
             < > 
+
                 {
-                <Grid container className={this.state.taken? classes.taken : classes.not_taken} xs={12} >
+                <Grid container className={this.state.taken? classes.taken : this.state.past_due ? classes.past_due : null }  xs={12} >
                     {/* <Paper xs={12} variant="outlined"> */}
                     <Grid item xs={5}> <img className={this.state.taken? classes.image_taken : classes.image} src={this.props.med.med.image_url}/></Grid>
                 <Grid item xs={6}>{this.props.med.med.name} <br/> {this.props.med.pill_count} pill(s) {this.props.med.med.pill_color}, {this.props.med.med.pill_shape} SHAPE <br/> {this.props.med.notes ? <>MD notes: {this.props.med.notes} <br/></> : null} <br/> <Button variant="outlined"  onClick={this.patchHandler}>{this.state.taken ? "Undo" : "Mark as taken" }</Button></Grid>

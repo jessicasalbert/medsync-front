@@ -12,11 +12,11 @@ const useStyles = (theme) => ({
         // background: "#dddddd",
         color: "#aaaaaa",
     },
-    not_taken: {
+    due: {
         background: "#ffffc4"
     },
-    take_button: {
-        
+    past_due: {
+        background: "#ffb3b3"
     }
   });
   
