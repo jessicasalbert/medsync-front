@@ -27,10 +27,9 @@ export class Test extends Component {
     render() {
         return (
             <>
-                <p onClick={(prev)=> this.setState({open: !prev.open})}>{this.props.test.created_at}</p>
+                <h3 onClick={(prev)=> this.setState({open: !prev.open})}>{this.props.test.created_at}</h3>
                 {this.state.open ? 
                 <> 
-                    <h3 onClick={()=>this.setState({open: false})}>Symptoms report on {this.props.test.created_at} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg></h3>
                     <h4>Possible conditions:</h4>
                     {this.renderConditions()}
                     <table>

@@ -91,7 +91,12 @@ class PatientDetails extends Component {
     }
 
     renderTests = () => {
-        return this.state.patient.tests.map( test => <Test patient={this.state.patient} test={test}/>)
+        return( 
+            <>
+            {<svg onClick={this.toggleTests} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>}
+            {this.state.patient.tests.map( test => <Test patient={this.state.patient} test={test}/>)}
+         </>
+        )
     }
 
     toggleTests = () => {
@@ -116,6 +121,7 @@ class PatientDetails extends Component {
                         
                         <Grid item xs={9} >
                         <Paper className={classes.loginBox}>
+                        {this.state.show_tests ? this.renderTests() : 
                         <Typography component="span" className={classes.info}>
                             <h2>{this.state.patient.name}</h2>
                             <Grid container direction="row">
@@ -126,7 +132,7 @@ class PatientDetails extends Component {
                             </Grid><br/>
                             <img src={this.state.patient.image}/>
                         <h3 onClick={this.toggleTests}>View symptom interviews {this.state.show_tests ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg> :<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>}</h3>
-                            {this.state.show_tests ? this.renderTests() : null}
+                            
                             <h3>Meds:</h3>
                             {renderMeds()}
                             <Button onClick={this.clickAddForm}>Add a med:</Button>
@@ -136,6 +142,7 @@ class PatientDetails extends Component {
                                 : null
                             }
                         </Typography>
+                        }
                         </Paper>
                         </Grid>   
                     </Grid>
