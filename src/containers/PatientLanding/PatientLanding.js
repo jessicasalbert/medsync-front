@@ -77,8 +77,8 @@ class PatientLanding extends Component {
                     <Paper className={classes.loginBox}>
                         <Grid container align="center" justify="center" spacing={1}>
                         
-                            <Typography><h2 className={classes.table}>Patient Summary: {this.state.patient.name}</h2></Typography>
-                            <Grid item xs={12}><h5 className={classes.table}>Doctor: {this.state.patient.doctor.name}; {this.state.patient.doctor.email}</h5></Grid>
+                            <Typography><h2 className={classes.name}>Patient Summary: {this.state.patient.name}</h2></Typography>
+                            <Grid item xs={12}><Typography><p className={classes.title}>Doctor: {this.state.patient.doctor.name}; {this.state.patient.doctor.email}</p></Typography></Grid>
                             {/* <Grid container direction="row">
                                 <Grid item xs={4}>Height: {this.props.patient.user.height} in</Grid>
                                 <Grid item xs={3}>Weight: {this.props.patient.user.weight} lbs</Grid>
@@ -108,22 +108,22 @@ class PatientLanding extends Component {
                            <div className={classes.meds}>
                             <>{this.filterTime("morning").length > 0 ?
                                 <>
-                                <Grid item xs={12}><Typography><strong>Medication schedule</strong></Typography></Grid>
-                                <Typography>Morning:</Typography> 
+                                {/* <Grid item xs={12}><Typography><strong>Medication schedule</strong></Typography></Grid> */}
+                                <Typography className={classes.medLabel}> <strong>Morning Meds:</strong></Typography> 
                                 {this.filterTime("morning").map(med => <Grid item xs={12}><PtMed key={med.med.id} med={med}/></Grid>)}
                                 </>
                             : null
                             }</>
                             <>{this.filterTime("afternoon ").length > 0 ?
                                 <>
-                                <h3>Afternoon:</h3> 
+                                <Typography className={classes.medLabel}> <strong>Afternoon Meds:</strong></Typography> 
                                 {this.filterTime("afternoon ").map(med => <Grid item xs={12}><PtMed key={med.med.id} med={med}/></Grid>)}
                                 </>
                             : null
                             }</>
                             <>{this.filterTime("evening ").length > 0 ?
                                 <>
-                                <h3>Evening:</h3> 
+                                <Typography className={classes.medLabel}> <strong>Evening Meds:</strong></Typography> 
                                 {this.filterTime("evening ").map(med => <Grid item xs={12}><PtMed key={med.med.id} med={med}/></Grid>)}
                                 </>
                             : null

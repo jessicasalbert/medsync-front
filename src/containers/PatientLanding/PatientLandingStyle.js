@@ -11,13 +11,24 @@ const useStyles = (theme) => ({
     },
     loginBox: {
         margin: "10px",
-        marginTop: "20px"
+        marginTop: "20px",
     },
     table: {
         margin: "0px"
     },
     meds: {
         marginTop: "20px"
+    },
+    title: {
+        margin: "0px",
+        marginTop: "10px"
+    },
+    name: {
+        margin: "0px",
+        marginTop: "20px"
+    },
+    medLabel: {
+        margin: "20px"
     }
   });
 
