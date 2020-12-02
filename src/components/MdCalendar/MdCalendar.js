@@ -113,7 +113,7 @@ class MdCalendar extends React.PureComponent {
             height={660}
           >
             <ViewState
-              defaultCurrentDate="2020-11-28"
+              defaultCurrentDate="2020-12-04"
               currentViewName={currentViewName}
             />
             <WeekView

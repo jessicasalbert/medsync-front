@@ -11,7 +11,7 @@ import useStyles from './PatientLandingStyle'
 import { connect, useEffect } from 'react-redux'
 import Loading from '../../components/Loading/Loading'
 import { Redirect, Link } from 'react-router-dom'
-import { withStyles } from '@material-ui/core'
+import { withStyles, TableRow, TableCell, TableHead, TableContainer } from '@material-ui/core'
 import PtMed from '../../components/PtMed/PtMed'
 import { FormatListNumberedRtlOutlined } from '@material-ui/icons';
 import { patientDetailsAction, setPtAppointmentsAction } from '../../redux/actions'
@@ -71,25 +71,45 @@ class PatientLanding extends Component {
         
         < > 
             {this.state.patient ? 
-                <Grid container spacing={3} align="center" justify="center" >
+                <Grid container spacing={0} align="center" justify="center" >
                     <Grid item xs={8} m={4}>
+                    <br/><Typography>Feeling ill? Take our symptoms survey <Link to="/diagnostic"><Button size="small" variant="contained">Go</Button></Link></Typography>
                     <Paper className={classes.loginBox}>
-                        <Grid container align="center" justify="center" spacing={3}>
-                        <br/><Typography>Feeling ill? Take our diagnostic survey <Link to="/diagnostic"><Button size="small" variant="contained">Go</Button></Link></Typography><br/>
-                            <Grid item xs={12}><h2>Patient Summary: {this.state.patient.name}</h2></Grid>
-                            <Grid container direction="row">
+                        <Grid container align="center" justify="center" spacing={1}>
+                        
+                            <Typography><h2 className={classes.table}>Patient Summary: {this.state.patient.name}</h2></Typography>
+                            <Grid item xs={12}><h5 className={classes.table}>Doctor: {this.state.patient.doctor.name}; {this.state.patient.doctor.email}</h5></Grid>
+                            {/* <Grid container direction="row">
                                 <Grid item xs={4}>Height: {this.props.patient.user.height} in</Grid>
                                 <Grid item xs={3}>Weight: {this.props.patient.user.weight} lbs</Grid>
                                 <Grid item xs={3}>Age: {this.props.patient.user.age} years</Grid>
                                 <Grid item xs={2}>Sex: {this.props.patient.user.gender} </Grid>
-                            </Grid>
-                            <Grid item xs={12}><p>Doctor: {this.state.patient.doctor.name}; {this.state.patient.doctor.email}</p></Grid>
+                            </Grid> */}
+                            <Grid item xs={12}>
+                             <TableContainer className={classes.table}>
+                            <TableHead>
+                            <TableRow>
+                                    <TableCell align="left"><p>Age</p></TableCell>
+                                    <TableCell align="left"><p>Sex</p></TableCell>
+                                    <TableCell align="left"><p>Height</p></TableCell>
+                                    <TableCell align="left"><p>Weight</p></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableRow>
+                                    <TableCell align="left"><p>{this.props.patient.user.age}</p></TableCell>
+                                    <TableCell align="left"><p>{this.props.patient.user.gender}</p></TableCell>
+                                    <TableCell align="left"><p>{this.props.patient.user.height} in.</p></TableCell>
+                                    <TableCell align="left"><p>{this.props.patient.user.weight} lbs.</p></TableCell>
+                                </TableRow>
+                        </TableContainer>
+                        </Grid><br/>
                             
-                           
+                            
+                           <div className={classes.meds}>
                             <>{this.filterTime("morning").length > 0 ?
                                 <>
-                                <Grid item xs={12}><h3>Med schedule</h3></Grid>
-                                <h3>Morning:</h3> 
+                                <Grid item xs={12}><Typography><strong>Medication schedule</strong></Typography></Grid>
+                                <Typography>Morning:</Typography> 
                                 {this.filterTime("morning").map(med => <Grid item xs={12}><PtMed key={med.med.id} med={med}/></Grid>)}
                                 </>
                             : null
@@ -108,6 +128,7 @@ class PatientLanding extends Component {
                                 </>
                             : null
                             }</>
+                            </div>
                         </Grid>
                     </Paper>
 

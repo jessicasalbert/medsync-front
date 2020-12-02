@@ -9,8 +9,15 @@ const useStyles = (theme) => ({
     title: {
       flexGrow: 1,
     },
-    card: {
-        margin: "5px"
+    loginBox: {
+        margin: "10px",
+        marginTop: "20px"
+    },
+    table: {
+        margin: "0px"
+    },
+    meds: {
+        marginTop: "20px"
     }
   });
 
