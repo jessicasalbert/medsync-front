@@ -114,11 +114,9 @@ export class Diagnostic extends Component {
         fetch('https://api.infermedica.com/v2/diagnosis', config)
         .then(res=>res.json())
         .then(res => {
-            console.log(res)
             if (res.should_stop) {
                 console.log(res.conditions)
             } else {
-                console.log(res.question)
                 this.setState({
                     question: res.question,
                     id: res.question.type === "single" ? res.question.items[0].id : null
@@ -186,21 +184,97 @@ export class Diagnostic extends Component {
             fetch('https://api.infermedica.com/v2/diagnosis', config)
             .then(res=>res.json())
             .then(res => {
-                console.log(res)
+                //console.log(res)
                 if (res.should_stop) {
-                    console.log(res.conditions)
+                    //console.log(res.conditions)
+                    this.createTest(res)
                     this.setState({
                         question: null,
                         complete: true
                     })
+                    
                 } else {
-                    console.log(res.question)
                     this.setState({
                         question: res.question,
                         id: res.question.type === "single" ? res.question.items[0].id : null
                     })
                 }
             })
+        })
+     }
+
+     createTest = (response) => {
+        const configObj = {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({ patient_id: this.props.patient.id })
+        }
+        fetch(`http://localhost:3000/api/v1/tests`, configObj)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.createConditions(res.id, response.conditions)
+            this.createAnswers(res.id)
+        })
+     }
+
+     createConditions = (testId, conditions) => {
+        conditions.map( condition => {
+            const configObj = {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    accept: "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({
+                    name: condition.name, test_id: testId, probability: condition.probability
+                })
+            }
+            fetch(`http://localhost:3000/api/v1/conditions`, configObj)
+            .then(res => res.json())
+            //.then(console.log)
+        })
+     }
+
+     createAnswers = (testId) => {
+        this.state.evidence4Doc.map(evidence => {
+            let body
+            if (evidence.name) {
+                body = {
+                    symptom: evidence.name,
+                    response: evidence.choice_id,
+                    test_id: testId
+                }
+            } else if (typeof evidence.answer !== "string") {
+                body = {
+                    symptom: evidence.question,
+                    response: evidence.answer[0].name,
+                    test_id: testId
+                } 
+            } else {
+                body = {
+                    symptom: evidence.answer,
+                    response: evidence.choice_id,
+                    test_id: testId
+                }
+            }
+            const configObj = {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    accept: "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify(body)
+            }
+            fetch(`http://localhost:3000/api/v1/answers`, configObj)
+            .then(res => res.json())
+            .then(console.log)
         })
      }
 
@@ -235,7 +309,7 @@ export class Diagnostic extends Component {
             
         }
                 </RadioGroup>
-            <Button onClick={this.questionSubmitHandler}>Submit</Button>
+            <Button onClick={this.questionSubmitHandler}>Next</Button>
             </FormControl>
             {/* </form> */}
         </>
@@ -243,7 +317,6 @@ export class Diagnostic extends Component {
     }
 
     addSymp = (symp) => {
-        console.log(symp)
         const updatedSymps = [...this.state.symptoms, symp]
         const newEvidence = [...this.state.evidence]
         const newEvidence4Doc = [...this.state.evidence4Doc]
