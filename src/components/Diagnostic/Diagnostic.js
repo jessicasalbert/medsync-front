@@ -4,73 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 
-// const question= {
-//     items: [
-//         {
-//             choices: [
-//                 {
-//                     id: "present",
-//                     label: "Yes"
-//                 },
-//                 {
-//                     id: "absent",
-//                     label: "No"
-//                 },
-//                 {
-//                     id: "unknown",
-//                     label: "Don't know"
-//                 }
-//             ],
-//             id: "s_1762",
-//             name: "Headache"
-//         }
-//     ], 
-//     text: "Are your heachaches triggered...",
-//     type: "single"
-// }
 
-// const questionGroupSingle= {
-//     items: [
-//         {
-//             choices: [
-//                 {
-//                     id: "present",
-//                     label: "Yes"
-//                 },
-//                 {
-//                     id: "absent",
-//                     label: "No"
-//                 },
-//                 {
-//                     id: "unknown",
-//                     label: "Don't know"
-//                 }
-//             ],
-//             id: "s_1762",
-//             name: "Back of head"
-//         },
-//         {
-//             choices: [
-//                 {
-//                     id: "present",
-//                     label: "Yes"
-//                 },
-//                 {
-//                     id: "absent",
-//                     label: "No"
-//                 },
-//                 {
-//                     id: "unknown",
-//                     label: "Don't know"
-//                 }
-//             ],
-//             id: "s_201",
-//             name: "All over head"
-//         }
-//     ], 
-//     text: "Are your heachaches triggered...",
-//     type: "single"
-// }
 
 export class Diagnostic extends Component {
 
@@ -378,7 +312,7 @@ export class Diagnostic extends Component {
                         {this.state.complete ? <><Typography>Interview complete!</Typography><p>Your doctor will receive the results.</p>
                         <br/> <Link to="/mymeds"><Button>Back to Profile</Button></Link></>: 
                         <>
-                        <Paper>
+                        <Paper >
                             <Typography>Symptoms Interview Form </Typography><br/>
                             {!this.state.question && !this.state.complete ? <div>
                             <p>Please enter symptoms you're experiencing below:</p><br/>
@@ -441,83 +375,3 @@ const msp = (state) => {
 
 export default connect(msp)(Diagnostic)
 
-
-// let configObj = {
-//     method: "POST",
-//     headers: {
-//         "App-Key" : "f66811ac68c7729ae0a15d1f11b3799c",
-//         "App-Id": "521b8b77", 
-//         accept: "application/json",
-//         "content-type": "application/json"
-//     },
-//     body: JSON.stringify(
-//         {
-//             "sex": "male",
-//             "age": {
-//               "value": 30
-//             },
-//             //"extras": {"disable_groups": true},
-//             "evidence": [
-//               {
-//                 "id": "s_1193",
-//                 "choice_id": "present",
-//                 "source": "initial"
-//               },
-//               {
-//                 "id": "s_488",
-//                 "choice_id": "present"
-//               },
-//               {
-//                 "id": "s_418",
-//                 "choice_id": "present"
-//               }, 
-//               {
-//                   "id": "s_98",
-//                   "choice_id": "absent"
-//               },
-//               {
-//                   "id": "s_1535",
-//                   "choice_id": "present"
-//               }, 
-//               {
-//                   "id": "s_1912",
-//                   "choice_id": "absent"
-//               }, 
-//               {
-//                   "id": "s_1868",
-//                   "choice_id": "present"
-//               }, 
-//               {
-//                   "id": "s_23",
-//                   "choice_id": "present"
-//               }, 
-//               {
-//                   "id": "s_25",
-//                   "choice_id": "absent"
-//               },
-//               {
-//                   "id": "s_25",
-//                   "choice_id": "absent"
-//               },
-//               {
-//                   "id": "s_22",
-//                   "choice_id": "absent"
-//               }, 
-//               {
-//                   "id": "s_1762",
-//                   "choice_id": "present"
-//               }, {
-//                   "id": "s_1911",
-//                   "choice_id": "present"
-//               }, {
-//                   "id": "s_799",
-//                   "choice_id": "absent"
-//               },
-//               {
-//                   "id": "s_625",
-//                   "choice_id": "absent"
-//               }
-//             ]
-//           }
-//     )
-// }
