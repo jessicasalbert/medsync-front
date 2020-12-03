@@ -57,8 +57,8 @@ const NavBar = (props) => {
       <AppBar position="static" color="secondary" className={classes.navMargin}>
         <Toolbar >
           <img className={classes.logo} src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png"/>
-          {props.doctor? <Typography className={classes.title} > <> <Button color="inherit" onClick={clickHandler}>My Patients</Button><Button color="inherit" onClick={docMessageHandler}>Message</Button></> <Button color="inherit" onClick={redirectMdCalendar}>Calendar</Button><Button color="inherit" onClick={redirectInteractions}>Medication Details</Button></Typography> : null}
-          {props.patient? <Typography className={classes.title} > <><Button color="inherit" onClick={redirectMyMeds}>Profile</Button> <Button color="inherit" onClick={messageClickHandler}>Message</Button></> <Button color="inherit" onClick={redirectPtAppointments}>Appointments</Button></Typography> : null}
+          {props.doctor? <Typography className={classes.title} > <> <Button color="inherit" onClick={clickHandler}>My Patients</Button><Button color="inherit" onClick={docMessageHandler}>Chat</Button></> <Button color="inherit" onClick={redirectMdCalendar}>Calendar</Button><Button color="inherit" onClick={redirectInteractions}>Medication Details</Button></Typography> : null}
+          {props.patient? <Typography className={classes.title} > <><Button color="inherit" onClick={redirectMyMeds}>Profile</Button> <Button color="inherit" onClick={messageClickHandler}>Chat</Button></> <Button color="inherit" onClick={redirectPtAppointments}>Appointments</Button></Typography> : null}
           
           {props.doctor || props.patient ? <Button onClick={clearUser} color="inherit">Logout</Button> : null}
         </Toolbar>

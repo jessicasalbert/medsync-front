@@ -19,6 +19,9 @@ const useStyles = (theme) => ({
     },
     image: {
         width: "50px"
+    },
+    btn: {
+      margin: "20px"
     }
   });
   

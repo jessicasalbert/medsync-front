@@ -30,7 +30,7 @@ const LandingPage = (props) => {
                     <Typography component="span">
                         <Card className={classes.root}>
                         <CardContent>
-                            <p>Welcome to MedSync</p>
+                            <p><strong>Welcome to MedSync</strong></p>
                             <LoginContainer />
                         </CardContent>
                         </Card>

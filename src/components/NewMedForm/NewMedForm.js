@@ -58,7 +58,7 @@ export class NewMedForm extends Component {
                 <MenuItem value="afternoon ">Afternoon</MenuItem>
                 <MenuItem value="evening ">Evening</MenuItem>
             </TextField><br/>
-            <Button type="submit">Add Med</Button>
+            <Button type="submit">Add</Button>
             </form>
             
             </>

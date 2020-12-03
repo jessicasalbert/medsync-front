@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './PatientDetailsStyle'
-import { TextField } from '@material-ui/core'
+import { TableContainer, TextField, TableHead, TableRow, TableCell } from '@material-ui/core'
 import { Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
@@ -108,6 +108,7 @@ class PatientDetails extends Component {
         const { classes } = this.props
 
         const renderMeds = () => {
+           
             return this.state.patient.patient_meds.map(med => {
                 return <MdMed key={med.id} refreshMedsEdit={this.refreshMedsEdit} refreshMeds={this.refreshMeds} med={med}/>
             })
@@ -134,9 +135,19 @@ class PatientDetails extends Component {
                         <h3 onClick={this.toggleTests}>View symptom interviews <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg></h3>
                             
                             <h3>Meds:</h3>
+                            <TableContainer>
+                                <TableHead>
+                                        <TableRow>
+                                            <TableCell>Name</TableCell>
+                                            <TableCell># pills</TableCell>
+                                            <TableCell>Time</TableCell>
+                                            <TableCell>Notes</TableCell>
+                                        </TableRow>
+                                </TableHead>
+                                {renderMeds()}
+                            </TableContainer>
                             
-                            {renderMeds()}
-                            <Button onClick={this.clickAddForm}>Add a med:</Button>
+                            <Button className={classes.btn} color="primary"variant="contained"onClick={this.clickAddForm}>Add a med:</Button>
                             {
                                 this.state.add ?
                                 <NewMedForm createPatientMed={this.createPatientMed}/>

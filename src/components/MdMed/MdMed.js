@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './MdMedStyle'
 import { withStyles } from "@material-ui/core/styles"
-import { Button } from '@material-ui/core'
+import { Button, TableContainer, TableHead, TableRow, TableCell } from '@material-ui/core'
 import { TextField, Select, MenuItem } from '@material-ui/core'
 
 
@@ -85,7 +85,22 @@ class MdMed extends Component {
                     
                     
                     :
-                <Paper variant="outlined">{this.props.med.med.name} <br/> {this.props.med.pill_count} pills : {this.props.med.time}<br/> <span className={classes.notes}>notes: {this.props.med.notes}</span> <br/> <Button className={classes.button} size="small" onClick={this.editClick}>Edit</Button> <Button size="small" className={classes.button} onClick={this.deleteHandler}>Delete </Button></Paper>
+                
+                // <Paper variant="outlined">
+                         <TableRow><TableCell>{this.props.med.med.name} </TableCell>
+                        
+                            <TableCell>{this.props.med.pill_count} </TableCell>
+                        
+                        
+                            <TableCell>{this.props.med.time}</TableCell>
+                        
+                        <TableCell><span className={classes.notes}> {this.props.med.notes}</span></TableCell>
+                        <TableCell>
+                        <Button className={classes.button} size="small" onClick={this.editClick}>Edit</Button></TableCell>
+                        <TableCell><Button size="small" className={classes.button} onClick={this.deleteHandler}>Delete </Button></TableCell>
+                        </TableRow>
+                 
+                // </Paper>
                 }
             </>
         )
