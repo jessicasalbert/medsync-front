@@ -1,5 +1,12 @@
-import { Button, List, ListItem, MenuItem, Grid, Typography, Paper, TextField, RadioGroup, Radio, FormControl, FormControlLabel } from '@material-ui/core'
-import { SignalCellularNullRounded } from '@material-ui/icons'
+import { Button, 
+    Grid, 
+    Typography, 
+    Paper, 
+    TextField, 
+    RadioGroup, 
+    Radio, 
+    FormControl, 
+    FormControlLabel } from '@material-ui/core'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
@@ -11,10 +18,8 @@ export class Diagnostic extends Component {
     state = {
         body: {
             sex: this.props.patient.gender === "M" ? "male" : "female",
-            //sex: "male",
             age: {
                 value: this.props.patient.age
-                //value: 30
             }
         },
         "extras": {"disable_groups": true},
@@ -118,9 +123,7 @@ export class Diagnostic extends Component {
             fetch('https://api.infermedica.com/v2/diagnosis', config)
             .then(res=>res.json())
             .then(res => {
-                //console.log(res)
                 if (res.should_stop) {
-                    //console.log(res.conditions)
                     this.createTest(res)
                     this.setState({
                         question: null,
@@ -171,7 +174,6 @@ export class Diagnostic extends Component {
             }
             fetch(`http://localhost:3000/api/v1/conditions`, configObj)
             .then(res => res.json())
-            //.then(console.log)
         })
      }
 
@@ -227,7 +229,6 @@ export class Diagnostic extends Component {
     renderQuestion = () => {
         return (
             <>
-            {/* <form onSubmit={this.questionSubmitHandler}> */}
             <FormControl component="fieldset" >
                 <RadioGroup aria-label="question" value={this.state.choice} name="choice" onChange={this.formEdit}>
                 
@@ -245,7 +246,6 @@ export class Diagnostic extends Component {
                 </RadioGroup>
             <Button onClick={this.questionSubmitHandler}>Next</Button>
             </FormControl>
-            {/* </form> */}
         </>
         )
     }
@@ -317,14 +317,6 @@ export class Diagnostic extends Component {
                             {!this.state.question && !this.state.complete ? <div>
                             <p>Please enter symptoms you're experiencing below:</p><br/>
                             {this.state.interview? null :<TextField onChange={this.searchForm} value={this.state.search} />}
-                            {/* {this.state.searchSymptoms.length === 0 ? <TextField onChange={this.searchForm} value={this.state.search} /> : 
-                            <TextField onChange={this.updateSymptoms} value={this.state.search} select>
-                                {this.state.searchSymptoms.map(symp => {
-                                    return( <MenuItem  value={symp}>{symp.name}</MenuItem> )
-
-                                })}
-                            </TextField> }
-                             */}
                             <Button onClick={this.symptomSearchHandler} color="primary">Search Symptoms</Button><br/>
                             </div> : null}
                         
@@ -336,7 +328,6 @@ export class Diagnostic extends Component {
                         <br/>
                         </>
                         
-                        {/* <Paper> */}
                             {!this.state.question ?
                             <Typography>{this.state.symptoms.length > 0 ? "Symptoms Noted" : null}<br/>
                   
@@ -344,15 +335,12 @@ export class Diagnostic extends Component {
   
                             </Typography>
                             : null}
-                        {/* </Paper> */}
                         <br/>
-                        {/* <Paper> */}
                         <Typography component={'span'}>
                            {this.state.question && !this.state.complete? this.renderQuestion() : null }
                            
                             {!this.state.question && !this.state.complete ? <Button variant="outlined"onClick={this.postSymptoms}>Begin interview</Button> : null}
                         </Typography>
-                        {/* </Paper> */}
                         
                         </Paper>
                         </>

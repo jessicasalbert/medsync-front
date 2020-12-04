@@ -1,45 +1,5 @@
-// import * as React from 'react';
-// import Paper from '@material-ui/core/Paper';
-// import { ViewState } from '@devexpress/dx-react-scheduler';
-// import {
-//   Scheduler,
-//   WeekView,
-//   MonthView,
-//   TodayButton,
-//   Appointments,
-//   DateNavigator
-// } from '@devexpress/dx-react-scheduler-material-ui';
-// import { Toolbar } from '@devexpress/dx-react-scheduler';
-
-// const currentDate = '2020-11-26';
-// const schedulerData = [
-//   { startDate: '2020-11-27T11:10', endDate: '2020-11-27T12:50', title: 'Meeting' },
-//   { startDate: '2020-11-27T12:00', endDate: '2020-11-27T13:30', title: 'Go to a gym' },
-// ];
-
-// const MdCalendar = (props) => (
-//   <Paper>
-//       <Paper>
-//         <Scheduler
-//           data={schedulerData}
-//         >
-//           <ViewState
-//             defaultCurrentDate={currentDate}
-//           />
-//           <MonthView />
-//           <Toolbar />
-//           <DateNavigator />
-//           <TodayButton />
-//           <Appointments />
-//         </Scheduler>
-//       </Paper>
-//   </Paper>
-// );
-
-// export default MdCalendar
-
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import { Paper, Radio, RadioGroup, FormControlLabel, withStyles } from '@material-ui/core/Paper';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -54,7 +14,6 @@ import {
   TodayButton,
   AppointmentTooltip
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { AppointmentForm } from '@devexpress/dx-react-scheduler-material-ui';
 import useStyles from './MdCalendarStyle'
 import { withStyles } from '@material-ui/core'
 import { connect } from 'react-redux'
