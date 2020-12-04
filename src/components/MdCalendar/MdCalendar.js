@@ -1,8 +1,5 @@
 import * as React from 'react';
 import { Paper, Radio, RadioGroup, FormControlLabel, withStyles } from '@material-ui/core/Paper';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -15,7 +12,6 @@ import {
   AppointmentTooltip
 } from '@devexpress/dx-react-scheduler-material-ui';
 import useStyles from './MdCalendarStyle'
-import { withStyles } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
