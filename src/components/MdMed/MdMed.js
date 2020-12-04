@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import useStyles from './MdMedStyle'
-import { withStyles } from "@material-ui/core/styles"
-import { Button, TableContainer, TableHead, TableRow, TableCell } from '@material-ui/core'
-import { TextField, Select, MenuItem } from '@material-ui/core'
+import { Button, TableRow, TableCell, TextField, MenuItem, withStyles } from '@material-ui/core'
 
 
 class MdMed extends Component {
@@ -81,12 +74,8 @@ class MdMed extends Component {
                         <TextField size="small" onChange={this.formEdit} value={this.state.notes} name="notes" label="notes"/>
                         <br/>
                         <Button type="submit">Save</Button>
-                    </form>
-                    
-                    
+                    </form>          
                     :
-                
-                // <Paper variant="outlined">
                          <TableRow><TableCell>{this.props.med.med.name} </TableCell>
                         
                             <TableCell>{this.props.med.pill_count} </TableCell>
@@ -99,8 +88,6 @@ class MdMed extends Component {
                         <Button className={classes.button} size="small" onClick={this.editClick}>Edit</Button></TableCell>
                         <TableCell><Button size="small" className={classes.button} onClick={this.deleteHandler}>Delete </Button></TableCell>
                         </TableRow>
-                 
-                // </Paper>
                 }
             </>
         )
