@@ -1,12 +1,8 @@
-import { Paper, Typography, Button, Snackbar } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
 import React, { Component } from 'react'
-import { setPtAppointmentsAction, patientDetailsAction } from '../../redux/actions'
+import { patientDetailsAction } from '../../redux/actions'
 import { connect } from 'react-redux'
 import MuiAlert from '@material-ui/lab/Alert';
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
 
 
 export class PtAppt extends Component {
@@ -34,12 +30,10 @@ export class PtAppt extends Component {
     render() {
         return (
             <div>
-            {/* <Paper> */}
                 <Typography>
-                {this.props.appt.formatted_time} on {this.props.appt.formatted_date}
+                    {this.props.appt.formatted_time} on {this.props.appt.formatted_date}
                 </Typography>
                 <Button onClick={this.deleteHandler} size="small" variant="outlined" color="primary">Cancel</Button>
-            {/* </Paper> */}
             </div>
             
         )

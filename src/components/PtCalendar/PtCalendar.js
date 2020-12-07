@@ -1,36 +1,6 @@
-// import React, { Component } from 'react'
-// import { TextField, Typography } from '@material-ui/core'
-// import { connect } from 'react-redux'
-// import { DatePicker } from '@material-ui/pickers'
-
-
-// export class PtCalendar extends Component {
-
-//     state = {
-//         appointment: ""
-//     }
-
-//     pickAppointment = (e) => {
-//         this.setState({
-//             appointment: e.target.value
-//         }, ()=> console.log(this.state.appointment))
-//     }
-
-//     render() {
-//         return (
-
-
-//         )
-//     }
-// }
-
-
-
-// export default connect(msp)(PtCalendar)
-
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { KeyboardDatePicker } from "@material-ui/pickers";
-import { Typography, MenuItem, TextField } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { connect } from 'react-redux'
 import 'date-fns'
