@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Paper, Radio, RadioGroup, FormControlLabel, withStyles } from '@material-ui/core/Paper';
+import { Paper, Radio, RadioGroup, FormControlLabel, withStyles } from '@material-ui/core/';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
