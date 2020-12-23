@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to MedSync 👋</h1>
 
-> A ReactJS / Ruby on Rails healthcare application connecting doctors with patients
+> A ReactJS / Ruby on Rails healthcare application connecting doctors with patients \n
 > [Back-end](https://github.com/jessicasalbert/medsync-front)
 
 ## Features
