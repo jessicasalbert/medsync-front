@@ -1,7 +1,8 @@
 <h1 align="center">Welcome to MedSync 👋</h1>
+### [Back-end](https://github.com/jessicasalbert/medsync-front)
 
-> A ReactJS / Ruby on Rails healthcare application connecting doctors with patients \n
-> [Back-end](https://github.com/jessicasalbert/medsync-front)
+> A ReactJS / Ruby on Rails healthcare application connecting doctors with patients 
+
 
 ## Features
 - JWT authentication for multiple user types - doctors & patients
