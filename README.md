@@ -7,6 +7,8 @@
 
 
 ## Features
+- React front / integrates with Ruby on Rails back 
+- Material UI for styling
 - JWT authentication for multiple user types - doctors & patients
 - Redux for state management
 - TalkJS used for live chat
