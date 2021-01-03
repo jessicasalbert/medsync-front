@@ -16,7 +16,7 @@
 
 
 ## To Do
-- [x] Browser responsiveness
+- [ ] Responsiveness
 - [ ] Create unit tests
 - [ ] Refactor components to functional when needed
 - [X] Implement Redux
