@@ -38,8 +38,10 @@ class MdCalendar extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: this.props.appointments ? props.appointments.map( appt => { 
-          return {title: appt.title, startDate: appt.start_date, endDate: appt.end_date }}) : [],
+      data: this.props.appointments ? 
+        props.appointments.map( appt => { 
+          return {title: appt.title, startDate: appt.start_date, endDate: appt.end_date }
+        }) : [],
       currentViewName: 'Month',
     };
 
