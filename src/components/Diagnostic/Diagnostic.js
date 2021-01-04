@@ -68,10 +68,9 @@ export class Diagnostic extends Component {
        return( 
        
         <>
-        {this.state.question.items[0].choices.map( choice => {
-
+        {this.state.question.items[0].choices.map( (choice, index) => {
             return (
-                <FormControlLabel value={choice.id} control={<Radio />} label={choice.label} />
+                <FormControlLabel key={index} value={choice.id} control={<Radio />} label={choice.label} />
             )})}
     </>
         )
@@ -81,9 +80,9 @@ export class Diagnostic extends Component {
      createButtonsMulti = () => {
          return (
             <>
-                {this.state.question.items.map ( item => {
+                {this.state.question.items.map ( (item, index) => {
                     return (
-                        <FormControlLabel value={item.id} control={<Radio />} label={item.name} />
+                        <FormControlLabel key={index} map={item.id} control={<Radio />} label={item.name} />
                     )
                 })}
             </>
@@ -309,45 +308,62 @@ export class Diagnostic extends Component {
                     <Grid item xs={12}>
                     <Grid container spacing={3} align="center" justify="center" >
                         <Grid item xs={10} >
-                        {this.state.complete ? <><Typography>Interview complete!</Typography><p>Your doctor will receive the results.</p>
-                        <br/> <Link to="/mymeds"><Button>Back to Profile</Button></Link></>: 
+                        {this.state.complete ? 
                         <>
-                        <Paper >
-                            <Typography>Symptoms Interview Form </Typography><br/>
-                            {!this.state.question && !this.state.complete ? <div>
-                            <p>Please enter symptoms you're experiencing below:</p><br/>
-                            {this.state.interview? null :<TextField onChange={this.searchForm} value={this.state.search} />}
-                            <Button onClick={this.symptomSearchHandler} color="primary">Search Symptoms</Button><br/>
-                            </div> : null}
-                        
-                        <>
-                        {this.state.searchSymptoms.length > 0 ? <Typography>Select...</Typography> : null}
-                        {this.state.searchSymptoms.length > 0 ? this.state.searchSymptoms.map( symp => {
-                            return (<div onClick={() => this.addSymp(symp)}>{symp.label}</div>)
-                        }) : null}
-                        <br/>
-                        </>
-                        
-                            {!this.state.question ?
-                            <Typography>{this.state.symptoms.length > 0 ? "Symptoms Noted" : null}<br/>
-                  
-                                {this.state.symptoms.map( symp => <>-{symp.label}<br/> </>)}
-  
-                            </Typography>
-                            : null}
-                        <br/>
-                        <Typography component={'span'}>
-                           {this.state.question && !this.state.complete? this.renderQuestion() : null }
-                           
-                            {!this.state.question && !this.state.complete ? <Button variant="outlined"onClick={this.postSymptoms}>Begin interview</Button> : null}
-                        </Typography>
-                        
-                        </Paper>
+                            <Typography>Interview complete!</Typography>
+                            <p>Your doctor will receive the results.</p>
+                            <br/> 
+                            <Link to="/mymeds"><Button>Back to Profile</Button></Link></>: 
+                            <>
+                                <Paper >
+                                    <Typography>Symptoms Interview Form </Typography><br/>
+                                        {!this.state.question && !this.state.complete ? 
+                                        <div>
+                                            <p>Please enter symptoms you're experiencing below:</p> <br/>
+                                            {this.state.interview ? 
+                                            null :
+                                            <TextField onChange={this.searchForm} value={this.state.search} />}
+                                            <Button onClick={this.symptomSearchHandler} color="primary">
+                                                Search Symptoms
+                                            </Button><br/>
+                                        </div> 
+                                        : null}
+                                    <>
+                                        {this.state.searchSymptoms.length > 0 ? 
+                                        <Typography>Select...</Typography> 
+                                        : null}
+                                        {this.state.searchSymptoms.length > 0 ? 
+                                        this.state.searchSymptoms.map( symp => {
+                                                return (
+                                                    <div onClick={() => this.addSymp(symp)}>{symp.label}</div>)
+                                        }) 
+                                        : null}
+                                        <br/>
+                                    </>
+                                
+                                    {!this.state.question ?
+                                    <Typography>
+                                        {this.state.symptoms.length > 0 ? "Symptoms Noted" : null}<br/>
+                                        {this.state.symptoms.map( symp => <>-{symp.label}<br/> </>)}
+                                    </Typography>
+                                    : null}
+                                <br/>
+                                <Typography component={'span'}>
+                                    {this.state.question && !this.state.complete ? 
+                                    this.renderQuestion() : null }
+                                
+                                    {!this.state.question && !this.state.complete ? 
+                                    <Button variant="outlined"onClick={this.postSymptoms}>
+                                        Begin interview
+                                    </Button> 
+                                    : null}
+                                </Typography>
+                            
+                            </Paper>
                         </>
                         }
                         </Grid>   
                     </Grid>
-                    
                     </Grid>
                 </Grid>
             </div>
