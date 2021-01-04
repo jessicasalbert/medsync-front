@@ -2,7 +2,6 @@ import { Typography, Button } from '@material-ui/core'
 import React, { Component } from 'react'
 import { patientDetailsAction } from '../../redux/actions'
 import { connect } from 'react-redux'
-import MuiAlert from '@material-ui/lab/Alert';
 
 
 export class PtAppt extends Component {
@@ -33,7 +32,13 @@ export class PtAppt extends Component {
                 <Typography>
                     {this.props.appt.formatted_time} on {this.props.appt.formatted_date}
                 </Typography>
-                <Button onClick={this.deleteHandler} size="small" variant="outlined" color="primary">Cancel</Button>
+                <Button 
+                    onClick={this.deleteHandler} 
+                    size="small" 
+                    variant="outlined" 
+                    color="primary">
+                    Cancel
+                </Button>
             </div>
             
         )

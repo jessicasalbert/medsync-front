@@ -1,10 +1,10 @@
 import React from 'react'
 import useStyles from './PatientBlurbStyle'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import { Button } from '@material-ui/core'
+import { Card, 
+        CardContent, 
+        Typography, 
+        Grid,
+        Button } from '@material-ui/core/';
 import { NavLink } from 'react-router-dom';
 
 
@@ -19,8 +19,9 @@ const PatientBlurb = (props) => {
                             <h4>{props.patient.name}</h4>
                             <hr/>
                             <p>{props.patient.age} • {props.patient.gender}</p>
-                            <img className={classes.image} src={props.patient.image}/>
-                            <NavLink to={`/patients/${props.patient.id}`}><Button> Patient Details</Button></NavLink>
+                            <img className={classes.image} alt="Patient picture"src={props.patient.image}/>
+                            <NavLink to={`/patients/${props.patient.id}`}>
+                                <Button> Patient Details</Button></NavLink>
                         </CardContent>
                         </Card>
                     </Typography>

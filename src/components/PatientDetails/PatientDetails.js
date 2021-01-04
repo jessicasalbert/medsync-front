@@ -1,12 +1,14 @@
-import React from 'react'
-import { Component } from 'react'
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import React, { Component } from 'react'
+import { Typography,
+        Paper,
+        Grid, 
+        TableContainer,
+        TableHead,
+        TableRow, 
+        TableCell,
+        Button,
+        withStyles,} from '@material-ui/core/';
 import useStyles from './PatientDetailsStyle'
-import { TableContainer, TextField, TableHead, TableRow, TableCell } from '@material-ui/core'
-import { Button } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { ptLoginAction } from '../../redux/actions';
 import { withRouter } from 'react-router-dom'
@@ -90,7 +92,14 @@ class PatientDetails extends Component {
     renderTests = () => {
         return( 
             <>
-            {<svg onClick={this.toggleTests} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>}
+            {<svg 
+                onClick={this.toggleTests} 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24">
+                <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/>
+            </svg>}
             {this.state.patient.tests.map( test => <Test patient={this.state.patient} test={test}/>)}
          </>
         )
@@ -107,7 +116,13 @@ class PatientDetails extends Component {
         const renderMeds = () => {
            
             return this.state.patient.patient_meds.map(med => {
-                return <MdMed key={med.id} refreshMedsEdit={this.refreshMedsEdit} refreshMeds={this.refreshMeds} med={med}/>
+                return (
+                <MdMed 
+                    key={med.id} 
+                    refreshMedsEdit={this.refreshMedsEdit} 
+                    refreshMeds={this.refreshMeds} 
+                    med={med}/>
+                )
             })
         }
         return (
@@ -129,8 +144,8 @@ class PatientDetails extends Component {
                                 <Grid item xs={2}>Sex: {this.state.patient.gender} </Grid>
                             </Grid><br/>
                             <img src={this.state.patient.image}/>
-                        <h3 onClick={this.toggleTests}>View symptom interviews <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg></h3>
-                            
+                            <h3 onClick={this.toggleTests}>View symptom interviews <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg></h3>
+                                
                             <h3>Meds:</h3>
                             <TableContainer>
                                 <TableHead>
@@ -143,13 +158,17 @@ class PatientDetails extends Component {
                                 </TableHead>
                                 {renderMeds()}
                             </TableContainer>
-                            
-                            <Button className={classes.btn} color="primary"variant="contained"onClick={this.clickAddForm}>Add a med:</Button>
-                            {
-                                this.state.add ?
-                                <NewMedForm createPatientMed={this.createPatientMed}/>
-                                : null
-                            }
+                                
+                            <Button 
+                                className={classes.btn} 
+                                color="primary"
+                                variant="contained"
+                                onClick={this.clickAddForm}>
+                                Add a med:
+                            </Button>
+                            { this.state.add ?
+                            <NewMedForm createPatientMed={this.createPatientMed}/>
+                            : null}
                         </Typography>
                         }
                         </Paper>
@@ -158,7 +177,8 @@ class PatientDetails extends Component {
                     
                     </Grid>
                 </Grid>
-                : <Loading/>}
+                : 
+                <Loading/>}
             </>
         )
     }

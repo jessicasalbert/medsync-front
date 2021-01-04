@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { TableRow, TableCell, TableContainer, TableHead, Grid } from '@material-ui/core'
+import { TableRow, 
+        TableCell, 
+        TableContainer, 
+        TableHead, 
+        Grid } from '@material-ui/core'
 
 export class Test extends Component {
 
@@ -10,7 +13,11 @@ export class Test extends Component {
 
     renderConditions = () => {
         return this.props.test.conditions.map(condition => {
-        return (<TableRow><TableCell>{condition.name}</TableCell><TableCell><strong>{condition.probability}</strong></TableCell></TableRow>)
+        return (
+            <TableRow>
+                <TableCell>{condition.name}</TableCell>
+                <TableCell><strong>{condition.probability}</strong></TableCell>
+            </TableRow>)
         })
     }
 
@@ -31,14 +38,13 @@ export class Test extends Component {
                 <h3 onClick={(prev)=> this.setState({open: !prev.open})}>{this.props.test.created_at}</h3>
                 {this.state.open ? 
                 <> 
-                    {/* <h4>Possible conditions:</h4> */}
                     <Grid container justify="left" alignItems="left">
                         <Grid item xs={12}>
                             <TableContainer >
                                 <TableHead>
                                     <TableRow>
-                                    <TableCell align="left"><h3>Condition</h3></TableCell>
-                                    <TableCell align="left"><h3>Probability</h3></TableCell>
+                                        <TableCell align="left"><h3>Condition</h3></TableCell>
+                                        <TableCell align="left"><h3>Probability</h3></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 {this.renderConditions()}

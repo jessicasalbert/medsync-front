@@ -1,14 +1,13 @@
-import React from 'react'
-import { Component } from 'react'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import React, { Component } from 'react'
+import { Card,
+        CardContent,
+        Typography,
+        Paper,
+        Grid,
+        TextField,
+        Button,
+        withStyles } from '@material-ui/core/';
 import useStyles from './PatientLoginStyle'
-import { TextField } from '@material-ui/core'
-import { Button } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { ptLoginAction } from '../../redux/actions';
 import { withRouter } from 'react-router-dom'

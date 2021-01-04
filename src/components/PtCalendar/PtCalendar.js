@@ -1,12 +1,10 @@
 import React, { Fragment } from "react";
-import { KeyboardDatePicker } from "@material-ui/pickers";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Typography } from '@material-ui/core';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { connect } from 'react-redux'
 import 'date-fns'
 import DateFnsUtils from '@date-io/date-fns';
 import { setAppointmentDate } from '../../redux/actions'
-import { setDate } from "date-fns";
 
 function PtCalendar(props) {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
@@ -31,17 +29,17 @@ function PtCalendar(props) {
         <Typography component="span">
         Book an Appointment with Dr. {props.patient_details.doctor.name}<br/><br/>
              
-        <MuiPickersUtilsProvider utils={DateFnsUtils} >
-            <KeyboardDatePicker
-                autoOk
-                label="Choose date:"
-                clearable
-                disablePast
-                value={selectedDate}
-                onChange={handleDateChange}
-            />
-            <br/><br/>
-        </MuiPickersUtilsProvider>  
+            <MuiPickersUtilsProvider utils={DateFnsUtils} >
+                <KeyboardDatePicker
+                    autoOk
+                    label="Choose date:"
+                    clearable
+                    disablePast
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                />
+                <br/><br/>
+            </MuiPickersUtilsProvider>  
         </Typography>
     </Fragment>
   );

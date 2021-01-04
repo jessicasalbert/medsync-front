@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import useStyles from './PtMedStyle'
-import { withStyles } from "@material-ui/core/styles"
-import { Button } from '@material-ui/core'
-import { TextField, Select, MenuItem } from '@material-ui/core'
+import { withStyles, Grid, Button } from "@material-ui/core/"
 
 
 class PtMed extends Component {
@@ -71,11 +64,45 @@ class PtMed extends Component {
             < > 
 
                 {
-                <Grid container className={this.state.taken? classes.taken : this.state.past_due ? classes.past_due : null }  xs={12} >
-                    {/* <Paper xs={12} variant="outlined"> */}
-                    <Grid item xs={5}> <img className={this.state.taken? classes.image_taken : classes.image} src={this.props.med.med.image_url}/></Grid>
-                <Grid item xs={6}>{this.props.med.med.name} <br/> <strong>{this.props.med.pill_count}pill(s) {this.props.med.med.pill_color}, {this.props.med.med.pill_shape} SHAPE </strong>  <br/> {this.props.med.notes ? <><em>MD notes: {this.props.med.notes} </em><br/></> : null} <br/> <Button variant="outlined"  onClick={this.patchHandler}>{this.state.taken ? "Undo" : "Mark as taken" }</Button></Grid>
-                    {/* </Paper> */}
+                <Grid container 
+                    className=
+                        {this.state.taken ? 
+                        classes.taken : 
+                        this.state.past_due ? 
+                        classes.past_due : 
+                        null }  
+                    xs={12} >
+
+                    <Grid item xs={5}> 
+                        <img 
+                            className={this.state.taken ? 
+                            classes.image_taken : 
+                            classes.image} 
+                            src={this.props.med.med.image_url}
+                            alt="Medication"
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        {this.props.med.med.name} <br/> 
+                        <strong>
+                            {this.props.med.pill_count}
+                            pill(s) 
+                            {this.props.med.med.pill_color}, 
+                            {this.props.med.med.pill_shape} 
+                            SHAPE 
+                        </strong>  
+                        <br/> 
+                        {this.props.med.notes ? 
+                        <>
+                            <em>MD notes: {this.props.med.notes} </em><br/>
+                        </> 
+                        : null} <br/> 
+                        <Button 
+                            variant="outlined"  
+                            onClick={this.patchHandler}>
+                            {this.state.taken ? "Undo" : "Mark as taken" }
+                        </Button>
+                    </Grid>
                 </Grid>
                 }
             </>

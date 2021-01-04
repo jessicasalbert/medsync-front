@@ -1,6 +1,6 @@
 import Talk from "talkjs";
 import { connect } from 'react-redux'
-import React, {Component, ReactDOM} from 'react'
+import React from 'react'
 
 class InboxAppMd extends React.Component {
     constructor(props) {
@@ -14,7 +14,6 @@ class InboxAppMd extends React.Component {
           id: this.props.doctor.user.id,
           name: this.props.doctor.user.name,
           email: this.props.doctor.user.email,
-          //photoUrl: this.props.patient.user.image_url,
           welcomeMessage: "Hey there! How are you? :-)",
           role: "booker"
         });
