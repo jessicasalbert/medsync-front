@@ -19,7 +19,7 @@ const PatientBlurb = (props) => {
                             <h4>{props.patient.name}</h4>
                             <hr/>
                             <p>{props.patient.age} • {props.patient.gender}</p>
-                            <img className={classes.image} alt="Patient picture"src={props.patient.image}/>
+                            <img className={classes.image} alt={props.patient.name} src={props.patient.image}/>
                             <NavLink to={`/patients/${props.patient.id}`}>
                                 <Button> Patient Details</Button></NavLink>
                         </CardContent>

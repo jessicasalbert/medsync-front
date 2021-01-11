@@ -53,7 +53,7 @@ const NavBar = (props) => {
     return (
       <AppBar position="static" color="secondary" className={classes.navMargin}>
         <Toolbar >
-          <img className={classes.logo} src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png"/>
+          <img className={classes.logo} src="https://i.ibb.co/sWByFCQ/output-onlinepngtools.png" alt="MedSync logo"/>
           {props.doctor ? 
             <Typography className={classes.title}> <> 
                 <Button color="inherit" onClick={clickHandler}>My Patients</Button>

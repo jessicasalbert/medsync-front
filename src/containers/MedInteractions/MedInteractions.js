@@ -68,7 +68,7 @@ export class MedInteractions extends Component {
                     </Grid>
                     {this.state.selectedMed ? 
                     <Paper>
-                        <img className={classes.image} src={this.state.selectedMed.image_url}/>
+                        <img className={classes.image} src={this.state.selectedMed.image_url} alt={this.state.selectedMed.name}/>
                         <Typography>
                 
                         {this.state.selectedMed.pill_color} {this.state.selectedMed.pill_shape} <br/><br/>

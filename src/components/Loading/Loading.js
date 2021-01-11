@@ -14,7 +14,7 @@ const LandingPage = (props) => {
                 <Grid item xs={12}>
                 <Grid container spacing={3} align="center" justify="center" >
                     <Grid item xs={6} >
-                    <img className={classes.box} src="https://www.svgrepo.com/show/70469/loading.svg"/>
+                    <img className={classes.box} src="https://www.svgrepo.com/show/70469/loading.svg" alt="Loading"/>
                     </Grid>   
                 </Grid>
                 
