@@ -1,19 +1,11 @@
 import React from 'react'
 import { Component } from 'react'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { TextField } from '@material-ui/core'
-import { Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { withStyles } from "@material-ui/core/styles"
 import useStyles from './PtMessagesStyle'
 import { withRouter } from 'react-router-dom';
 import consumer from '../../cable'
-import { ChatFeed, Message } from 'react-chat-ui'
-import InboxComponent from '../../components/TalkJs/TalkJs'
+import { Message } from 'react-chat-ui'
 
 
 class PtMessages extends Component {
@@ -26,8 +18,8 @@ class PtMessages extends Component {
             new Message({
               id: 1,
               message: "I'm the recipient! (The person you're talking to)",
-            }), // Gray bubble
-            new Message({ id: 0, message: "I'm you -- the blue bubble!" }), // Blue bubble
+            }), 
+            new Message({ id: 0, message: "I'm you -- the blue bubble!" }), 
           ]
     }
     
@@ -91,43 +83,9 @@ class PtMessages extends Component {
 
     render() {
         const { classes } = this.props
-        const renderMessages = () => {
-            return this.state.messages.map(msg => <Paper className={msg.sender_type==="patient" ? classes.sender : classes.receiver} >{msg.content}</Paper>)
-        }
         return (
             <div className={classes.talkJs} > 
-                {/* <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                    <Grid container spacing={3} align="center" justify="center" >
-                        <Grid item xs={10} > */}
-                        {/* <Paper className={classes.loginBox} >
-                        
-                        <Typography component={'span'}>
-                            <Card className={classes.root}>
-                            
-                            <CardContent>
-                                <h3>Chat with Dr. {this.props.patient_details ? this.props.patient_details.doctor.name : null} </h3>
-                            </CardContent>
-                            </Card> */}
-                            {/* {renderMessages()} */}
-                            <InboxComponent/>
-                            {/* <Paper>
-                                <form onSubmit={this.sendMessage}>
-                                    <TextField onChange={this.messageContent} label="message" value={this.state.content}/>
-                                    <Button type="submit">Send</Button>
-                                </form>
-                            </Paper>
-                        </Typography>
-                        </Paper> */}
-
-                        
-
-                {/* </Grid>   
-                    </Grid>
-                    
-                    </Grid>
-                </Grid> */}
-                </div>
+            </div>
         )
     }
 }

@@ -159,7 +159,7 @@ export class Diagnostic extends Component {
      }
 
      createConditions = (testId, conditions) => {
-        conditions.map( condition => {
+        conditions.forEach( condition => {
             const configObj = {
                 method: "POST",
                 headers: {
@@ -177,7 +177,7 @@ export class Diagnostic extends Component {
      }
 
      createAnswers = (testId) => {
-        this.state.evidence4Doc.map(evidence => {
+        this.state.evidence4Doc.forEach(evidence => {
             let body
             if (evidence.name) {
                 body = {

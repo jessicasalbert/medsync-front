@@ -1,14 +1,12 @@
 
 import './App.css';
 import React, { useEffect }from 'react';
-import { Component } from 'react';
 import { connect } from 'react-redux'
 import { Route, Switch } from "react-router-dom"
 import LandingPage from './containers/LandingPage/LandingPage';
 import NavBar from './components/NavBar/NavBar';
 import DoctorLogin from './components/DoctorLogin/DoctorLogin'
 import PatientLogin from './components/PatientLogin/PatientLogin';
-import DoctorLanding from './containers/DoctorLanding/DoctorLanding';
 import PatientLanding from './containers/PatientLanding/PatientLanding';
 import { sessionUserAction } from './redux/actions'
 import PatientContainer from './containers/PatientsContainer/PatientContainer'
