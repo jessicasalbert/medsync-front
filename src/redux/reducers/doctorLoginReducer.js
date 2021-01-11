@@ -1,5 +1,3 @@
-import { TrafficOutlined, TrendingUpRounded } from "@material-ui/icons";
-
 const defaultState = {
     doctor: null
 }

@@ -1,18 +1,13 @@
 import React from 'react'
 import { Component } from 'react'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { TextField } from '@material-ui/core'
-import { Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { withStyles } from "@material-ui/core/styles"
 import useStyles from './MdMessagesStyle'
 import { withRouter } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading'
-import consumer from '../../cable'
+// import consumer from '../../cable'
 import InboxAppMd from '../../components/TalkJsMd/TalkJsMd'
 
 class MdMessages extends Component {
@@ -29,12 +24,9 @@ class MdMessages extends Component {
     
 
     componentDidMount() {
-        console.log(this.props.patient_list)
         if (!this.props.patient_list) {
             this.props.history.push("/mypatients")
         } else {
-            
-            
         }
     }
 
@@ -78,7 +70,6 @@ class MdMessages extends Component {
     }
 
     fetchMessages = () => {
-        console.log(this.state.conversation)
         const configObj = {
             method: "GET",
             headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
@@ -87,25 +78,30 @@ class MdMessages extends Component {
         .then(res => res.json())
         .then(res => this.setState({ messages: res.messages }))
 
-        const subscription = consumer.subscriptions.create({
-            channel: "MessageFeedChannel",
-            user_type: "doctor",
-            doctor_id: this.state.doctor.id,
-            conversation_id: this.state.conversation
-        }
-        , {
-            connected: () => console.log("connected"),
-            disconnected: () => console.log("disconnected"),
-            received: data => this.setState((prev) => ({ messages: [...prev.messages, data] })
-        )})
+        // Creates a subscription to receive incoming messages on back end 
+
+        // const subscription = consumer.subscriptions.create({
+        //     channel: "MessageFeedChannel",
+        //     user_type: "doctor",
+        //     doctor_id: this.state.doctor.id,
+        //     conversation_id: this.state.conversation
+        // }
+        // , {
+        //     connected: () => console.log("connected"),
+        //     disconnected: () => console.log("disconnected"),
+        //     received: data => this.setState((prev) => ({ messages: [...prev.messages, data] })
+        // )})
         
     }
 
     render() {
-        const { classes } = this.props
-        const renderMessages = () => {
-            return this.state.messages.map(msg => <Paper className={msg.sender_type==="doctor" ? classes.sender : classes.receiver} >{msg.content}</Paper>)
-        }
+        // Also used for rendering messages from back end 
+        
+        // const { classes } = this.props
+        
+        // const renderMessages = () => {
+        //     return this.state.messages.map(msg => <Paper className={msg.sender_type==="doctor" ? classes.sender : classes.receiver} >{msg.content}</Paper>)
+        // }
         return (
             <div > 
                 {this.props.patient_list ? 
@@ -113,34 +109,6 @@ class MdMessages extends Component {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <InboxAppMd/>
-                    {/* <Grid container spacing={3} align="center" justify="center" >
-                        <Grid item xs={6} >
-
-                        <Paper>Start a conversation with...</Paper>
-                        {this.listPatientNames()}
-                        <Paper className={classes.loginBox} >
-
-                        { this.state.current_patient ?
-                        <Typography component={'span'}>
-                            <Card className={classes.root}>
-                            <CardContent>
-                                <h3>Chat with {this.state.current_patient.name}  </h3>
-                            </CardContent>
-                            </Card>
-                            {renderMessages()}
-                            <Paper>
-                                <form onSubmit={this.sendMessage}>
-                                    <TextField onChange={this.messageContent} label="message" value={this.state.content}/>
-                                    <Button type="submit">Send</Button>
-                                </form>
-                            </Paper>
-                        </Typography>
-                        : null
-                        }
-                        </Paper>
-                        </Grid>   
-                    </Grid> */}
-                    
                     </Grid>
                 </Grid>
                 : <Loading/>

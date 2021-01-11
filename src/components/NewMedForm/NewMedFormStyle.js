@@ -1,5 +1,3 @@
-import NewMedForm from "./NewMedForm";
-
 const useStyles = (theme) => ({
     root: {
       flexGrow: 1,

@@ -49,9 +49,6 @@ const NavBar = (props) => {
       history.push("/interactions")
     }
 
-    const redirectDiagnostic = () => {
-      history.push("/diagnostic")
-    }
 
     return (
       <AppBar position="static" color="secondary" className={classes.navMargin}>

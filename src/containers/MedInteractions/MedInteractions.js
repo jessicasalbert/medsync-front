@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Paper, Card, MenuItem, TextField, Typography } from '@material-ui/core'
-import { Alert, AlertTitle } from '@material-ui/lab'
+import { Alert } from '@material-ui/lab'
 import { withStyles } from "@material-ui/core/styles"
 import useStyles from './MedInteractionsStyle'
 
@@ -27,7 +27,6 @@ export class MedInteractions extends Component {
         fetch(`https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${med}&sources=ONCHigh`)
         .then(res => res.json())
         .then(res => this.setState({interaction: (res['interactionTypeGroup'])}))
-        //console.log(med)
     }
 
     renderMeds = () => {
@@ -43,7 +42,6 @@ export class MedInteractions extends Component {
         return(
         <>
         <Alert severity="warning">
-        {/* <AlertTitle></AlertTitle> */}
         <strong>{interaction.interactionConcept[1].minConceptItem.name}</strong> - {interaction.description}
         </Alert>
         <br/>

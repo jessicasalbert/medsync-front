@@ -1,8 +1,4 @@
-import React, { Component } from 'react'
-import Grid from '@material-ui/core/Grid';
-import { connect } from 'react-redux'
-import Loading from '../../components/Loading/Loading'
-import { withStyles } from "@material-ui/core/styles"
+import React from 'react'
 import { Route, Switch } from "react-router-dom"
 import PatientDetails from '../../components/PatientDetails/PatientDetails'
 import DoctorLanding from '../DoctorLanding/DoctorLanding';
