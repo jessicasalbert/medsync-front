@@ -3,7 +3,7 @@
 > A ReactJS / Ruby on Rails healthcare application connecting doctors with patients 
 
 ## Installation
-- [Back-end](https://github.com/jessicasalbert/medsync-front)
+- [Back-end](https://github.com/jessicasalbert/medsync-back)
 
 
 ## Features
