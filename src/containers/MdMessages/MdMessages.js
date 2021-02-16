@@ -7,7 +7,6 @@ import { withStyles } from "@material-ui/core/styles"
 import useStyles from './MdMessagesStyle'
 import { withRouter } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading'
-// import consumer from '../../cable'
 import InboxAppMd from '../../components/TalkJsMd/TalkJsMd'
 
 class MdMessages extends Component {
@@ -77,31 +76,10 @@ class MdMessages extends Component {
         fetch(`http://localhost:3000/api/v1/conversations/${this.state.conversation}`, configObj)
         .then(res => res.json())
         .then(res => this.setState({ messages: res.messages }))
-
-        // Creates a subscription to receive incoming messages on back end 
-
-        // const subscription = consumer.subscriptions.create({
-        //     channel: "MessageFeedChannel",
-        //     user_type: "doctor",
-        //     doctor_id: this.state.doctor.id,
-        //     conversation_id: this.state.conversation
-        // }
-        // , {
-        //     connected: () => console.log("connected"),
-        //     disconnected: () => console.log("disconnected"),
-        //     received: data => this.setState((prev) => ({ messages: [...prev.messages, data] })
-        // )})
-        
     }
 
     render() {
-        // Also used for rendering messages from back end 
-        
-        // const { classes } = this.props
-        
-        // const renderMessages = () => {
-        //     return this.state.messages.map(msg => <Paper className={msg.sender_type==="doctor" ? classes.sender : classes.receiver} >{msg.content}</Paper>)
-        // }
+ 
         return (
             <div > 
                 {this.props.patient_list ? 
